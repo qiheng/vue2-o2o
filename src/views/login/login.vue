@@ -9,7 +9,7 @@
         <div class="fm-group mt10">
             <div class="fm-line">
                 <label class="l-label l-account" for="phone"></label>
-                <input id="phone" type="tel" v-model="params.phone"  placeholder="请输入手机号" maxlength="15" autofocus="autofocus" tabindex="1" autocomplete="off" />
+                <input id="phone" type="tel" v-model.number="params.phone"  placeholder="请输入手机号" maxlength="15" autofocus="autofocus" tabindex="1" autocomplete="off" />
             </div>
             <div class="fm-line">
                 <label class="l-label l-pwd"></label>
@@ -117,7 +117,7 @@ export default {
 
             }
 
-            this.$axios.post('/out/login', {params: this.params})
+            this.$axios.post('/out/login', this.params)
                 .then(({status, data}) => {
 
                     if (data.status == 1) {

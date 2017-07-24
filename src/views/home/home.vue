@@ -224,8 +224,8 @@
                     //,freeMode: true
                 },
                 params: {
-                    longitude: 114.085945,
-                    latitude: 22.547
+                    longitude: 118.91251988,
+                    latitude: 39.42564104
                 }
             }
         },
@@ -234,9 +234,7 @@
             console.log('userInfo:',this.userInfo)
             // 获取首页数据
 
-            this.$axios.get('/index', {
-                params: this.params
-            }).then(({data, status}) => {
+            this.$axios.get(this.$api.index, {params:this.params}).then(({data, status}) => {
 
                 if (status == 1 ) {
                     _this.indexData = Object.assign(_this.indexData, data);

@@ -4,6 +4,8 @@ import Router from 'vue-router'
 
 const Login = r => require.ensure([], () => r(require('@/views/login/login')), 'users');
 const Home = r => require.ensure([], () => r(require('@/views/home/home')), 'navtab');
+const Classify = r => require.ensure([], () => r(require('../views/classify/classify')), 'navtab');
+const Auslese = r => require.ensure([], () => r(require('../views/auslese/auslese')), 'navtab');
 
 Vue.use(Router);
 
@@ -19,6 +21,20 @@ const router = new Router({
             name: 'login',
             component: Login
         },
+        {
+            path: '/classify',
+            name: 'classify',
+            component: Classify
+        },
+        {
+            path: '/auslese',
+            name: 'auslese',
+            component: Auslese
+        },
+        {
+            path: '*',
+            redirect: {name: 'home'}
+        }
     ],
     mode:'history'
 });

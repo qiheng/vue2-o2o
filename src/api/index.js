@@ -201,6 +201,7 @@ export default {
     sitecategory        : '/sitecategory', // 分类
     getcitys            : '/getcitys', // 获取所有城市
 
+    choiceness   : '/choiceness', // 精选
 }
 
 

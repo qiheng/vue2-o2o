@@ -7,6 +7,8 @@ import router from './router'
 import axios from './http'
 import api from './api'
 
+
+
 // 组件
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper);
@@ -18,7 +20,7 @@ Vue.config.productionTip = false;
 
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.$axios = axios;
-Vue.prototype.api = api;
+Vue.prototype.$api = api;
 
 // 自定义指令
 import './directives';
