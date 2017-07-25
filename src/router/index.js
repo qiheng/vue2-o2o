@@ -6,6 +6,8 @@ const Login = r => require.ensure([], () => r(require('@/views/login/login')), '
 const Home = r => require.ensure([], () => r(require('@/views/home/home')), 'navtab');
 const Classify = r => require.ensure([], () => r(require('../views/classify/classify')), 'navtab');
 const Auslese = r => require.ensure([], () => r(require('../views/auslese/auslese')), 'navtab');
+const Notice = r => require.ensure([], () => r(require('../views/notice/notice')), 'notice');
+const NoticeDetail = r => require.ensure([], () => r(require('../views/notice/noticeDetail/noticeDetail')), 'notice');
 
 Vue.use(Router);
 
@@ -30,6 +32,16 @@ const router = new Router({
             path: '/auslese',
             name: 'auslese',
             component: Auslese
+        },
+        {
+            path: '/notice',
+            name: 'notice',
+            component: Notice
+        },
+        {
+            path: '/notice/:noticeId',
+            name: 'noticeDetail',
+            component: NoticeDetail
         },
         {
             path: '*',

@@ -8,7 +8,6 @@ import axios from './http'
 import api from './api'
 
 
-
 // 组件
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper);
