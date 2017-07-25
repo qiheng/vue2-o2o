@@ -25,7 +25,11 @@
             -->
             <input @click.prevent="submitFn" type="submit" value="登录" class="btn btn-block btn-lg btn-primary" :class="{disabled: isDisabled}" tabindex="3"/>
 
-            <p class="mt15"><a class="pull-right" href="find-password.html">找回密码</a><a href="register.html">手机快速注册</a></p>
+            <p class="mt15">
+                <a class="pull-right" href="find-password.html">找回密码</a>
+                <a href="register.html">手机快速注册</a>
+                <a href="javascript:;" @click="logout">退出</a>
+            </p>
         </div>
         <!-- 第三方登录 -->
         <div class="container mt30 thirdparty-line">
@@ -55,7 +59,14 @@ export default {
         }
     },
     created () {
+
         this.init();
+    },
+    mounted () {
+        const _this = this;
+        console.log('=====this.userInfo=====',this.recordUserInfo)
+        //console.log('_this.$router:',_this.$router)
+        //console.log('_this.$route:',_this.$route)
     },
     methods: {
         ...mapActions(['recordUserInfo']),
@@ -79,8 +90,25 @@ export default {
             if (_this.$route.query.redirect) {
                 _this.$router.replace(_this.$route.query.redirect)
             } else {
-                _this.$router.back();
+                //_this.$router.go(-1);
+                _this.$router.replace({
+                    path: '/'
+                })
             }
+        },
+        logout () {
+            const _this = this;
+
+            this.$axios.get(this.$api.logout)
+                .then(() => {
+                _this.$notiejs({
+                    state: 1,
+                    msg: '退出成功',
+                    end () {
+                        _this.isDisabled = false
+                    }
+                });
+            })
         },
         Jswitch () {
             this.showPwd = !this.showPwd;
@@ -117,20 +145,20 @@ export default {
 
             }
 
-            this.$axios.post('/out/login', this.params)
+            this.$axios.post(this.$api.login, $.param(this.params))
                 .then(({status, data}) => {
 
                     if (data.status == 1) {
-                        console.log('_this.$router:',_this.$router)
-                        console.log('_this.$route:',_this.$route)
+//                        console.log('_this.$router:',_this.$router)
+//                        console.log('_this.$route:',_this.$route)
 
                         // 记录用户信息到vuex中
-                        _this.recordUserInfo(data.data);
+                        _this.recordUserInfo(data);
 
                         // 登录后跳转回来源页面
                         _this.forward();
 
-                    } else if (data.status == -90) {
+                    } else if (status == -90) {
                         alert(data.msg);
                         _this.forward();
                     } else {
@@ -155,6 +183,12 @@ export default {
     },
     computed: {
         ...mapGetters(['userInfo'])
+    },
+    watch: {
+        $route (to, from) {
+            console.log('to:',to)
+            console.log('from:',from)
+        }
     }
 }
 

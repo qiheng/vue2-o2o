@@ -9,6 +9,7 @@ import router from '@/router'
 // axios 配置
 axios.defaults.timeout = 5000;
 axios.defaults.withCredentials = true;
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 //axios.defaults.baseURL = 'http://192.168.10.163';
 axios.defaults.baseURL = '/api';
 /*axios.defaults.proxy = {

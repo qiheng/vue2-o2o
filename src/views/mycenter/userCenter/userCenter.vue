@@ -1,5 +1,5 @@
 <template>
-    <div class="pb60" v-cloak>
+    <div class="pb60">
         <div class="my-center">
 
             <section class="panel-nobrd user-info">
@@ -161,11 +161,9 @@
             var _this = this;
 
             // 个人中心页面信息
-            this.api.getUserCenter()
-                .then(function ({data}) {
-                    let userInfo = data.data;
-
-                    console.log('我的：', userInfo);
+            this.$axios.get(this.$api.eIndex)
+                .then(({data, status}) => {
+                    let userInfo = data;
 
                     // 登录时已保存了用户信息，但是信息相对基础，所以在个人中心在扩展一次
                     _this.extendUserInfo(userInfo);

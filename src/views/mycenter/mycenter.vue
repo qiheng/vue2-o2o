@@ -9,6 +9,7 @@
 
 <script>
     import {mapGetters} from 'vuex'
+
     export default {
         data () {
             return {
@@ -16,13 +17,20 @@
             }
         },
         created () {
-            console.log('userInfo--------------:', this.userInfo)
+
+            /*if (!this.userInfo) {
+                this.$router.push({
+                    name: 'login',
+                    query: {redirect: this.$route.fullPath}
+                })
+            }*/
+
         },
         computed: {
             ...mapGetters(['userInfo'])
         },
         watch: {
-            'userInfo': {
+            userInfo: {
                 handler (newval, oldVal) {
                     var _newval = newval;
                     console.log(+new Date(),'---oldVal---:', oldVal)

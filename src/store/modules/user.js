@@ -36,7 +36,9 @@ const mutations = {
         state.userInfo = userInfo
     },
     [types.EXTEND_USEINFO] (state, extendUserInfo) {
-        state.userInfo = Object.assign(state.userInfo, extendUserInfo || {})
+        if (state.userInfo && extendUserInfo) {
+            state.userInfo = Object.assign(state.userInfo, extendUserInfo || {})
+        }
     },
     [types.UPDATE_USERNAME] (state, username) {
         if (state.userInfo) {

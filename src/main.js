@@ -31,7 +31,25 @@ Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
 // 自定义组件
 import * as components from './components'
 // console.log('components:',components)
-Object.keys(components).forEach(k => Vue.component(k, components[k]))
+Object.keys(components).forEach(k => Vue.component(k, components[k]));
+
+
+// 登录中间验证，页面需要登录而没有登录的情况直接跳转登录
+router.beforeEach((to, form, next) => {
+    if (to.matched.some(r => r.meta.requiresAuth)) {
+        //console.log('======main======',store.state.user.userInfo)
+        if (store.state.user.userInfo) {
+            next()
+        } else {
+            next({
+                path:'/login',
+                query: { redirect: to.fullPath }
+            })
+        }
+    } else {
+        next();
+    }
+})
 
 /* eslint-disable no-new */
 new Vue({

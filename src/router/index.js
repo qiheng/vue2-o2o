@@ -4,10 +4,15 @@ import Router from 'vue-router'
 
 const Login = r => require.ensure([], () => r(require('@/views/login/login')), 'users');
 const Home = r => require.ensure([], () => r(require('@/views/home/home')), 'navtab');
-const Classify = r => require.ensure([], () => r(require('../views/classify/classify')), 'navtab');
-const Auslese = r => require.ensure([], () => r(require('../views/auslese/auslese')), 'navtab');
-const Notice = r => require.ensure([], () => r(require('../views/notice/notice')), 'notice');
-const NoticeDetail = r => require.ensure([], () => r(require('../views/notice/noticeDetail/noticeDetail')), 'notice');
+const Classify = r => require.ensure([], () => r(require('@/views/classify/classify')), 'navtab');
+const Auslese = r => require.ensure([], () => r(require('@/views/auslese/auslese')), 'navtab');
+const Notice = r => require.ensure([], () => r(require('@/views/notice/notice')), 'notice');
+const NoticeDetail = r => require.ensure([], () => r(require('@/views/notice/noticeDetail/noticeDetail')), 'notice');
+
+const Mycenter = r => require.ensure([], () => r(require('@/views/mycenter/mycenter')), 'users');
+const Usercenter = r => require.ensure([], () => r(require('@/views/mycenter/userCenter/userCenter')), 'users');
+const UserInfo = r => require.ensure([], () => r(require('@/views/mycenter/userInfo/userInfo')), 'users');
+const SetUserName = r => require.ensure([], () => r(require('@/views/mycenter/setUserName/setUserName')), 'users');
 
 Vue.use(Router);
 
@@ -36,6 +41,7 @@ const router = new Router({
         {
             path: '/notice',
             name: 'notice',
+            meta: { requiresAuth: true },
             component: Notice
         },
         {
@@ -44,28 +50,40 @@ const router = new Router({
             component: NoticeDetail
         },
         {
+            path: '/mycenter',
+            name: 'mycenter',
+            component: Mycenter,
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '/000',
+                    name: 'userCenter',
+                    //meta: { requiresAuth: true },
+                    component: Usercenter,
+                },
+                {
+                    path: 'userInfo',
+                    name: 'userInfo',
+                    component: UserInfo,
+                    children: [
+                        {
+                            path: 'setUserName',
+                            name: 'setUserName',
+                            component: SetUserName,
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             path: '*',
             redirect: {name: 'home'}
         }
     ],
-    mode:'history'
+    //mode:'history'
 });
 
 
-// 登录中间验证，页面需要登录而没有登录的情况直接跳转登录
-router.beforeEach((to, form, next) => {
-    if (to.matched.some(r => r.meta.requireAuth)) {
-        if (true) {
-            next()
-        } else {
-            next({
-                path:'/login',
-                query: { redirect: to.fullPath }
-            })
-        }
-    } else {
-        next();
-    }
-})
+
 
 export default router

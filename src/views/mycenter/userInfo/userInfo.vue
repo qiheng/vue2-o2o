@@ -113,7 +113,7 @@
                 this.$axios.get(this.$api.logout)
                     .then(() => {
                         console.log('当前用户已退出');
-                        _this.recordUserInfo(null);
+                        //_this.recordUserInfo(null);
                         _this.$router.replace({name: 'login', query: {redirect: _this.$route.fullPath}})
                     })
                     .catch((e) => {
