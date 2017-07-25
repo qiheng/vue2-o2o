@@ -56,7 +56,7 @@ const router = new Router({
             meta: { requiresAuth: true },
             children: [
                 {
-                    path: '/000',
+                    path: '',
                     name: 'userCenter',
                     //meta: { requiresAuth: true },
                     component: Usercenter,
