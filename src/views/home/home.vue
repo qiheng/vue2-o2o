@@ -33,7 +33,8 @@
                 <swiper :options="swiperMsgOption" class="swiper-container slideMsg" style="height: 20px;">
 
                     <swiper-slide v-for="notice in indexData.notice" :key="notice.title" class="nowrap">
-                        <a href="notice.html?type=0">{{notice.title}} </a>
+                        <!-- <a href="notice.html?type=0"></a> -->
+                        <router-link :to="{name:'notice'}">{{notice.title}} </router-link>
                     </swiper-slide>
 
                 </swiper>
