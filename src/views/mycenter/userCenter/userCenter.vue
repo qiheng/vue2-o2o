@@ -110,10 +110,10 @@
                     <h3 class="icos4 i4-shop">我要开店</h3>
                     <i class="arr-rt"></i>
                 </a>
-                <a class="block panel-chunk " href="my-setup.html">
+                <router-link class="block panel-chunk " :to="{name:'mySetup'}">
                     <h3 class="icos4 i4-setup">设置</h3>
                     <i class="arr-rt"></i>
-                </a>
+                </router-link>
             </nav>
     
             <!--<nav class="panel">

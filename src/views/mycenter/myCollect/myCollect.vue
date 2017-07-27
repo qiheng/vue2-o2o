@@ -1,11 +1,11 @@
 <template>
-    <!-- ÎÒµÄÊÕ²Ø start -->
+    <!-- ï¿½Òµï¿½ï¿½Õ²ï¿½ start -->
     <div class="animsition myfavorityshop-wrap pb60" v-cloak>
         <div class="myfavorityshop-list panel-list">
             <loading v-show="loading"></loading>
             <template v-if="myfavorityshopslist.length">
-                <div class="bg-white p10"><img class="pull-left mr5" width="18"  src="../../../assets/images/icons-v3/icons1/icon_shop2.png" alt=""/>ÊÕ²ØµêÆÌ</div>
-                <!-- ÆÕÍ¨ -->
+                <div class="bg-white p10"><img class="pull-left mr5" width="18"  src="../../../assets/images/icons-v3/icons1/icon_shop2.png" alt=""/>æ”¶è—åº—é“º</div>
+                <!-- ï¿½ï¿½Í¨ -->
                 <div v-for="myfavorityshop in myfavorityshopslist" class="container panel-item">
                     <router-link class="block panel-inner" :to="'shop-detail.html?shopId='+ myfavorityshop.shopId">
                         <img class="panel-pic" width="70" height="70"
@@ -14,8 +14,8 @@
                         <div class="gray panel-info f12">
                             <h2 class="panel-tit">
                                 {{ myfavorityshop.name }}
-                                <span v-if="myfavorityshop.license == 2" class="i-label ml10 f12">ÈÏÖ¤</span>
-                                <span v-if="myfavorityshop.license == 3" class="i-label-default ml10 f12">Î´ÈÏÖ¤</span>
+                                <span v-if="myfavorityshop.license == 2" class="i-label ml10 f12">æœªè®¤è¯</span>
+                                <span v-if="myfavorityshop.license == 3" class="i-label-default ml10 f12">è®¤è¯</span>
                             </h2>
 
                             <p>
@@ -32,15 +32,15 @@
                         </div>
                     </router-link>
                 </div>
-            <!-- ÆÕÍ¨ -->
+            <!-- ï¿½ï¿½Í¨ -->
             </template>
             <empty v-else :msg="emptyMsg">
                 <img slot="icon" width="180" src="images/empty/img_shouc@2x.png" alt=""/>
-                <router-link slot="button" :to="config.index" class="btn btn-default mt20">·µ»ØÊ×Ò³</router-link>
+                <router-link slot="button" :to="config.index" class="btn btn-default mt20">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³</router-link>
             </empty>
         </div>
     </div>
-        <!-- ÎÒµÄÊÕ²Ø end -->
+        <!-- ï¿½Òµï¿½ï¿½Õ²ï¿½ end -->
 </template>
 
 <script>
@@ -48,8 +48,8 @@
         data(){
             return{
                 emptyMsg: {
-                    mainMsg: 'Äú»¹Ã»ÓĞÊÕ²ØµÄµêÆÌÅ¶~',
-                    subMsg: '¸Ï¿ìÈ¥ÊÕ²ØÄúĞÄÒÇµÄµêÆÌ°É~'
+                    mainMsg: 'ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Õ²ØµÄµï¿½ï¿½ï¿½Å¶~',
+                    subMsg: 'ï¿½Ï¿ï¿½È¥ï¿½Õ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÇµÄµï¿½ï¿½Ì°ï¿½~'
                 },
                 myfavorityshopslist:[],
                 loading: true,
@@ -68,7 +68,7 @@
             this.getMyFavorityShop();
         },
         methods: {
-            // ÊÕ²ØÊı¾İ
+            // ï¿½Õ²ï¿½ï¿½ï¿½ï¿½ï¿½
             getMyFavorityShop: function (bConcat, cb) {
                 var _this = this;
 
@@ -77,12 +77,12 @@
                     bConcat = false;
                 }
                 _this.loading = true;
-                // ÊÕ²ØÒ³Ãæ
+                // ï¿½Õ²ï¿½Ò³ï¿½ï¿½
                 this.$axios.get(this.$api.myfavorityshop,{params:_this.params})
                 .then(({data,status})  => {
                    this.myfavorityshopslist = data;
                     console.log(data,'+++++++++++++++++++++');
-                    // ºÏ²¢
+                    // ï¿½Ï²ï¿½
                     if (bConcat) {
                         _this.myfavorityshopslist = _this.myfavorityshopslist.concat(myfavorityshopslist);
                     } else {
@@ -102,14 +102,14 @@
                     _this.loading = false;
                 })
             },
-            // ¹ö¶¯µ×²¿¼ÓÔØ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½
             loadMore: function loadMore() {
 //                var _this = this;
 //
 //                return $('.myfavorityshop-wrap').loadMore({
 //                    scrollArea : window,
 //                    loadDownFn: function (me) {
-//                        // ³õÊ¼»¯È«²¿´ÙÏú·ÖÀàÉÌÆ·
+//                        // ï¿½ï¿½Ê¼ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 //                        _this.param.page += 1;
 //                        _this.getMyFavorityShop(true, function (myfavorityshopslist) {
 //
