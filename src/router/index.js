@@ -1,46 +1,49 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+//import Hello from '@/components/Hello'
 
-const Login = r => require.ensure([], () => r(require('@/views/login/login')), 'users');
-const Home = r => require.ensure([], () => r(require('@/views/home/home')), 'navtab');
-const Classify = r => require.ensure([], () => r(require('@/views/classify/classify')), 'navtab');
-const Auslese = r => require.ensure([], () => r(require('@/views/auslese/auslese')), 'navtab');
-const Notice = r => require.ensure([], () => r(require('@/views/notice/notice')), 'notice');
-const NoticeDetail = r => require.ensure([], () => r(require('@/views/notice/noticeDetail/noticeDetail')), 'notice');
-const test = r => require.ensure([], () => r(require('../views/test/test')), 'test');
-const Mycenter = r => require.ensure([], () => r(require('@/views/mycenter/mycenter')), 'users');
-const SystemMessage = r => require.ensure([], () => r(require('@/views/mycenter/systemMessage/systemMessage')), 'users');
+const test = r => require.ensure([], () => r(require('../views/test/test')), 'test');   // 测试页面K
 
+const Login = r => require.ensure([], () => r(require('@/views/login/login')), 'users'); // 登录页面
+const Home = r => require.ensure([], () => r(require('@/views/home/home')), 'navtab');  // 首页页面
+const Classify = r => require.ensure([], () => r(require('@/views/classify/classify')), 'navtab'); //  分类页面
+const Auslese = r => require.ensure([], () => r(require('@/views/auslese/auslese')), 'navtab');   // 精选页面
+const Notice = r => require.ensure([], () => r(require('@/views/notice/notice')), 'notice');  // 公告页面
+const NoticeDetail = r => require.ensure([], () => r(require('@/views/notice/noticeDetail/noticeDetail')), 'notice'); //公告详情页面
+const Mycenter = r => require.ensure([], () => r(require('@/views/mycenter/mycenter')), 'users');  // 我的-个人中心页面
+const SystemMessage = r => require.ensure([], () => r(require('@/views/mycenter/systemMessage/systemMessage')), 'users'); // 我的-个人中心-系统消息页面
+const myCollect = r => require.ensure([], () => r(require('@/views/mycenter/myCollect/myCollect')), 'user'); // 我的-个人中心-店铺收藏页面
+const mySetup = r => require.ensure([], () => r(require('@/views/mycenter/mySetup/mySetup')), 'users'); // 我的-个人中心-设置页面
+const aboutUs = r => require.ensure([], () => r(require('@/views/mycenter/mySetup/aboutUs')), 'users'); // 我的-个人中心-关于我们页面
+const userCoupleBack = r => require.ensure([], () => r(require('@/views/mycenter/mySetup/userCoupleBack')), 'users'); // 我的-个人中心-用户反
+// 馈页面
 
-
-const Coupons = r => require.ensure([], () => r(require('@/views/mycenter/couponsList/coupons')), 'users');
-const CouponsInfo = r => require.ensure([], () => r(require('@/views/mycenter/couponsList/couponsInfo')), 'couponsList');
-const CouponsAdd = r => require.ensure([], () => r(require('@/views/mycenter/couponsList/couponsAdd')), 'couponsList');
-
-
-const Chests = r => require.ensure([], () => r(require('@/views/mycenter/chests/chests')), 'users');
-const ChestsInfo = r => require.ensure([], () => r(require('@/views/mycenter/chests/chestsInfo')), 'chests');
-const HandilyPhone = r => require.ensure([], () => r(require('@/views/mycenter/chests/handilyPhone')), 'chests');
-const RechargePhone = r => require.ensure([], () => r(require('@/views/mycenter/chests/rechargePhone')), 'chests');
-
-
-const Usercenter = r => require.ensure([], () => r(require('@/views/mycenter/userCenter/userCenter')), 'users');
-const UserInfo = r => require.ensure([], () => r(require('@/views/mycenter/userInfo/userInfo')), 'users');
-const SetUserName = r => require.ensure([], () => r(require('@/views/mycenter/setUserName/setUserName')), 'users');
-const SetPhone = r => require.ensure([], () => r(require('@/views/mycenter/setPhone/setPhone')), 'users');
+const Coupons = r => require.ensure([], () => r(require('@/views/mycenter/couponsList/coupons')), 'users');  // 我的-个人中心-优惠卷页面
+const CouponsInfo = r => require.ensure([], () => r(require('@/views/mycenter/couponsList/couponsInfo')), 'couponsList'); // 我的-个人中心-优惠卷列表页面
+const CouponsAdd = r => require.ensure([], () => r(require('@/views/mycenter/couponsList/couponsAdd')), 'couponsList'); // 我的-个人中心-兑换优惠卷列表页面
 
 
-const myCollect = r => require.ensure([], () => r(require('@/views/mycenter/myCollect/myCollect')), 'user');
+const Chests = r => require.ensure([], () => r(require('@/views/mycenter/chests/chests')), 'users'); //我的-个人中心-便民服务页面
+const ChestsInfo = r => require.ensure([], () => r(require('@/views/mycenter/chests/chestsInfo')), 'chests'); // 我的-个人中心-便民服务页面
+const HandilyPhone = r => require.ensure([], () => r(require('@/views/mycenter/chests/handilyPhone')), 'chests'); // 我的-个人中心-便民号码页面
+const RechargePhone = r => require.ensure([], () => r(require('@/views/mycenter/chests/rechargePhone')), 'chests'); // 我的-个人中心-手机充值页面
 
+
+
+
+const Usercenter = r => require.ensure([], () => r(require('@/views/mycenter/userCenter/userCenter')), 'users'); // 我的-个人中心页面
+const UserInfo = r => require.ensure([], () => r(require('@/views/mycenter/userInfo/userInfo')), 'users'); // 我的-个人中心-个人信息页面
+const SetUserName = r => require.ensure([], () => r(require('@/views/mycenter/setUserName/setUserName')), 'users'); // 我的-个人中心-设置用户名页面
+const SetPhone = r => require.ensure([], () => r(require('@/views/mycenter/setPhone/setPhone')), 'users');  // 我的-个人中心-设置手机号码页面
 
 Vue.use(Router);
 
 const router = new Router({
     routes: [{
-            path: '/',
-            name: 'home',
-            component: Home
-        },
+        path: '/',
+        name: 'home',
+        component: Home
+    },
         {
             path: '/login',
             name: 'login',
@@ -77,11 +80,11 @@ const router = new Router({
             component: Mycenter,
             //meta: { requiresAuth: true },
             children: [{
-                    path: '',
-                    name: 'userCenter',
-                    //meta: { requiresAuth: true },
-                    component: Usercenter,
-                },
+                path: '',
+                name: 'userCenter',
+                //meta: { requiresAuth: true },
+                component: Usercenter,
+            },
                 {
                     path: 'userInfo',
                     name: 'userInfo',
@@ -103,6 +106,21 @@ const router = new Router({
                     component: myCollect
                 },
                 {
+                    path: 'mySetup',
+                    name: 'mySetup',
+                    component: mySetup
+                },
+                {
+                    path: 'aboutUs',
+                    name: 'aboutUs',
+                    component: aboutUs
+                },
+                {
+                    path: 'userCoupleBack',
+                    name: 'userCoupleBack',
+                    component: userCoupleBack
+                },
+                {
                     path: 'systemMessage',
                     name: 'systemMessage',
                     component: SystemMessage,
@@ -112,10 +130,10 @@ const router = new Router({
                     name: 'coupons',
                     component: Coupons,
                     children: [{
-                            path: '',
-                            name: 'couponsInfo',
-                            component: CouponsInfo
-                        },
+                        path: '',
+                        name: 'couponsInfo',
+                        component: CouponsInfo
+                    },
                         {
                             path: 'couponsAdd',
                             name: 'couponsAdd',
@@ -128,10 +146,10 @@ const router = new Router({
                     name: 'chests',
                     component: Chests,
                     children: [{
-                            path: '',
-                            name: 'chestsInfo',
-                            component: ChestsInfo,
-                        },
+                        path: '',
+                        name: 'chestsInfo',
+                        component: ChestsInfo,
+                    },
                         {
                             path: 'handilyPhone',
                             name: 'handilyPhone',
