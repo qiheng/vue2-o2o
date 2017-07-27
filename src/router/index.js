@@ -8,12 +8,10 @@ const Classify = r => require.ensure([], () => r(require('@/views/classify/class
 const Auslese = r => require.ensure([], () => r(require('@/views/auslese/auslese')), 'navtab');
 const Notice = r => require.ensure([], () => r(require('@/views/notice/notice')), 'notice');
 const NoticeDetail = r => require.ensure([], () => r(require('@/views/notice/noticeDetail/noticeDetail')), 'notice');
+const test = r => require.ensure([], () => r(require('../views/test/test')), 'test');
 const Mycenter = r => require.ensure([], () => r(require('@/views/mycenter/mycenter')), 'users');
 const SystemMessage = r => require.ensure([], () => r(require('@/views/mycenter/systemMessage/systemMessage')), 'users');
 const Chests = r => require.ensure([], () => r(require('@/views/mycenter/chests/chests')), 'users');
-
-
-
 
 
 
@@ -21,6 +19,9 @@ const Usercenter = r => require.ensure([], () => r(require('@/views/mycenter/use
 const UserInfo = r => require.ensure([], () => r(require('@/views/mycenter/userInfo/userInfo')), 'users');
 const SetUserName = r => require.ensure([], () => r(require('@/views/mycenter/setUserName/setUserName')), 'users');
 const SetPhone = r => require.ensure([], () => r(require('@/views/mycenter/setPhone/setPhone')), 'users');
+
+const myCollect = r => require.ensure([], () => r(require('@/views/mycenter/myCollect/myCollect')), 'user');
+
 
 Vue.use(Router);
 
@@ -57,10 +58,17 @@ const router = new Router({
             component: NoticeDetail
         },
         {
+
+            path: '/test',
+            name: 'test',
+            component: test
+        },
+        {
+
             path: '/mycenter',
             name: 'mycenter',
             component: Mycenter,
-            meta: { requiresAuth: true },
+            //meta: { requiresAuth: true },
             children: [{
                     path: '',
                     name: 'userCenter',
@@ -71,6 +79,22 @@ const router = new Router({
                     path: 'userInfo',
                     name: 'userInfo',
                     component: UserInfo,
+
+                    children: [
+                        {
+                            path: 'setUserName',
+                            name: 'setUserName',
+                            component: SetUserName,
+                        }
+                    ]
+                },
+                {
+
+                    path: 'myCollect',
+                    name: 'myCollect',
+                    component: myCollect
+                },
+
                     children: [{
                         path: 'setUserName',
                         name: 'setUserName',
@@ -95,7 +119,8 @@ const router = new Router({
         {
             path: '*',
             redirect: { name: 'home' }
-        }
+        },
+
     ],
     //mode:'history'
 });
