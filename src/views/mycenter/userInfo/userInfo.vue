@@ -34,11 +34,12 @@
             <div class="fm-group mt10">
                 <div class="fm-line">
                     <label class="l-label">手机号</label>
-                    <a class="pull-right"
-                       :href="'mycenter-change-bind-phone-num.html?phone=' + userInfo.phone">
+                    <router-link class="pull-right"
+                        :to="{name:'setPhone', query: {phone: userInfo.phone}}"
+                    >
                         <input class="text-right lightgray" type="tel" :value="userInfo.phone" readonly="readonly" />
                         <i class="arr-rt"></i>
-                    </a>
+                    </router-link>
                 </div>
                 <!--<div class="fm-line">
                     <label class="l-label">QQ</label>

@@ -77,10 +77,10 @@
                     <h3 class="icos4 i4-jfen">积分商城</h3>
                     <i class="arr-rt"></i>
                 </a>
-                <a class="block panel-chunk" href="my-msg-systemMsg.html">
+                <router-link class="block panel-chunk"  :to="{name:'systemMessage'}">
                     <h3 class="icos4 i4-msg">系统消息</h3>
                     <i class="arr-rt"></i>
-                </a>
+                </router-link>
             </nav>
 
             <nav class="panel-nobrd">
@@ -88,10 +88,11 @@
                     <h3 class="icos4 i4-bdt">本地通</h3>
                     <i class="arr-rt"></i>
                 </a>
-                <a class="block panel-chunk" href="chests.html">
+
+                <router-link class="block panel-chunk" :to="{name:'chests'}">
                     <h3 class="icos4 i4-bm">便民服务</h3>
                     <i class="arr-rt"></i>
-                </a>
+                </router-link>
                 <a v-if="userInfo.sitePhone" class="block panel-chunk" :href="'tel:' + userInfo.sitePhone">
                     <h3 class="icos4 i4-phone pull-left">客服热线</h3>
                     <p class="mr25 pull-right">

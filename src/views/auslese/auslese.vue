@@ -10,7 +10,7 @@
         <!-- 导顶部导航 end -->
 
         <!-- 轮播图 start -->
-        <swiper :options="swiperAdOption" class="slideAd">
+        <swiper v-if="selfShopList.length >0" :options="swiperAdOption" class="slideAd">
 
             <swiper-slide v-for="selfShopItem in selfShopList" :key="selfShopItem.picpath">
                 <a :href="'shop-detail.html?shopId='+selfShopItem.shopId">

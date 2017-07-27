@@ -1,6 +1,6 @@
 <template>
     <!-- 表单 start -->
-    <form class="fm-control" action="/e/changeusername" method="POST" v-cloak>
+    <form class="fm-control" action="" method="POST" v-cloak>
 
         <div class="fm-group mt10">
             <div class="fm-line">
@@ -18,6 +18,7 @@
 
 <script>
     import {mapActions} from 'vuex'
+    import qs from 'qs'
     //import validator from '../../assets/js/validator'
 
     export default {
@@ -43,6 +44,7 @@
             ...mapActions(['updateUserName']),
             submitFn () {
                 var _this = this;
+                console.log(_this.$,'------------------------------------------------------')
                 var {params, query} = this;
 
                 if (_this.isDisabled) return;
@@ -58,11 +60,10 @@
                     });*/
 
                 }
-
+                var username = qs.stringify(params)
+                console.log(username)
                 // 修改用户昵称
-                _this.api.changeusername({
-                    params
-                })
+                _this.$axios.post(this.$api.changeusername,username)
                 .then(({status, data}) => {
                     console.log('修改该昵称:', data);
 
