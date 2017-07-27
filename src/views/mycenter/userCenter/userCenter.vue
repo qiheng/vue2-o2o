@@ -69,10 +69,10 @@
                     <h3 class="icos4 i4-address">收货地址</h3>
                     <i class="arr-rt"></i>
                 </a>
-                <a class="block panel-chunk" href="my-collect.html">
+                <router-link class="block panel-chunk" :to="{name: 'myCollect'}">
                     <h3 class="icos4 i4-collect">我的收藏</h3>
                     <i class="arr-rt"></i>
-                </a>
+                </router-link>
                 <a class="block panel-chunk" href="jifen-shop.html">
                     <h3 class="icos4 i4-jfen">积分商城</h3>
                     <i class="arr-rt"></i>

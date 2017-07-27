@@ -1,4 +1,4 @@
-<template>
+<template>   <!--  列表选择城市弹层组件  -->
     <div @click="closeFn" class="mod-layer-1 address-choose-layer" :class="{show: layerData.visible}">
         <div class="mod-layer-con">
             <div class="mod-layer-hd">

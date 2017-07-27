@@ -1,4 +1,4 @@
-<template>
+<template>   <!-- ¿ÕÄ£°å  -->
     <div class="empty-tips-panel">
         <slot name="icon">
             <img width="120" height="120" src="../../assets/images/no-data.png" alt="">

@@ -27,7 +27,8 @@
 
 
         <!-- 公告 start -->
-        <dl v-if="indexData.notice" class="broadcast-msg home-broadcast-msg">
+
+        <dl v-if="indexData.notice.length > 0" class="broadcast-msg home-broadcast-msg">
             <dt>公告：</dt>
             <dd>
                 <swiper :options="swiperMsgOption" class="swiper-container slideMsg" style="height: 20px;">
@@ -35,7 +36,7 @@
                     <swiper-slide v-for="notice in indexData.notice" :key="notice.title" class="nowrap">
                         <!-- <a href="notice.html?type=0"></a> -->
                         <router-link :to="{name:'notice'}">{{notice.title}} </router-link>
-                    </swiper-slide>
+        </swiper-slide>
 
                 </swiper>
             </dd>

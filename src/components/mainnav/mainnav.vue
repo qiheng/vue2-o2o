@@ -1,4 +1,4 @@
-<template>
+<template>    <!-- 主导航菜单  -->
     <div class="mainNav list-fl">
         <router-link v-for="(navItem, index) in navList" class="list-item"
             :to="navItem.href+(navItem.returnUrl ? '' : '?meun='+(index+1))"

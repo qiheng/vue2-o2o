@@ -1,4 +1,4 @@
-<template>
+<template>  <!--  列表选择弹层组件1  -->
     <div @click="closeFn" class="mod-layer-1 classify-choose-layer" :class="{show: show}">
         <div @click.stop class="mod-layer-con">
             <div class="mod-layer-hd">
