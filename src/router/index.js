@@ -8,17 +8,24 @@ const Classify = r => require.ensure([], () => r(require('@/views/classify/class
 const Auslese = r => require.ensure([], () => r(require('@/views/auslese/auslese')), 'navtab');
 const Notice = r => require.ensure([], () => r(require('@/views/notice/notice')), 'notice');
 const NoticeDetail = r => require.ensure([], () => r(require('@/views/notice/noticeDetail/noticeDetail')), 'notice');
-
 const Mycenter = r => require.ensure([], () => r(require('@/views/mycenter/mycenter')), 'users');
+const SystemMessage = r => require.ensure([], () => r(require('@/views/mycenter/systemMessage/systemMessage')), 'users');
+const Chests = r => require.ensure([], () => r(require('@/views/mycenter/chests/chests')), 'users');
+
+
+
+
+
+
 const Usercenter = r => require.ensure([], () => r(require('@/views/mycenter/userCenter/userCenter')), 'users');
 const UserInfo = r => require.ensure([], () => r(require('@/views/mycenter/userInfo/userInfo')), 'users');
 const SetUserName = r => require.ensure([], () => r(require('@/views/mycenter/setUserName/setUserName')), 'users');
+const SetPhone = r => require.ensure([], () => r(require('@/views/mycenter/setPhone/setPhone')), 'users');
 
 Vue.use(Router);
 
 const router = new Router({
-    routes: [
-        {
+    routes: [{
             path: '/',
             name: 'home',
             component: Home
@@ -41,7 +48,7 @@ const router = new Router({
         {
             path: '/notice',
             name: 'notice',
-            meta: { requiresAuth: true },
+            //meta: { requiresAuth: true },
             component: Notice
         },
         {
@@ -54,8 +61,7 @@ const router = new Router({
             name: 'mycenter',
             component: Mycenter,
             meta: { requiresAuth: true },
-            children: [
-                {
+            children: [{
                     path: '',
                     name: 'userCenter',
                     //meta: { requiresAuth: true },
@@ -65,19 +71,30 @@ const router = new Router({
                     path: 'userInfo',
                     name: 'userInfo',
                     component: UserInfo,
-                    children: [
-                        {
-                            path: 'setUserName',
-                            name: 'setUserName',
-                            component: SetUserName,
-                        }
-                    ]
-                }
+                    children: [{
+                        path: 'setUserName',
+                        name: 'setUserName',
+                        component: SetUserName,
+                    }, {
+                        path: 'setPhone',
+                        name: 'setPhone',
+                        component: SetPhone,
+                    }]
+                }, {
+                    path: 'systemMessage',
+                    name: 'systemMessage',
+                    component: SystemMessage,
+                },
+                {
+                    path: 'chests',
+                    name: 'chests',
+                    component: Chests,
+                },
             ]
         },
         {
             path: '*',
-            redirect: {name: 'home'}
+            redirect: { name: 'home' }
         }
     ],
     //mode:'history'
