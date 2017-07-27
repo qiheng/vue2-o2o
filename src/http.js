@@ -33,12 +33,12 @@ axios.interceptors.response.use(
         let result = response.data;
         console.log('===== response success =====');
         console.log(response.data);
-
-        // 未登录
+        console.log(result.status)
+            // 未登录
         if (result.status == -91) {
             router.push({
                 path: '/login',
-                query: {redirect: router.currentRoute.fullPath}
+                query: { redirect: router.currentRoute.fullPath }
             })
         }
 

@@ -42,7 +42,7 @@ router.beforeEach((to, form, next) => {
             next()
         } else {
             next({
-                path:'/login',
+                path: '/login',
                 query: { redirect: to.fullPath }
             })
         }
@@ -57,6 +57,6 @@ new Vue({
     router,
     store,
     render: h => h(App)
-    //template: '<App/>',
-    //components: { App }
+        //template: '<App/>',
+        //components: { App }
 })

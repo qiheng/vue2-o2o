@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-//import Hello from '@/components/Hello'
 
 const Login = r => require.ensure([], () => r(require('@/views/login/login')), 'users');
 const Home = r => require.ensure([], () => r(require('@/views/home/home')), 'navtab');
@@ -11,14 +10,25 @@ const NoticeDetail = r => require.ensure([], () => r(require('@/views/notice/not
 const test = r => require.ensure([], () => r(require('../views/test/test')), 'test');
 const Mycenter = r => require.ensure([], () => r(require('@/views/mycenter/mycenter')), 'users');
 const SystemMessage = r => require.ensure([], () => r(require('@/views/mycenter/systemMessage/systemMessage')), 'users');
-const Chests = r => require.ensure([], () => r(require('@/views/mycenter/chests/chests')), 'users');
 
+
+
+const Coupons = r => require.ensure([], () => r(require('@/views/mycenter/couponsList/coupons')), 'users');
+const CouponsInfo = r => require.ensure([], () => r(require('@/views/mycenter/couponsList/couponsInfo')), 'couponsList');
+const CouponsAdd = r => require.ensure([], () => r(require('@/views/mycenter/couponsList/couponsAdd')), 'couponsList');
+
+
+const Chests = r => require.ensure([], () => r(require('@/views/mycenter/chests/chests')), 'users');
+const ChestsInfo = r => require.ensure([], () => r(require('@/views/mycenter/chests/chestsInfo')), 'chests');
+const HandilyPhone = r => require.ensure([], () => r(require('@/views/mycenter/chests/handilyPhone')), 'chests');
+const RechargePhone = r => require.ensure([], () => r(require('@/views/mycenter/chests/rechargePhone')), 'chests');
 
 
 const Usercenter = r => require.ensure([], () => r(require('@/views/mycenter/userCenter/userCenter')), 'users');
 const UserInfo = r => require.ensure([], () => r(require('@/views/mycenter/userInfo/userInfo')), 'users');
 const SetUserName = r => require.ensure([], () => r(require('@/views/mycenter/setUserName/setUserName')), 'users');
 const SetPhone = r => require.ensure([], () => r(require('@/views/mycenter/setPhone/setPhone')), 'users');
+
 
 const myCollect = r => require.ensure([], () => r(require('@/views/mycenter/myCollect/myCollect')), 'user');
 
@@ -49,7 +59,6 @@ const router = new Router({
         {
             path: '/notice',
             name: 'notice',
-            //meta: { requiresAuth: true },
             component: Notice
         },
         {
@@ -58,13 +67,11 @@ const router = new Router({
             component: NoticeDetail
         },
         {
-
             path: '/test',
             name: 'test',
             component: test
         },
         {
-
             path: '/mycenter',
             name: 'mycenter',
             component: Mycenter,
@@ -79,22 +86,6 @@ const router = new Router({
                     path: 'userInfo',
                     name: 'userInfo',
                     component: UserInfo,
-
-                    children: [
-                        {
-                            path: 'setUserName',
-                            name: 'setUserName',
-                            component: SetUserName,
-                        }
-                    ]
-                },
-                {
-
-                    path: 'myCollect',
-                    name: 'myCollect',
-                    component: myCollect
-                },
-
                     children: [{
                         path: 'setUserName',
                         name: 'setUserName',
@@ -104,15 +95,54 @@ const router = new Router({
                         name: 'setPhone',
                         component: SetPhone,
                     }]
-                }, {
+                },
+                {
+
+                    path: 'myCollect',
+                    name: 'myCollect',
+                    component: myCollect
+                },
+                {
                     path: 'systemMessage',
                     name: 'systemMessage',
                     component: SystemMessage,
                 },
                 {
+                    path: 'coupons',
+                    name: 'coupons',
+                    component: Coupons,
+                    children: [{
+                            path: '',
+                            name: 'couponsInfo',
+                            component: CouponsInfo
+                        },
+                        {
+                            path: 'couponsAdd',
+                            name: 'couponsAdd',
+                            component: CouponsAdd
+                        }
+                    ]
+                },
+                {
                     path: 'chests',
                     name: 'chests',
                     component: Chests,
+                    children: [{
+                            path: '',
+                            name: 'chestsInfo',
+                            component: ChestsInfo,
+                        },
+                        {
+                            path: 'handilyPhone',
+                            name: 'handilyPhone',
+                            component: HandilyPhone,
+                        },
+                        {
+                            path: 'rechargePhone',
+                            name: 'rechargePhone',
+                            component: RechargePhone,
+                        }
+                    ]
                 },
             ]
         },
