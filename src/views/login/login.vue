@@ -155,6 +155,9 @@ export default {
                         // 记录用户信息到vuex中
                         _this.recordUserInfo(data);
 
+                        // 缓存用户信息到 sessionStorage 中
+                        window.sessionStorage.userInfo = JSON.stringify(data);
+
                         // 登录后跳转回来源页面
                         _this.forward();
 

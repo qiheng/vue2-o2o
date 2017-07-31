@@ -33,6 +33,10 @@ import * as components from './components'
 // console.log('components:',components)
 Object.keys(components).forEach(k => Vue.component(k, components[k]));
 
+// 防止刷新用户信息丢失
+if (window.sessionStorage && window.sessionStorage.userInfo) {
+    store.dispatch('recordUserInfo', JSON.parse(window.sessionStorage.userInfo))
+}
 
 // 登录中间验证，页面需要登录而没有登录的情况直接跳转登录
 router.beforeEach((to, form, next) => {

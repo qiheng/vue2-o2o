@@ -33,12 +33,12 @@
             userInfo: {
                 handler (newval, oldVal) {
                     var _newval = newval;
-                    console.log(+new Date(),'---oldVal---:', oldVal)
-                    console.log(+new Date(),'---val---: ', _newval)
-                    for (var k in _newval) {
-                        localStorage[k] = _newval[k]
-
-                    }
+//                    console.log(+new Date(),'---oldVal---:', oldVal)
+//                    console.log(+new Date(),'---val---: ', _newval)
+//                    for (var k in _newval) {
+//                        localStorage[k] = _newval[k]
+//
+//                    }
 
                     //setTimeout(() => {
                     console.log(+new Date(),'---strval---: ', JSON.stringify(_newval))
