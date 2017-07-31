@@ -18,7 +18,11 @@ const getters = {
 const actions = {
     // 基本的记录用户信息
     recordUserInfo ({commit}, userInfo) {
-        commit(types.RECORD_USEINFO, userInfo)
+        commit(types.RECORD_USEINFO, userInfo);
+        // 用户信息同步更新
+        if (window.sessionStorage && window.sessionStorage.userInfo) {
+            window.sessionStorage.userInfo = JSON.stringify(userInfo);
+        }
     },
     // 扩展用户信息
     extendUserInfo ({commit}, extendUserInfo) {

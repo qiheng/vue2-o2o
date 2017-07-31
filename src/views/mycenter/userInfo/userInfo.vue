@@ -111,10 +111,12 @@
             logout () {
                 var _this = this;
 
-                this.$axios.get(this.$api.logout)
+                this.$axios.post(this.$api.logout)
                     .then(() => {
                         console.log('当前用户已退出');
                         //_this.recordUserInfo(null);
+                        _this.$store.dispatch('recordUserInfo', null);
+
                         _this.$router.replace({name: 'login', query: {redirect: _this.$route.fullPath}})
                     })
                     .catch((e) => {
