@@ -36,10 +36,10 @@
                     <!--<a class="get-points emb-red" href="my-score.html">签到赚积分</a>-->
                     <!--</li>-->
                     <li class="box-flex">
-                        <a href="my-score.html">
+                        <router-link :to="{name:'myScore'}">
                             {{ userInfo.score }}
                             <p class="f12 lightgray">积分</p>
-                        </a>
+                        </router-link>
                     </li>
                 </ul>
     

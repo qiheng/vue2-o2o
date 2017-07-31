@@ -1,3 +1,28 @@
+<template>
+    <div class="loadmore" ref="loadmore">
+        <div class="loadmore__body">
+            <slot></slot>
+        </div>
+        <div class="loadmore__footer">
+      <span v-if="loading">
+        <i class="tc-loading"></i>
+        <span>正在加载</span>
+      </span>
+            <span v-else-if="loadable">加载更多</span>
+            <span v-else>没有更多了</span>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data(){
+            return{
+                type:false
+            }
+        }
+    }
+</script>
 <!--<template>-->
     <!--<div>-->
         <!--<br/>-->
@@ -42,7 +67,7 @@
         <!--:area=area-->
         <!--@onselect = "selectLayerFn"-->
         <!--@onclose = "closeLayerFn"-->
-        <!-->-->
+        <!-->
         <!--</model-layer3>-->
     <!--<input type="text" @click="selectFn"/>-->
     <!--<input type="hidden" name="province" v-model="province.areaId"/>-->
