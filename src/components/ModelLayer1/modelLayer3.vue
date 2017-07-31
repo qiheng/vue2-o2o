@@ -8,7 +8,7 @@
                     v-show="level >=key"
                     @click.stop="tabMeun(key)"
                     :data-level="key"
-                    :class="{active: level >=key}">{{ chooseArea[key].name }}</li>
+                    :class="{active: level >=key}" :key="key">{{ chooseArea[key].name }}</li>
                 </ul>
             </div>
             <div class="mod-layer-bd">
@@ -24,7 +24,7 @@
 <script>
     export default {
         props:{
-            tt:{
+            define:{
                 type:Number,
                 default:10
             },
