@@ -12,7 +12,7 @@
             <div class="fm-line lightgray">
                 <label class="l-label">所属地区</label>
                 <a @click="toggleAddress" class="pull-right" href="javascript:;">
-                    <input class="text-right lightgray mr10" type="text" name="areaAddress" :value="areaAddress" placeholder="请选择" readonly="readonly" />
+                    <input class="text-right  mr10" type="text" name="areaAddress" :value="areaAddress" placeholder="请选择" readonly="readonly" />
                     <input type="hidden" name="proviance" v-model="addressData.proviance" />
                     <input type="hidden" name="city" v-model="addressData.city" />
                     <input type="hidden" name="area" v-model="addressData.area" />
@@ -56,6 +56,7 @@ export default {
             proviance: {},
             city: {},
             area: {},
+            defaultSelect: 1,
             addressData: {
                 linkman: '',
                 phone: '',
@@ -75,7 +76,6 @@ export default {
             this.$axios.get(this.$api.getaddress + '?userAddressId=' + query.userAddressId)
                 .then(request => {
                     this.addressData = request.data;
-                    //this.areaAddress = '66666666666666666666666666'
                     this.addressData.isDefault = (request.data.isDefault == 1) ? true : false;
                 })
         }
@@ -91,6 +91,7 @@ export default {
             };
         },
         toggleAddress() {
+            this.defaultSelect = !1;
             this.layerData.visible = !this.layerData.visible
         },
         selectLayerFn(address) {
@@ -148,11 +149,17 @@ export default {
     computed: {
         areaAddress() {
             let result = [];
-            ['proviance', 'city', 'area'].forEach(key => {
-                if (this[key].name) {
-                    result.push(this[key].name)
+            if (this.query.type == 'edit' && this.defaultSelect == true) {
+                for (let key of ['provianceName', 'cityName', 'areaName']) {
+                    result.push(this.addressData[key])
                 }
-            });
+            } else {
+                for (let key of ['proviance', 'city', 'area']) {
+                    if (this[key].name) {
+                        result.push(this[key].name)
+                    }
+                }
+            }
             return result.length ? result.join(' ') : ''
         },
         query() {
