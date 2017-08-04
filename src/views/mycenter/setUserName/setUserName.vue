@@ -19,7 +19,7 @@
 <script>
     import {mapActions} from 'vuex'
     import qs from 'qs'
-    //import validator from '../../assets/js/validator'
+import validator from '@/assets/js/validator'
 
     export default {
         data () {

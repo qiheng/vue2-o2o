@@ -54,6 +54,8 @@ const search = r => require.ensure([], () => r(require('@/views/home/search/sear
 const searchResult = r => require.ensure([], () => r(require('@/views/home/searchResult/searchResult')), 'home'); // 首页--搜索跳转页面
 const myWallet = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myWallet')), 'users'); // 我的-个人中心-余额
 const myBankCard = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/myBankCard')), 'users'); // 我的-个人中心-银行卡
+const WalletDetails = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/walletDetails')), 'users'); // 我的-个人中心-钱包明细
+const BankCardDetail = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/bankCardDetail')), 'users'); // 我的-个人中心-银行卡详情
 
 
 
@@ -113,10 +115,10 @@ const router = new Router({
             //meta: { requiresAuth: true },
             children: [{
 
-                path: '',
-                name: 'userCenter',
-                //meta: { requiresAuth: true },
-                component: Usercenter,
+                    path: '',
+                    name: 'userCenter',
+                    //meta: { requiresAuth: true },
+                    component: Usercenter,
                 },
                 {
                     path: '',
@@ -138,11 +140,10 @@ const router = new Router({
                         name: 'setPhone',
                         component: SetPhone,
                     }, {
-                            path: 'changePassword',
-                            name: 'changePassword',
-                            component: changePassword,
-                        }
-                    ]
+                        path: 'changePassword',
+                        name: 'changePassword',
+                        component: changePassword,
+                    }]
                 },
                 {
 
@@ -189,6 +190,16 @@ const router = new Router({
                     path: '/myBankCard',
                     name: 'myBankCard',
                     component: myBankCard
+                },
+                {
+                    path: '/bankCardDetail',
+                    name: 'bankCardDetail',
+                    component: BankCardDetail
+                },
+                {
+                    path: '/walletDetails',
+                    name: 'walletDetails',
+                    component: WalletDetails
                 },
                 {
                     path: 'aboutUs',
