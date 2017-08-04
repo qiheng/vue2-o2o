@@ -25,68 +25,54 @@
     
         <!-- 解除绑定 start -->
         <div class="container mt30">
-            <a @click.prevent="unbindCard(bankCardDetail.usersBankId)" href="javascript:;" class="btn btn-lg btn-block btn-primary">解除绑定</a>
+            <a @click.prevent="toggleAddress" href="javascript:;" class="btn btn-lg btn-block btn-primary">解除绑定</a>
         </div>
         <!-- 解除绑定 end -->
-    
+        <model-layer4 :layerData="layerData" @onclose="closeLayerFn" @paying="payValidatorFn"></model-layer4>
     </div>
     <!-- 银行卡 end -->
 </template>
 <script>
+import qs from 'qs'
 export default {
     data() {
         return {
-            loading: true,
-            bankCardDetail: {}
-
+            param: {
+                usersBankId: ''
+            },
+            password: '',
+            bankCardDetail: {},
+            layerData: {
+                visible: false
+            },
         }
     },
     created() {
         var _this = this;
-
         this.bankCardDetail = JSON.parse(localStorage.getItem('__bankCardDetail')) || {};
-        // _this.$nextTick(function () {
-        //     _this.pressToggle($('.my-card-opt'));
-        // })
-
     },
     methods: {
-        // 显示解绑按钮
-        pressToggle($el) {
-            alert('pay')
-            // $el.hammer().bind('press', function (evt) {
-            //     var $target = $(evt.target),
-            //         oGesture = evt.gesture;
+        payValidatorFn(result) {
 
-            //     if ($target.hasClass('expanded')) {
-            //         $target.removeClass('expanded');
-            //     } else {
-            //         $target.addClass('expanded');
-            //     }
 
-            //     return false;
-            // });
-        },
-        // 解绑银行卡
-        unbindCard(usersBankId, index) {
-            alert('pay')
-            // payPwdLayer(function (layero, idx) {
-            //     var $inpt = $(layero).find('.int-pwd'), _val;
+            console.log(this.$route)
 
-            //     // 处理密码
-            //     $inpt.off('keyup').on('keyup', function () {
-            //         _val = $.trim($inpt.val());
-
-            //         if (/^\d{6}$/.test(_val)) {
-            //             _A.getUnsetbankCardDetailData({ usersBankId: usersBankId }, function () {
-            //                 _this.bankCardDetailList.splice(index, 1);
-            //                 layer.close(idx);
-            //             });
-            //         }
-
+            // this.param.usersBankId = this.bankCardDetail.usersBankId
+            // let usersBankId = qs.stringify(this.param)
+            // this.$axios.post(this.$api.unsetbankcard, usersBankId)
+            //     .then(request => {
+            //         this.$notiejs({
+            //             state: request.msg == '操作失败' ? 2 : 1,
+            //             msg: request.msg == '操作失败' ? '银行卡解绑失败' : '银行卡解绑成功'
+            //         });
+            //         this.$router.replace(this.$route.query.redirect)
             //     })
-
-            // });
+        },
+        toggleAddress() {
+            this.layerData.visible = !this.layerData.visible
+        },
+        closeLayerFn() {
+            this.layerData.visible = false;
         }
     }
 }   

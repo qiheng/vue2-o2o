@@ -55,6 +55,8 @@ const searchResult = r => require.ensure([], () => r(require('@/views/home/searc
 const myWallet = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myWallet')), 'users'); // 我的-个人中心-余额
 const myBankCard = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/myBankCard')), 'users'); // 我的-个人中心-银行卡
 const WalletDetails = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/walletDetails')), 'users'); // 我的-个人中心-钱包明细
+
+const MyBankInfo = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/myBankInfo')), 'users'); // 我的-个人中心-银行卡详情
 const BankCardDetail = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/bankCardDetail')), 'users'); // 我的-个人中心-银行卡详情
 
 
@@ -114,7 +116,6 @@ const router = new Router({
             component: Mycenter,
             //meta: { requiresAuth: true },
             children: [{
-
                     path: '',
                     name: 'userCenter',
                     //meta: { requiresAuth: true },
@@ -126,7 +127,6 @@ const router = new Router({
                     //meta: { requiresAuth: true },
                     component: Usercenter
                 },
-
                 {
                     path: 'userInfo',
                     name: 'userInfo',
@@ -187,15 +187,22 @@ const router = new Router({
                     component: myWallet,
                 },
                 {
-                    path: '/myBankCard',
-                    name: 'myBankCard',
-                    component: myBankCard
+                    path: 'myBankInfo',
+                    name: 'myBankInfo',
+                    component: MyBankInfo,
+                    children: [{
+                            path: '',
+                            name: 'myBankCard',
+                            component: myBankCard,
+                        },
+                        {
+                            path: 'bankCardDetail',
+                            name: 'bankCardDetail',
+                            component: BankCardDetail
+                        }
+                    ]
                 },
-                {
-                    path: '/bankCardDetail',
-                    name: 'bankCardDetail',
-                    component: BankCardDetail
-                },
+
                 {
                     path: '/walletDetails',
                     name: 'walletDetails',
