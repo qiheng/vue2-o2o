@@ -21,8 +21,14 @@ const userCoupleBack = r => require.ensure([], () => r(require('@/views/mycenter
 const myScore = r => require.ensure([], () => r(require('@/views/mycenter/myScore/myScore')), 'users'); // 我的-个人中心-积分
 const scoreRecord = r => require.ensure([], () => r(require('@/views/mycenter/myScore/scoreRecord')), 'users'); // 我的-个人中心-积分记录
 
+const jifenShop = r => require.ensure([], () => r(require('@/views/mycenter/jifenShop/jifenShop')), 'users'); // 我的-个人中心-积分商城
+const shopManage = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopManage')), 'users'); // 我的-个人中心-店铺管理（有店铺情况）
+const choseShopTmp = r => require.ensure([], () => r(require('@/views/mycenter/choseShopTmp/choseShopTmp')), 'users'); // 我的-个人中心-店铺管理（没店铺）
+
+
 
 const Coupons = r => require.ensure([], () => r(require('@/views/mycenter/couponsList/coupons')), 'users'); // 我的-个人中心-优惠卷页面
+
 const CouponsInfo = r => require.ensure([], () => r(require('@/views/mycenter/couponsList/couponsInfo')), 'couponsList'); // 我的-个人中心-优惠卷列表页面
 const CouponsAdd = r => require.ensure([], () => r(require('@/views/mycenter/couponsList/couponsAdd')), 'couponsList'); // 我的-个人中心-兑换优惠卷列表页面
 
@@ -42,6 +48,15 @@ const Usercenter = r => require.ensure([], () => r(require('@/views/mycenter/use
 const UserInfo = r => require.ensure([], () => r(require('@/views/mycenter/userInfo/userInfo')), 'users'); // 我的-个人中心-个人信息页面
 const SetUserName = r => require.ensure([], () => r(require('@/views/mycenter/setUserName/setUserName')), 'users'); // 我的-个人中心-设置用户名页面
 const SetPhone = r => require.ensure([], () => r(require('@/views/mycenter/setPhone/setPhone')), 'users'); // 我的-个人中心-设置手机号码页面
+const changePassword = r => require.ensure([], () => r(require('@/views/mycenter/changePassword/changePassword')), 'users'); // 我的-个人中心-修改密码页面
+
+const search = r => require.ensure([], () => r(require('@/views/home/search/search')), 'home'); // 首页--搜索跳转页面
+const searchResult = r => require.ensure([], () => r(require('@/views/home/searchResult/searchResult')), 'home'); // 首页--搜索跳转页面
+const myWallet = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myWallet')), 'users'); // 我的-个人中心-余额
+const myBankCard = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/myBankCard')), 'users'); // 我的-个人中心-银行卡
+
+
+
 
 Vue.use(Router);
 
@@ -50,6 +65,26 @@ const router = new Router({
             path: '/',
             name: 'home',
             component: Home
+        },
+        {
+            path: '/search',
+            name: 'search',
+            component: search
+        },
+        {
+            path: '/searchResult',
+            name: 'searchResult',
+            component: searchResult
+        },
+        {
+            path: '/myWallet',
+            name: 'myWallet',
+            component: myWallet
+        },
+        {
+            path: '/myBankCard',
+            name: 'myBankCard',
+            component: myBankCard
         },
         {
             path: '/login',
@@ -87,11 +122,19 @@ const router = new Router({
             component: Mycenter,
             //meta: { requiresAuth: true },
             children: [{
+
+                path: '',
+                name: 'userCenter',
+                //meta: { requiresAuth: true },
+                component: Usercenter,
+                },
+                {
                     path: '',
                     name: 'userCenter',
                     //meta: { requiresAuth: true },
-                    component: Usercenter,
+                    component: Usercenter
                 },
+
                 {
                     path: 'userInfo',
                     name: 'userInfo',
@@ -104,7 +147,12 @@ const router = new Router({
                         path: 'setPhone',
                         name: 'setPhone',
                         component: SetPhone,
-                    }]
+                    }, {
+                            path: 'changePassword',
+                            name: 'changePassword',
+                            component: changePassword,
+                        }
+                    ]
                 },
                 {
 
@@ -127,6 +175,22 @@ const router = new Router({
                     name: 'scoreRecord',
                     component: scoreRecord
                 },
+                {
+                    path: 'jifenShop',
+                    name: 'jifenShop',
+                    component: jifenShop
+                },
+                {
+                    path: 'shopManage',
+                    name: 'shopManage',
+                    component: shopManage
+                },
+                {
+                    path: 'choseShopTmp',
+                    name: 'choseShopTmp',
+                    component: choseShopTmp
+                },
+
                 {
                     path: 'aboutUs',
                     name: 'aboutUs',
