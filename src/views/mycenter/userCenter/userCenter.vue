@@ -21,10 +21,10 @@
     
                 <ul class="mod-box text-center f16 panel-bd">
                     <li class="box-flex">
-                        <a href="my-wallet.html">
+                        <router-link :to="{name:'myWallet'}">
                             {{ userInfo.balance }}
                             <p class="f12 lightgray">余额</p>
-                        </a>
+                        </router-link>
                     </li>
                     <li class="box-flex" style="border-left: 1px solid #e5e5e5; border-right: 1px solid #e5e5e5;">
                         <router-link :to="{name: 'coupons'}">
@@ -72,10 +72,10 @@
                     <h3 class="icos4 i4-collect">我的收藏</h3>
                     <i class="arr-rt"></i>
                 </router-link>
-                <a class="block panel-chunk" href="jifen-shop.html">
+                <router-link class="block panel-chunk" :to="{name:'jifenShop'}">
                     <h3 class="icos4 i4-jfen">积分商城</h3>
                     <i class="arr-rt"></i>
-                </a>
+                </router-link>
                 <router-link class="block panel-chunk" :to="{name:'systemMessage'}">
                     <h3 class="icos4 i4-msg">系统消息</h3>
                     <i class="arr-rt"></i>
@@ -99,17 +99,17 @@
                     </p>
                     <i class="arr-rt"></i>
                 </a>
-                <a v-if="userInfo.shop != 0" class="block panel-chunk " href="shop-manage.html">
+                <router-link v-if="userInfo.shop != 0" class="block panel-chunk " :to="{name:'shopManage'}">
                     <h3 class="icos4 i4-shop">店铺管理</h3>
                     <span class="pos-rt-middle" style="right: 0">
                         <i v-if="userInfo.ordersCount" class="counter mr25">{{ userInfo.ordersCount }}</i>
                         <i class="arr-rt"></i>
                     </span>
-                </a>
-                <a v-else class="block panel-chunk" href="chose-shop-tmp.html ">
+                </router-link>
+                <router-link v-else class="block panel-chunk" :to="{name:'choseShopTmp'}">
                     <h3 class="icos4 i4-shop">我要开店</h3>
                     <i class="arr-rt"></i>
-                </a>
+                </router-link>
                 <router-link class="block panel-chunk " :to="{name:'mySetup'}">
                     <h3 class="icos4 i4-setup">设置</h3>
                     <i class="arr-rt"></i>
