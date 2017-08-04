@@ -77,16 +77,6 @@ const router = new Router({
             component: searchResult
         },
         {
-            path: '/myWallet',
-            name: 'myWallet',
-            component: myWallet
-        },
-        {
-            path: '/myBankCard',
-            name: 'myBankCard',
-            component: myBankCard
-        },
-        {
             path: '/login',
             name: 'login',
             component: Login
@@ -190,7 +180,16 @@ const router = new Router({
                     name: 'choseShopTmp',
                     component: choseShopTmp
                 },
-
+                {
+                    path: '/myWallet',
+                    name: 'myWallet',
+                    component: myWallet,
+                },
+                {
+                    path: '/myBankCard',
+                    name: 'myBankCard',
+                    component: myBankCard
+                },
                 {
                     path: 'aboutUs',
                     name: 'aboutUs',
