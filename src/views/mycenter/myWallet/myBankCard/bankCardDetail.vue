@@ -54,19 +54,17 @@ export default {
     methods: {
         payValidatorFn(result) {
 
-
-            console.log(this.$route)
-
-            // this.param.usersBankId = this.bankCardDetail.usersBankId
-            // let usersBankId = qs.stringify(this.param)
-            // this.$axios.post(this.$api.unsetbankcard, usersBankId)
-            //     .then(request => {
-            //         this.$notiejs({
-            //             state: request.msg == '操作失败' ? 2 : 1,
-            //             msg: request.msg == '操作失败' ? '银行卡解绑失败' : '银行卡解绑成功'
-            //         });
-            //         this.$router.replace(this.$route.query.redirect)
-            //     })
+            //this.$router.replace({ name: 'myBankInfo' })
+            this.param.usersBankId = this.bankCardDetail.usersBankId
+            let usersBankId = qs.stringify(this.param)
+            this.$axios.post(this.$api.unsetbankcard, usersBankId)
+                .then(request => {
+                    this.$notiejs({
+                        state: request.msg == '操作失败' ? 2 : 1,
+                        msg: request.msg == '操作失败' ? '银行卡解绑失败' : '银行卡解绑成功'
+                    });
+                    //this.$router.replace(this.$route.query.redirect)
+                })
         },
         toggleAddress() {
             this.layerData.visible = !this.layerData.visible
