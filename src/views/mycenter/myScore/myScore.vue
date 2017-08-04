@@ -60,6 +60,7 @@
                 _this.checkInfo = data;
                 console.log( _this.checkInfo.data.score,'332211321212');
                 console.log( _this.checkInfo,'--------------------------');
+                console.log(data,'kikiki')
             })
         },
         methods: {
@@ -71,11 +72,11 @@
 
                 // 执行签到
                 if (!issignin) {
-                    this.$axios.get(this.$api.signinpage)
+                    this.$axios.get(this.$api.signin)
                     .then(function(data){
                         _this.checkInfo.data.score = data.data.score;
                         alert('签到成功++++++++++');
-                                console.log(data.data.score)
+                                console.log(data.data.score,'666666666666666666')
 //                        $layer.open({
 //                            title: false,
 //                            type: 1,

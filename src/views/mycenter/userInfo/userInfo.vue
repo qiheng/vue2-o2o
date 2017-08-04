@@ -56,12 +56,12 @@
 
             <div class="fm-group mt10">
                 <div class="fm-line">
-                    <a class="block" href="change-password.html?type=loginpwd">
+                    <router-link class="block" :to="{name:'changePassword',query:{type:userInfo.query}}">
                         <label class="l-label">登录密码</label>
                         <span class="pull-right">
                             <input class="text-right lightgray" type="text" name="" value="修改" readonly="readonly" /><i class="arr-rt"></i>
                         </span>
-                    </a>
+                    </router-link>
                 </div>
                 <div class="fm-line hidden">
                     <a class="block" href="change-password.html?type=paypwd">
