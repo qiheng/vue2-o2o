@@ -1,0 +1,388 @@
+<template>
+    <div class="order-detail" v-cloak>
+        <div class="panel my-tab-order">
+            <nav class="mod-box tap-panel tab-panel-primary">
+                <a v-for="(tabmeun, index) in tabmeuns"
+                   @click.prevent="tabNav(index)"
+                   :data-type="index" class="box-flex tap-meun"
+                   :class="{'tap-meun-on': index == params.type}" href="javascript:;">{{ tabmeun }}</a>
+            </nav>
+        </div>
+
+        <div class="order-list">
+            <loading v-show="loading"></loading>
+
+            <template v-if="!loading">
+                <template v-if="ordersList.length">
+                    <loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+                        <div v-for="(ordersItem, index) in ordersList" class="panel sure-order-list">
+                        <div class="panel-hd">
+                            <div class="pull-left">
+                                <img class="pull-left mr5 mt3 radius50" width="30" height="30"
+                                     :src="ordersItem.shop.pic ? ordersItem.shop.pic +'?x-oss-process=image/resize,m_fixed,h_60,w_60' : config.defaultShopPic" alt="">
+                            </div>
+                            <div class="bfc-panel">
+                                <h2 class="">{{ ordersItem.shop.name | cutstr(20) }}</h2>
+                                <p class="lightgray f12" style="line-height: 1.2">{{ ordersItem.ctime }}</p>
+                            </div>
+                            <span class="orange pos-rt-middle">{{ ordersItem.statusOrderMsg }}</span>
+                        </div>
+
+                        <a class="block ml30 p10 lh-22" :href="'my-order-detail.html?ordersId='+ordersItem.ordersId">
+
+                            <div v-for="goodsItem in ordersItem.orderDetail" class="clearfix">
+                                <p class="pull-left two-thirds nowrap">{{ goodsItem.goodsName }}</p>
+                                <p class="pull-left">x{{ goodsItem.goodsCount }}</p>
+                                <p class="pull-right one-fourth text-right">&yen;{{ goodsItem.goodsPrice | toFixed }}</p>
+                            </div>
+
+                        </a>
+
+                        <div class="pb10 lightgray text-right">
+                            共{{ordersItem.goodsCount}}件商品&nbsp;&nbsp;合计&yen;{{ ordersItem.priceCount | toFixed }}
+
+                            <template v-if="ordersItem.shop.shopTypeId == config.shopTypeId.synthe">
+                                （含运费&yen;{{ ordersItem.priceLogistics | toFixed }}）
+                            </template>
+                            <template v-else-if="ordersItem.shop.shopTypeId == config.shopTypeId.spws">
+                                （含配送费&yen;{{ ordersItem.priceSend | toFixed }}）
+                            </template>
+                            &nbsp;
+                        </div>
+
+                        <div class="panel-chunk text-right">
+                            <p v-if="ordersItem.refundReason" class="text-left mt5 gray bwrd">退款原因：{{ ordersItem.refundReason }}</p>
+                            <div class="btns-handler mt5">
+
+                                <template v-if="ordersItem.statusPay == 0">
+                                    <template v-if="ordersItem.statusOrder == 0">
+                                        <a @click.prevent="cancel(ordersItem.ordersId, $event, index)" class="J-cancel-order btn btn-default" href="javascript:;">取消订单</a>
+                                        <a v-if="!(ordersItem.shop.shopTypeId == config.shopTypeId.spws && ordersItem.payType === HDFK_VAL)" class="btn btn-primary"
+                                           :href="'choose-pay-way.html?ordersId='+ordersItem.ordersId">立即付款</a>
+                                    </template>
+                                </template>
+                                <template v-if="ordersItem.statusPay == 1">
+                                    <template v-if="ordersItem.statusOrder == 1 || ordersItem.statusOrder == 2">
+                                        <!--<a class="btn btn-default" :href="'tel:'+ordersItem.shop.phone">催单</a>-->
+                                        <!--<a @click.prevent="refund(ordersItem.ordersId, $event)" class="J-refund btn btn-primary" href="javascript:;">申请退款</a>-->
+                                        <a class="J-refund btn btn-primary" :href="'refund-reason.html?ordersId='+ordersItem.ordersId + '&priceCount=' + ordersItem.priceCount">申请退款</a>
+                                    </template>
+                                    <template v-if="ordersItem.statusOrder == 3 || ordersItem.statusOrder == 4">
+                                        <!--<a class="btn btn-default" :href="'tel:'+ordersItem.shop.phone">催单</a>-->
+                                        <a v-if="!(ordersItem.shop.shopTypeId == config.shopTypeId.spws && ordersItem.payType === HDFK_VAL)" class="J-refund btn btn-default" :href="'refund-reason.html?ordersId='+ordersItem.ordersId + '&priceCount=' + ordersItem.priceCount">申请退款</a>
+                                        <a @click.prevent="sure(ordersItem.ordersId, $event, index)" class="J-sure btn btn-primary" href="javascript:;">确认订单</a>
+                                    </template>
+                                    <!--<template v-if="ordersItem.statusOrder == 7">
+										<a class="btn btn-primary" :href="'order-comments.html?ordersId='+ordersItem.ordersId+'&shopId='+ordersItem.shop.shopId">评价订单</a>
+									</template>-->
+                                </template>
+                                <template v-if="ordersItem.statusPay == 4">
+                                    <template v-if="ordersItem.statusOrder == 3 || ordersItem.statusOrder == 4">
+                                        <!--<a class="btn btn-default" :href="'tel:'+ordersItem.shop.phone">催单</a>-->
+                                        <a @click.prevent="sure(ordersItem.ordersId, $event, index)" class="J-sure btn btn-primary" href="javascript:;">确认订单</a>
+                                    </template>
+                                    <!--<template v-if="ordersItem.statusOrder == 7">
+										<a class="btn btn-primary" :href="'order-comments.html?ordersId='+ordersItem.ordersId+'&shopId='+ordersItem.shop.shopId">评价订单</a>
+									</template>-->
+                                </template>
+                                <template v-if="ordersItem.statusPay == 5">
+                                    <template v-if="ordersItem.statusOrder <= 2">
+                                        <!--<a class="btn btn-default" :href="'tel:'+ordersItem.shop.phone">催单</a>-->
+                                        <a @click.prevent="cancel(ordersItem.ordersId, $event, index)" class="J-cancel-order btn btn-primary" href="javascript:;">取消订单</a>
+                                    </template>
+                                    <template v-if="ordersItem.statusOrder == 3 || ordersItem.statusOrder == 4">
+                                        <!--<a class="btn btn-default" :href="'tel:'+ordersItem.shop.phone">催单</a>-->
+                                        <a @click.prevent="sure(ordersItem.ordersId, $event, index)" class="J-sure btn btn-primary" href="javascript:;">确认订单</a>
+                                    </template>
+                                </template>
+
+                                <template v-if="ordersItem.statusOrder == 7">
+                                    <a class="btn btn-primary" :href="'order-comments.html?ordersId='+ordersItem.ordersId+'&shopId='+ordersItem.shop.shopId">评价订单</a>
+                                </template>
+
+                            </div>
+                        </div>
+                    </div>
+                    </loadmore>
+                </template>
+
+                <empty v-else :msg="emptyMsg">
+                    <img slot="icon" width="180" src="../../../assets/images/empty/img_wdd@2x.png" alt=""/>
+                    <router-link slot="button" :to="config.index" class="btn btn-default mt20">返回首页</router-link>
+                    <!--<router-link slot="button" :to="'home'">Home</router-link>-->
+                </empty>
+
+            </template>
+
+        </div>
+<!--
+        &lt;!&ndash; 退款原因层 start &ndash;&gt;
+        <div class="refund-cause-layer hidden">
+            <h2 class="tit f16">请选择申请退款理由</h2>
+            <ul class="cause-list lightgray">
+                <li v-for="(reasonItem, index) in reasonList" class="J-radio">{{ reasonItem.summary }}<i class="i-radio"></i></li>
+                <li class="J-radio" data-reason="-1">其他原因<i class="i-radio"></i></li>
+            </ul>
+            <p class="center-block ptb20 two-thirds">
+                <a class="btn btn-lg btn-block btn-primary" href="javascript:;">提交</a>
+            </p>
+        </div>
+        &lt;!&ndash; 退款原因层 end &ndash;&gt;
+
+        &lt;!&ndash; 其他原因 start &ndash;&gt;
+
+        <div id="otherReasonLayer" class="panel-chunk" style="display: none">
+            <textarea name="otherreason" cols="30" rows="5" class="one-full mb10"></textarea>
+            <a class="btn btn-lg btn-block btn-primary" href="javascript:;">确定</a>
+        </div>
+
+        &lt;!&ndash; 其他原因  end &ndash;&gt;
+
+        <main-nav :current-nav-index="currentNavIndex"></main-nav>-->
+
+    </div>
+</template>
+
+<script>
+    import {mapGetters} from 'vuex'
+
+    export default {
+        data () {
+            return {
+//                query: {},
+                HDFK_VAL: 3, // 3为货到付款
+                currentNavIndex:3,
+                _loadMore: null,
+                loading: true,
+                allLoaded: false,
+                tabmeuns: ['全部', '待付款', '待完成', '待评价', '退款'],
+                emptyMsg: {
+                    mainMsg:'暂无订单哦~',
+                    subMsg: '赶快去选择心仪的商品吧!'
+                },
+                params: {
+                    page: 1,
+                    type: 0
+                },
+                ordersList: [],
+                reasonList: []
+            }
+        },
+        created: function () {
+            var _this = this;
+
+            this.params.type = this.query.type || 0;
+            // 初始化订单信息
+            this.getOrders();
+            // 退款理由
+//			_A.getRefundreasonData(function (reasonList) {
+//				_this.reasonList = reasonList
+//			});
+        },
+        methods: {
+            getOrders: function (bConcat, cb) {
+                var _this = this;
+
+                if ($.isFunction(bConcat)) {
+                    cb = bConcat;
+                    bConcat = null;
+                }
+
+                !bConcat  ? (this.loading = true) : '';
+
+                _this.$axios.post(this.$api.eOrderslist, $.param(this.params))
+                    .then(({data, status}) => {
+                        let ordersList = data;
+
+                        _this.loading = false;
+
+                        // 合并
+                        if (bConcat) {
+                            _this.ordersList = _this.ordersList.concat(ordersList)
+                        } else {
+                            _this.ordersList = ordersList
+                        }
+
+                        _this.$nextTick(function () {
+                            cb && cb(ordersList)
+                        })
+                    })
+            },
+            tabNav: function (index) {
+                this.params.type = index;
+                this.params.page = 1;
+                //this._loadMore = null;
+
+                this.getOrders();
+            },
+            hideBtn: function (ev) {
+                ev.target.style.display = 'none'
+            },
+            // 取消订单
+            cancel: function (ordersId, ev, idx) {
+                var _this = this;
+
+                layer.open({
+                    title: '温馨提示',
+                    shift: 1,
+                    content:'您确定要取消订单吗？',
+                    btn: ['确定', '取消'],
+                    yes: function (index, layerEl) {
+                        layer.close(index);
+
+                        // 提交取消处理
+                        _A.cancelOrdersData({ordersId: ordersId}, function () {
+
+                            layer.msg('取消成功',{shift: 1}, function () {
+
+                                if (_this.param.type == 0) {
+                                    // tab:全部，重新获取数据
+                                    _this.param.page = 1;
+                                    _this.getOrders();
+                                } else {
+                                    // 其它移除
+                                    _this.ordersList.splice(idx, 1);
+                                }
+
+                            });
+
+                        })
+                    },
+                    cancel: function () {
+                        //$btn.removeClass('disabled');
+                    }
+                });
+            },
+            // 确认订单
+            sure: function (ordersId, ev, idx) {
+                var _this = this,
+                    dataset = ev.target.dataset;
+
+                if (dataset.isDisabled) return;
+                dataset.isDisabled = true;
+
+                // 提交确认服务处理
+                _A.confirmOrdersData({ordersId: ordersId}, function () {
+                    //$btn.remove();
+                    //redirect_url(location.href);
+                    //_this.hideBtn(ev)
+                    layer.msg('确认成功',{shift: 1}, function () {
+                        //_this.ordersList.splice(idx, 1);
+                        redirect_url(location.href);
+                    })
+                }).fail(function () {
+                    dataset.isDisabled = false;
+                })
+            },
+            // 退款
+            refund: function (ordersId, ev) {
+                var _this = this,
+                    dataset = ev.target.dataset;
+
+                layer.open({
+                    type:1,
+                    title:0,
+                    shift:1,
+                    area: '90%',
+                    scrollbar: false,
+                    content: $('.refund-cause-layer'),
+                    success: function (layero, index) {
+                        var $radio = $(layero).find('.J-radio'),
+                            $subBtn = $(layero).find('.btn'),
+                            otherFlag = false,
+                            _reason = '';
+
+                        setRadio(function (status) {
+                            if (!!status) {
+                                // 提交退款申请
+                                var $parent = $(this).parent();
+
+                                _reason = $parent.text();
+
+                                // 其他原因
+                                if ($parent.data('reason') === -1) {
+                                    layer.open({
+                                        type:1,
+                                        title:'其他原因',
+                                        shift:1,
+                                        area: '90%',
+                                        scrollbar: false,
+                                        content: $('#otherReasonLayer'),
+                                        success: function (layeroEl, index) {
+                                            var _val,
+                                                $yesBtn = $(layeroEl).find('.btn');
+
+                                            $yesBtn.off('click').on('click', function () {
+                                                _val = $.trim($(layeroEl).find('textarea').val())
+
+                                                if (_val === '') {
+                                                    return layer.msg('请填写原因', {icon:2});
+                                                }
+
+                                                otherFlag = true;
+                                                _reason = _val;
+                                                //layer.close(index);
+                                                $subBtn.trigger('click');
+                                            })
+                                        },
+                                        cancel: function () {
+                                            if (!otherFlag) {
+                                                _reason = '';
+                                                $('.refund-cause-layer .i-radio').removeClass('checked');
+                                            }
+                                        }
+                                    })
+                                }
+                            }
+                        })
+
+                        $subBtn.off('click').on('click', function (e) {
+                            if (_reason === '' && !otherFlag) {
+                                return layer.msg('请选择退款原因', {icon:2});
+                            }
+
+                            _A.refundOrdersData({ordersId: ordersId, reason: _reason}, function () {
+                                layer.closeAll();
+                                //$btn.remove();
+                                //redirect_url(location.href);
+                                _this.hideBtn(ev)
+                                layer.msg('申请成功')
+                            });
+
+                            e.stopPropagation();
+                        })
+
+                    },
+                    end: function () {
+                        $('.refund-cause-layer .i-radio').removeClass('checked');
+                    }
+
+                });
+            },
+            // 滚动底部加载
+            loadBottom (id) {
+                let _this = this;
+
+                this.getOrders(true, () => {
+                    // if all data are loaded
+                    _this.allLoaded = true;
+                });
+
+                this.$refs.loadmore.onBottomLoaded(id);
+            }
+        },
+        computed: {
+            ...mapGetters(['config']),
+            isHdfk: function () {
+               // return this.ordersItem.shop.shopTypeId == config.shopTypeId.spws && this.ordersItem.payType === this.HDFK_VAL
+            },
+            query () {
+                return this.$route.query
+            }
+        }
+    }
+</script>
+
+<style lang="" scoped>
+
+</style>
