@@ -50,7 +50,7 @@
                 <!-- Swiper -->
                 <swiper :options="swiperServiceOption" class="swiper-container f12">
 
-                    <swiper-slide v-for="slideMenus in indexData.menu">
+                    <swiper-slide v-for="(slideMenus, index) in indexData.menu" :key="index">
                         <div class="clearfix">
 
                             <a v-for="(menu, index) in slideMenus"

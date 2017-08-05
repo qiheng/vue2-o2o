@@ -41,14 +41,13 @@ const ChestsInfo = r => require.ensure([], () => r(require('@/views/mycenter/che
 const HandilyPhone = r => require.ensure([], () => r(require('@/views/mycenter/chests/handilyPhone')), 'chests'); // 我的-个人中心-便民号码页面
 const RechargePhone = r => require.ensure([], () => r(require('@/views/mycenter/chests/rechargePhone')), 'chests'); // 我的-个人中心-手机充值页面
 
-
-
-
 const Usercenter = r => require.ensure([], () => r(require('@/views/mycenter/userCenter/userCenter')), 'users'); // 我的-个人中心页面
 const UserInfo = r => require.ensure([], () => r(require('@/views/mycenter/userInfo/userInfo')), 'users'); // 我的-个人中心-个人信息页面
 const SetUserName = r => require.ensure([], () => r(require('@/views/mycenter/setUserName/setUserName')), 'users'); // 我的-个人中心-设置用户名页面
 const SetPhone = r => require.ensure([], () => r(require('@/views/mycenter/setPhone/setPhone')), 'users'); // 我的-个人中心-设置手机号码页面
 const changePassword = r => require.ensure([], () => r(require('@/views/mycenter/changePassword/changePassword')), 'users'); // 我的-个人中心-修改密码页面
+
+const OrderList = r => require.ensure([], () => r(require('@/views/mycenter/order/orderList')), 'order'); // 我的-订单列表
 
 const search = r => require.ensure([], () => r(require('@/views/home/search/search')), 'home'); // 首页--搜索跳转页面
 const searchResult = r => require.ensure([], () => r(require('@/views/home/searchResult/searchResult')), 'home'); // 首页--搜索跳转页面
@@ -58,8 +57,6 @@ const WalletDetails = r => require.ensure([], () => r(require('@/views/mycenter/
 
 const MyBankInfo = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/myBankInfo')), 'users'); // 我的-个人中心-银行卡详情
 const BankCardDetail = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/bankCardDetail')), 'users'); // 我的-个人中心-银行卡详情
-
-
 
 
 Vue.use(Router);
@@ -112,7 +109,7 @@ const router = new Router({
         },
         {
             path: '/mycenter',
-            name: 'mycenter',
+            //name: 'mycenter',
             component: Mycenter,
             //meta: { requiresAuth: true },
             children: [{
@@ -124,8 +121,13 @@ const router = new Router({
                 {
                     path: '',
                     name: 'userCenter',
-                    //meta: { requiresAuth: true },
+                    meta: { requiresAuth: true },
                     component: Usercenter
+                },
+                {
+                    path: 'order',
+                    name: 'order',
+                    component: OrderList,
                 },
                 {
                     path: 'userInfo',
@@ -225,7 +227,7 @@ const router = new Router({
                 },
                 {
                     path: 'coupons',
-                    name: 'coupons',
+                    //name: 'coupons',
                     component: Coupons,
                     children: [{
                             path: '',
@@ -241,7 +243,7 @@ const router = new Router({
                 },
                 {
                     path: 'address',
-                    name: 'address',
+                    //name: 'address',
                     component: Address,
                     children: [{
                             path: '',
@@ -257,7 +259,7 @@ const router = new Router({
                 },
                 {
                     path: 'chests',
-                    name: 'chests',
+                    //name: 'chests',
                     component: Chests,
                     children: [{
                             path: '',

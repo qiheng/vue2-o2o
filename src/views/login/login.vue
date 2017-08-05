@@ -28,7 +28,7 @@
             <p class="mt15">
                 <a class="pull-right" href="find-password.html">找回密码</a>
                 <a href="register.html">手机快速注册</a>
-                <a href="javascript:;" @click="logout">退出</a>
+                <!--<a href="javascript:;" @click="logout">退出</a>-->
             </p>
         </div>
         <!-- 第三方登录 -->

@@ -7,19 +7,19 @@ import router from './router'
 import axios from './http'
 import api from './api'
 
+Vue.config.productionTip = false;
+// 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
+Vue.prototype.$axios = axios;
+Vue.prototype.$api = api;
 
 // 组件
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper);
 
-import Notiejs from '@/components/notiejs';
-Vue.use(Notiejs);
-
-Vue.config.productionTip = false;
-
-// 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
-Vue.prototype.$axios = axios;
-Vue.prototype.$api = api;
+//import Loadmore from 'mint-loadmore';
+import 'mint-ui/lib/style.css'
+import { Loadmore } from 'mint-ui';
+Vue.component('loadmore', Loadmore);
 
 // 自定义指令
 import './directives';
@@ -30,8 +30,11 @@ Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
 
 // 自定义组件
 import * as components from './components'
-// console.log('components:',components)
+console.log(components.Empty)
 Object.keys(components).forEach(k => Vue.component(k, components[k]));
+
+import Notiejs from '@/components/notiejs';
+Vue.use(Notiejs);
 
 // 防止刷新用户信息丢失
 if (window.sessionStorage && window.sessionStorage.userInfo) {

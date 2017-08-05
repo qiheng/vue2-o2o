@@ -3,7 +3,7 @@
         <div class="fm-group mt10">
             <div class="fm-line">
                 <label class="l-label">
-                    <img class="block" width="25" height="25" src="images/icons-v3/icons1/img_yhqx.png" alt="" />
+                    <img class="block" width="25" height="25" src="../../../assets/images/icons-v3/icons1/img_yhqx.png" alt="" />
                 </label>
                 <input type="text" name="code" placeholder="请输入优惠券编号" v-model="param.code">
             </div>

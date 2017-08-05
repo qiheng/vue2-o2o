@@ -1,7 +1,7 @@
 <template>
     <div class="pb60">
         <div class="my-center">
-    
+
             <section class="panel-nobrd user-info">
                 <!-- 用户信息 start -->
                 <div class="panel-hd">
@@ -18,7 +18,7 @@
                     <i class="arr-rt"></i>
                 </div>
                 <!-- 用户信息 end -->
-    
+
                 <ul class="mod-box text-center f16 panel-bd">
                     <li class="box-flex">
                         <router-link :to="{name:'myWallet'}">
@@ -42,27 +42,31 @@
                         </router-link>
                     </li>
                 </ul>
-    
+
             </section>
-    
+
             <dl class="panel-nobrd order-handler-panel">
                 <dt class="panel-hd">
                     全部订单
-                    <a href="my-order.html" class="lightgray pull-right">
+                    <router-link :to="{name:'order', query: {type: 0}}" class="lightgray pull-right">
                         <span class="mr25">查看全部订单</span>
                         <i class="arr-rt"></i>
-                    </a>
+                    </router-link>
                 </dt>
                 <dd class="panel-bd">
                     <div class="mod-box text-center f12">
-                        <a :data-count="userInfo.orderCountNotPay > 100 ? '…' : userInfo.orderCountNotPay" href="my-order.html?type=1" class="block box-flex o-dfk">待付款</a>
-                        <a :data-count="userInfo.orderCountNotFinish > 100 ? '…' : userInfo.orderCountNotFinish" href="my-order.html?type=2" class="block box-flex o-dwc">待完成</a>
-                        <a :data-count="userInfo.orderCountNotComment > 100 ? '…' : userInfo.orderCountNotComment" href="my-order.html?type=3" class="block box-flex o-dpj">待评价</a>
-                        <a :data-count="userInfo.orderCountRefund > 100 ? '…' : userInfo.orderCountRefund" href="my-order.html?type=4" class="block box-flex o-tk">退款</a>
+                        <router-link :data-count="userInfo.orderCountNotPay > 100 ? '…' : userInfo.orderCountNotPay"
+                                     :to="{name:'order', query: {type: 1}}" class="block box-flex o-dfk">待付款</router-link>
+                        <router-link :data-count="userInfo.orderCountNotFinish > 100 ? '…' : userInfo.orderCountNotFinish"
+                                     :to="{name:'order', query: {type: 2}}" class="block box-flex o-dwc">待完成</router-link>
+                        <router-link :data-count="userInfo.orderCountNotComment > 100 ? '…' : userInfo.orderCountNotComment"
+                                     :to="{name:'order', query: {type: 3}}" class="block box-flex o-dpj">待评价</router-link>
+                        <router-link :data-count="userInfo.orderCountRefund > 100 ? '…' : userInfo.orderCountRefund"
+                                     :to="{name:'order', query: {type: 4}}" class="block box-flex o-tk">退款</router-link>
                     </div>
                 </dd>
             </dl>
-    
+
             <nav class="panel-nobrd">
                 <router-link class="block panel-chunk" :to="{name:'address'}">
                     <h3 class="icos4 i4-address">收货地址</h3>
@@ -81,13 +85,13 @@
                     <i class="arr-rt"></i>
                 </router-link>
             </nav>
-    
+
             <nav class="panel-nobrd">
                 <a class="block panel-chunk" href="native-benditong.html?shopClassId=29D316360C2120EFE050AA0A1B2B413E">
                     <h3 class="icos4 i4-bdt">本地通</h3>
                     <i class="arr-rt"></i>
                 </a>
-    
+
                 <router-link class="block panel-chunk" :to="{name:'chests'}">
                     <h3 class="icos4 i4-bm">便民服务</h3>
                     <i class="arr-rt"></i>
@@ -115,19 +119,19 @@
                     <i class="arr-rt"></i>
                 </router-link>
             </nav>
-    
+
             <!--<nav class="panel">
                         <a class="block panel-chunk" href="my-order.html">
                             <h3 class="icos4 i4-order">我的订单</h3>
                             <i class="arr-rt"></i>
                         </a>
-        
+
                         <a class="block panel-chunk " href="my-active.html">
                             <h3 class="icos4 i4-active">我的活动</h3>
                             <i class="arr-rt"></i>
                         </a>
-        
-        
+
+
                         <a class="block panel-chunk" href="my-recommend.html">
                             <h3 class="icos4 i4-mytui">推荐朋友</h3>
                             <i class="arr-rt"></i>
@@ -141,7 +145,7 @@
                             <i class="arr-rt"></i>
                         </a>
                     </nav>-->
-    
+
         </div>
         <main-nav :current-nav-index="currentNavIndex"></main-nav>
     </div>

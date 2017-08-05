@@ -5,6 +5,7 @@
 
 import axios from 'axios'
 import router from '@/router'
+import store from '@/store'
 
 // axios 配置
 axios.defaults.timeout = 5000;
@@ -31,11 +32,11 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
         let result = response.data;
+        console.log('===== response success response =====',response);
         console.log('===== response success =====');
-        console.log(response.data);
-        console.log(result.status)
-            // 未登录
+        // 未登录
         if (result.status == -91) {
+            store.dispatch('recordUserInfo', null);
             router.push({
                 path: '/login',
                 query: { redirect: router.currentRoute.fullPath }

@@ -15,37 +15,42 @@
         </template>
         <div class="coupons-list">
             <loading v-show="loading"></loading>
-            <template v-if="couponList.length">
-                <div v-for="(couponItem, index) in couponList" :class="'coupons-option mb10'+(couponItem.status !=1 ? ' coupons-noused' :'')" :key="couponItem.couponId">
-                    <a @click.prevent="isChoose && choose(index)" href="javascript:;" :data-coupon-id="couponItem.couponId">
-                        <div class="coupons-num">
-                            <p class="yh-price mt20">&yen;
-                                <i class="f30">{{ couponItem.sub }}</i>
-                            </p>
-                            <p class="f12">满{{ couponItem.attain }}减{{ couponItem.sub }}</p>
-                        </div>
-                        <div class="bfc-panel coupons-info ">
-                            <h3 class="nowrap">{{ couponItem.name }}</h3>
-                            <p class="nowrap f12 mt5">{{ couponItem.summary }}</p>
-                            <p class="lightgray f12 mt5">有效期：{{ couponItem.etime }}</p>
-                        </div>
-                        <i v-if="couponItem.status == 3" class="i-coupons-used"></i>
-                        <i v-if="couponItem.status == 4" class="i-coupons-end"></i>
-                    </a>
-                </div>
+            <template v-if="!loading">
+                <template v-if="couponList.length">
+                    <div v-for="(couponItem, index) in couponList"
+                         :class="'coupons-option mb10'+(couponItem.status !=1 ? ' coupons-noused' :'')"
+                         :key="couponItem.couponId">
+                        <a @click.prevent="isChoose && choose(index)" href="javascript:;" :data-coupon-id="couponItem.couponId">
+                            <div class="coupons-num">
+                                <p class="yh-price mt20">&yen;
+                                    <i class="f30">{{ couponItem.sub }}</i>
+                                </p>
+                                <p class="f12">满{{ couponItem.attain }}减{{ couponItem.sub }}</p>
+                            </div>
+                            <div class="bfc-panel coupons-info ">
+                                <h3 class="nowrap">{{ couponItem.name }}</h3>
+                                <p class="nowrap f12 mt5">{{ couponItem.summary }}</p>
+                                <p class="lightgray f12 mt5">有效期：{{ couponItem.etime }}</p>
+                            </div>
+                            <i v-if="couponItem.status == 3" class="i-coupons-used"></i>
+                            <i v-if="couponItem.status == 4" class="i-coupons-end"></i>
+                        </a>
+                    </div>
+                </template>
+                <empty v-else :msg="emptyMsg">
+                    <img slot="icon" width="80" src="../../../assets/images/empty/img_wyhq@2x.png" alt="" />
+                    <a slot="button" href="/" class="btn btn-default mt20">返回首页</a>
+                </empty>
             </template>
-            <empty v-else :msg="emptyMsg">
-                <img slot="icon" width="80" src="images/empty/img_wyhq@2x.png" alt="" />
-                <a slot="button" href="/" class="btn btn-default mt20">返回首页</a>
-            </empty>
         </div>
         <a href="my-center.html" class="go-back"></a>
     </div>
-</template> 
+</template>
 <script>
 
 import { mapActions } from 'vuex'
 import qs from 'qs'
+
 export default {
     data() {
         return {
@@ -61,18 +66,20 @@ export default {
             couponList: [],
         }
     },
-    created() {
+    created () {
         this.getCouponList();
     },
     methods: {
-        getCouponList: function () {
+        getCouponList () {
             var _this = this;
+
             _this.loading = true;
             let types = qs.stringify(this.param);
+
             this.$axios.get(this.$api.couponlist + '?' + types)
-                .then(request => {
-                    this.couponlist = request;
-                    this.loading = false;
+                .then(({data, status}) => {
+                    _this.loading = false;
+                    _this.couponList = data;
                 })
         },
         tabmeunFn: function (ev) {

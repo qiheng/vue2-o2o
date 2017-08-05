@@ -1,179 +1,104 @@
 <template>
-    <div class="loadmore" ref="loadmore">
-        <div class="loadmore__body">
-            <slot></slot>
-        </div>
-        <div class="loadmore__footer">
-      <span v-if="loading">
-        <i class="tc-loading"></i>
-        <span>正在加载</span>
-      </span>
-            <span v-else-if="loadable">加载更多</span>
-            <span v-else>没有更多了</span>
-        </div>
+    <div class="example-wrapper" id="example2">
+        <loadmore :top-method="loadTop" @top-status-change="handleTopChange" ref="loadmore">
+            <ul class="example-list">
+                <li v-for="item in list" class="example-listitem">{{ item }}</li>
+            </ul>
+            <!--<div slot="top" class="mint-loadmore-top">-->
+                <!--<span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>-->
+                <!--<span v-show="topStatus === 'loading'">Loading...</span>-->
+            <!--</div>-->
+        </loadmore>
     </div>
 </template>
 
+
 <script>
-    export default {
-        data(){
-            return{
-                type:false
-            }
-        }
+  export default {
+    data() {
+      return {
+        list: [],
+        topStatus: '',
+        wrapperHeight: 0,
+        translate: 0,
+        moveTranslate: 0
+      };
+    },
+
+    methods: {
+      handleTopChange(status) {
+        this.moveTranslate = 1;
+        this.topStatus = status;
+      },
+      translateChange(translate) {
+        const translateNum = +translate;
+        this.translate = translateNum.toFixed(2);
+        this.moveTranslate = (1 + translateNum / 70).toFixed(2);
+      },
+      loadTop() {
+        setTimeout(() => {
+          let firstValue = this.list[0];
+          for (let i = 1; i <= 10; i++) {
+            this.list.unshift(firstValue - i);
+          }
+          this.$refs.loadmore.onTopLoaded();
+        }, 1500);
+      }
+    },
+
+    created() {
+      for (let i = 1; i <= 20; i++) {
+        this.list.push(i);
+      }
     }
+  };
 </script>
-<!--<template>-->
-    <!--<div>-->
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<switch-tpl v-model="value" >-->
 
-        <!--</switch-tpl>-->
-    <!--</div>-->
-<!--</template>-->
-<!--<script>-->
-    <!--export default {-->
-        <!--data(){-->
-            <!--return{-->
-                <!--value: true-->
-            <!--}-->
-        <!--},-->
-        <!--methods: {-->
-            <!--changeFn: function () {-->
-                <!--//this.$emit('change', this.currentValue)-->
-                <!--this.value =  !this.value-->
-            <!--}-->
-        <!--},-->
-        <!--computed: {-->
-<!--//            currentValue: {-->
-<!--//                get: function () {-->
-<!--//                    return this.value-->
-<!--//                },-->
-<!--//                set: function (val) {-->
-<!--//                    this.$emit('input', val)-->
-<!--//                }-->
-<!--//            }-->
-        <!--}-->
-    <!--}-->
-<!--</script>-->
-<!--<template>-->
-    <!--<div>-->
-        <!--<model-layer3-->
-        <!--:tt=tt-->
-        <!--:layerData=layerData-->
-        <!--:province=province-->
-        <!--:city=city-->
-        <!--:area=area-->
-        <!--@onselect = "selectLayerFn"-->
-        <!--@onclose = "closeLayerFn"-->
-        <!-->
-        <!--</model-layer3>-->
-    <!--<input type="text" @click="selectFn"/>-->
-    <!--<input type="hidden" name="province" v-model="province.areaId"/>-->
-    <!--<input type="hidden" name="city" v-model="city.areaId"/>-->
-    <!--<input type="hidden" name="area" v-model="area.areaId" />-->
-<!--</div>-->
-<!--</template>-->
-<!--<script>-->
-    <!--export default {-->
-        <!--data(){-->
-        <!--return {-->
-            <!--tt:10,-->
-            <!--layerData: {-->
-                <!--//required:true,-->
-                <!--type: Object,-->
-                <!--default: {-->
-                    <!--visible: false-->
-                <!--}-->
-            <!--},-->
-            <!--province: {-->
-                <!--type: Object,-->
-                <!--default: function () {-->
-                    <!--return {-->
-                        <!--name: '选择省'-->
-                    <!--}-->
-                <!--}-->
-            <!--},-->
-            <!--city: {-->
-                <!--type: Object,-->
-                <!--default: function () {-->
-                    <!--return {-->
-                        <!--name: '选择市'-->
-                    <!--}-->
-                <!--}-->
-            <!--},-->
-            <!--area: {-->
-                <!--type: Object,-->
-                <!--default: function () {-->
-                    <!--return {-->
-                        <!--name: '选择区/县'-->
-                    <!--}-->
-                <!--}-->
-            <!--},-->
-            <!--layerData: {-->
-                <!--visible: false,-->
-                <!--title:'选择地址'-->
-            <!--},-->
-
-        <!--}-->
-    <!--},-->
-    <!--methods:{-->
-        <!--// 地址选择处理-->
-        <!--selectFn: function (index) {-->
-            <!--this.layerData.visible = !this.layerData.visible;-->
-        <!--},-->
-        <!--selectLayerFn: function (address) {-->
-            <!--var _this = this;-->
-
-            <!--['province', 'city', 'area'].forEach(function (key, index) {-->
-                <!--_this[key] = address[index];-->
-            <!--})-->
-
-            <!--console.log('area:',address);-->
-        <!--},-->
-        <!--closeLayerFn: function () {-->
-            <!--this.layerData.visible = false;-->
-        <!--}-->
-
-    <!--}-->
-<!--}-->
-<!--</script>-->
-
-
-
-
-    <!--<template>-->
-    <!--<div>-->
-    <!--<model-layer1 :layerData="layerData">-->
-
-    <!--</model-layer1>-->
-    <!--</div>-->
-    <!--</template>-->
-
-    <!--<script>-->
-
-    <!--export default {-->
-    <!--data () {-->
-    <!--return {-->
-    <!--layerData: {-->
-    <!--visible: true,-->
-    <!--title:'2121221121212',-->
-    <!--list: [-->
-    <!--{name:'item1'},-->
-    <!--{name:'item2'},-->
-    <!--{name:'item3'},-->
-    <!--{name:'item4'},-->
-    <!--]-->
-    <!--}-->
-
-    <!--}-->
-    <!--}-->
-    <!--}-->
-    <!--</script>-->
-
-
-
+<style media="screen">
+    * {
+        padding: 0;
+        margin: 0;
+        -webkit-user-select: none;
+        -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+    }
+    html, body {
+        height: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+    .example-title {
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 20px;
+        background-color: #dddddd;
+    }
+    .example-list {
+        padding: 4px 4px 0;
+        list-style: none;
+    }
+    .example-listitem {
+        height: 50px;
+        line-height: 50px;
+        border: solid 1px #999;
+        border-radius: 2px;
+        margin-bottom: 4px;
+        text-align: center;
+    }
+    .example-listitem:last-child {
+        margin-bottom: 0;
+    }
+    .example-wrapper {
+        height: 300px;
+        overflow: scroll;
+    }
+    .mint-loadmore-top span {
+        display: inline-block;
+        transition: .2s linear;
+    }
+    .rotate {
+        transform: rotate(180deg);
+    }
+</style>
 
 
 

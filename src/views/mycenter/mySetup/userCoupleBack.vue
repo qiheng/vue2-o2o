@@ -45,7 +45,7 @@
         },
         submitFn: function () {
             let _this = this,
-                    oValChar = {};
+                oValChar = {};
 
             if (this.isDisabled) return;
             this.isDisabled = true;
@@ -66,34 +66,35 @@
                         state: 2,
                         msg: val,
                         end () {
-                        _this.isDisabled = false
-                    }
-                });
-                return false;
-            })
-        };
-        var newVal = qs.stringify(this.params)
-        this.$axios.post(this.$api.opinion,newVal)
-        .then(function ({status, data}) {
-            if(status !=1){
-                _this.$notiejs({
-                    state: 2,
-                    msg: val,
-                    end () {
-                    _this.isDisabled = false
-                    }
+                            _this.isDisabled = false
+                        }
+                    });
+                    return false;
                 })
-            }
-            return false;
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            };
+
+            var newVal = qs.stringify(this.params)
+            this.$axios.post(this.$api.opinion, newVal)
+                .then(function ({status, data}) {
+                    if(status !=1){
+                        _this.$notiejs({
+                            state: 2,
+                            msg: val,
+                            end () {
+                            _this.isDisabled = false
+                            }
+                        })
+                    }
+                    return false;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
     }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
     textarea, input[type] {
         border: 1px solid #e5e5e5;
         border-left: 0;
