@@ -31,8 +31,7 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
 })
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
-  log: () => {},
-  heartbeat: 2000
+  log: () => {}
 })
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
@@ -42,15 +41,13 @@ compiler.plugin('compilation', function (compilation) {
   })
 })
 
-// 接口代理
+// 代理
 proxyTable['/api'] =  {
-  target: 'http://api.o2o.rhy.com', // target host
-  changeOrigin: true,               // needed for virtual hosted sites
-  /*pathRewrite: {
-    '^/api/old-path' : '/api/new-path',     // rewrite path
-    '^/api/remove/path' : '/path'           // remove base path
-  },*/
-  pathRewrite: {'^/api' : '/'}
+    //target: 'http://192.168.10.163', // target host
+    //target: 'http://192.168.10.249:8080', // target host
+    target: 'http://api.o2o.rhy.com', // target host
+    changeOrigin: true,               // needed for virtual hosted sites
+    pathRewrite: {'^/api' : '/'}
 };
 
 // proxy api requests
@@ -87,6 +84,7 @@ console.log('> Starting dev server...')
 devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
   // when env is testing, don't need open it
+
   if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
     opn(uri)
   }

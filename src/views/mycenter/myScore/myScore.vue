@@ -104,7 +104,7 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
     .checkIn-info {
         background: #e62739 url("../../../assets/images/icons-v3/bg_jifen.png") no-repeat 50% 70%;
         background-size: 100%;

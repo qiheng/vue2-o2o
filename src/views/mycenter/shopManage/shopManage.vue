@@ -224,7 +224,7 @@
 //        };
     }
 </script>
-<style scoped lang="scss">
+<style scoped lang="less">
     /* 这块样式还需要后期整理 */
     .shop-manage-enter .list-item {
         padding-top: 15px;

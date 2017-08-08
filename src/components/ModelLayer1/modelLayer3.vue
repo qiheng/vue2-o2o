@@ -148,7 +148,7 @@
                     .then(res => {
                     _this.list = res.data;
                     console.log(res.data,'----------------------------')
-                });
+                })
             },
             // 地址 tab 切换
             tabMeun: function (level) {
@@ -205,6 +205,6 @@
         }
 
 </script>
-<style scoped lang="scss">
+<style scoped lang="">
 
 </style>

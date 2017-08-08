@@ -1,4 +1,4 @@
-# rhy_o2o_wx_vue
+# o2o
 
 > o2o mail
 

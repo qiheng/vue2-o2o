@@ -140,7 +140,7 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .auslese-shopInfo {
         position: absolute; top: 50%; left: 0; width: 100%;
         -webkit-transform: translate(0,-50%);

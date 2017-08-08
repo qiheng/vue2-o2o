@@ -131,7 +131,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .fullPage {
         z-index: 90000;
         background: #f2f2f2;

@@ -94,7 +94,7 @@
     }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
     textarea, input[type] {
         border: 1px solid #e5e5e5;
         border-left: 0;

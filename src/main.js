@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import FastClick from 'fastclick'
 import App from './App'
 import store from './store'
 import router from './router'
@@ -11,6 +12,9 @@ Vue.config.productionTip = false;
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.$axios = axios;
 Vue.prototype.$api = api;
+
+// 移除移动端点击延迟
+FastClick.attach(document.body);
 
 // 组件
 import VueAwesomeSwiper from 'vue-awesome-swiper'
@@ -60,7 +64,7 @@ router.beforeEach((to, form, next) => {
 
 /* eslint-disable no-new */
 new Vue({
-    el: '#app',
+    el: '#app-box',
     router,
     store,
     render: h => h(App)
