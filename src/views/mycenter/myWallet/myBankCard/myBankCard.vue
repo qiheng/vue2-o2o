@@ -19,7 +19,11 @@
         </template>
         <!-- 添加卡 start -->
         <div class="J-pay-pwd mt30">
-            <a @click.prevent="isSetPasswordPay" href="javascript:;" class="btn btn-lg btn-block btn-primary">添加银行卡</a>
+            <!--<router-link @click.prevent="isSetPasswordPay" href="javascript:;" class="btn btn-lg btn-block btn-primary">添加银行卡</router-link>-->
+            <router-link v-if="status==1" :to="{name:'addBankCard'}" class="btn btn-lg btn-block btn-primary">添加银行卡</router-link>
+
+            <router-link v-else :to="{name:'changePassword'}" class="btn btn-lg btn-block btn-primary">添加银行卡</router-link>
+
         </div>
         <!-- 添加卡 end -->
         <router-link :to="{name:'myWallet'}" class="go-back"></router-link>
@@ -36,6 +40,7 @@ export default {
                 mainMsg: '还没有绑定银行卡呢~',
                 subMsg: '绑定后购物更放心'
             },
+            status:'',
             bankcardList: []
         }
     },
@@ -50,7 +55,13 @@ export default {
                 _this.$nextTick(function () {
                     //                        _this.pressToggle($('.my-card-opt'));
                 })
-            })
+            });
+
+        this.$axios.get(this.$api.issetpasswordpay)
+            .then(function(data){
+                _this.status = data.data.isSet;
+                console.log(_this.status,'+++++++++++++++++++++++++++++++++++++++++++++++++++');
+            });
         // .always(function () {
         //                _this.loading = false;
         //            })
@@ -58,17 +69,25 @@ export default {
     methods: {
         // 是否设置了支付密码
         isSetPasswordPay: function () {
+            alert('xxx');
             // 检测回调
-            var cb = function (result) {
-                if (result.isSet === 1) { // 1设置过
-                    redirect_url('/add-bank-card.html');
-                } else { // 0未设置过
-                    redirect_url('change-password.html?type=paypwd');
-                }
-            };
+//            var cb = function (result) {
+//                if (result.isSet === 1) { // 1设置过
+//                    redirect_url('/add-bank-card.html');
+//                } else { // 0未设置过
+//                    redirect_url('change-password.html?type=paypwd');
+//                }
+//            };
 
             // 检测是否设置过支付密码
-            _A.issetpasswordpayData(cb)
+//            _A.issetpasswordpayData(cb)
+//            var _this = this;
+//            this.$axios.get(this.$api.issetpasswordpay)
+//                .then(function(data){
+////                    console.log(data,'+++++++++++++++++++++++++++++++++++++++++++++++++++');
+//                        _this.status = data.isSet;
+//                        console.log(_this.status,'+++++++++++++++++++++++++++++++++++++++++++++++++++');
+//                    });
         },
         // 显示解绑按钮
         pressToggle: function pressToggle($el) {
@@ -86,25 +105,25 @@ export default {
             });
         },
         // 解绑银行卡
-        unbindCard: function (usersBankId, index) {
-            payPwdLayer(function (layero, idx) {
-                var $inpt = $(layero).find('.int-pwd'), _val;
-
-                // 处理密码
-                $inpt.off('keyup').on('keyup', function () {
-                    _val = $.trim($inpt.val());
-
-                    if (/^\d{6}$/.test(_val)) {
-                        _A.getUnsetBankCardData({ usersBankId: usersBankId }, function () {
-                            _this.bankcardList.splice(index, 1);
-                            layer.close(idx);
-                        });
-                    }
-
-                })
-
-            });
-        },
+//        unbindCard: function (usersBankId, index) {
+//            payPwdLayer(function (layero, idx) {
+//                var $inpt = $(layero).find('.int-pwd'), _val;
+//
+//                // 处理密码
+//                $inpt.off('keyup').on('keyup', function () {
+//                    _val = $.trim($inpt.val());
+//
+//                    if (/^\d{6}$/.test(_val)) {
+//                        _A.getUnsetBankCardData({ usersBankId: usersBankId }, function () {
+//                            _this.bankcardList.splice(index, 1);
+//                            layer.close(idx);
+//                        });
+//                    }
+//
+//                })
+//
+//            });
+//        },
         goDetail: function (bankCardDetail) {
             if (!bankCardDetail) return;
             localStorage.setItem('__bankCardDetail', JSON.stringify(bankCardDetail))

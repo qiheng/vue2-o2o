@@ -17,9 +17,9 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper);
 
 //import Loadmore from 'mint-loadmore';
-import 'mint-ui/lib/style.css'
-import { Loadmore } from 'mint-ui';
-Vue.component('loadmore', Loadmore);
+//import 'mint-ui/lib/style.css'
+//import { Loadmore } from 'mint-ui';
+//Vue.component('loadmore', Loadmore);
 
 // 自定义指令
 import './directives';

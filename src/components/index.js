@@ -14,7 +14,7 @@ import ModelLayer3 from './modelLayer1/modelLayer3'
 import ModelLayer4 from './modelLayer1/modelLayer4'
 import plusMinus from './plusMinus/plusMinus'
 import switchTpl from './switchTpl/switchTpl'
-import SelfDiv from './test'
+//import SelfDiv from './test'
 // import CountDown from '../../components/countdown/countdown.vue'
 
 // console.log('CountDown-----',CountDown)
@@ -32,5 +32,5 @@ export {
     ModelLayer4,
     plusMinus,
     switchTpl,
-    SelfDiv
+    //SelfDiv
 }

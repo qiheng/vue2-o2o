@@ -57,6 +57,8 @@ const WalletDetails = r => require.ensure([], () => r(require('@/views/mycenter/
 
 const MyBankInfo = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/myBankInfo')), 'users'); // 我的-个人中心-银行卡详情
 const BankCardDetail = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/bankCardDetail')), 'users'); // 我的-个人中心-银行卡详情
+const addBankCard = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/addBankCard')), 'users'); // 我的-个人中心-添加银行卡
+const withdrawDeposit = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/withdrawDeposit')), 'users'); // 我的-个人中心-提现
 
 
 Vue.use(Router);
@@ -206,10 +208,21 @@ const router = new Router({
                 },
 
                 {
+                    path: '/addBankCard',
+                    name: 'addBankCard',
+                    component: addBankCard
+                },
+                {
                     path: '/walletDetails',
                     name: 'walletDetails',
                     component: WalletDetails
                 },
+                {
+                    path: '/withdrawDeposit',
+                    name: 'withdrawDeposit',
+                    component: withdrawDeposit
+                },
+
                 {
                     path: 'aboutUs',
                     name: 'aboutUs',
@@ -227,7 +240,7 @@ const router = new Router({
                 },
                 {
                     path: 'coupons',
-                    //name: 'coupons',
+                    name: 'coupons',
                     component: Coupons,
                     children: [{
                             path: '',
@@ -243,7 +256,7 @@ const router = new Router({
                 },
                 {
                     path: 'address',
-                    //name: 'address',
+                    name: 'address',
                     component: Address,
                     children: [{
                             path: '',
@@ -259,7 +272,7 @@ const router = new Router({
                 },
                 {
                     path: 'chests',
-                    //name: 'chests',
+                    name: 'chests',
                     component: Chests,
                     children: [{
                             path: '',

@@ -5,12 +5,20 @@
             <!--<span class="white pull-left nowrap" style="max-width: 25%">店铺精选</span>-->
         </slot>
 
-        <a v-if="headType == 'link'" :href="'search.html?t='+searchType" class="bfc-panel">
+        <!--<a v-if="headType == 'link'" :href="'search.html?t='+searchType" class="bfc-panel">-->
+            <!--<i class="btn icos-sprite search-btn pull-right"></i>-->
+            <!--<div class="header-search">-->
+                <!--<p class="search-key lightgray pl10">{{ placeholder }}</p>-->
+            <!--</div>-->
+        <!--</a>-->
+
+        <router-link v-if="headType == 'link'" :to="{name:'search',query:{t:0}}" class="bfc-panel">
             <i class="btn icos-sprite search-btn pull-right"></i>
             <div class="header-search">
                 <p class="search-key lightgray pl10">{{ placeholder }}</p>
             </div>
-        </a>
+        </router-link>
+
         <template v-else>
             <a @click="searchFn(key)" href="javascript:;" class="btn icos-sprite search-btn pull-right"></a>
             <div class="header-search">

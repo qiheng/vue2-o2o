@@ -59,7 +59,6 @@ export default {
         }
     },
     created () {
-
         this.init();
     },
     mounted () {

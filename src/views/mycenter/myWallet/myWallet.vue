@@ -6,7 +6,7 @@
                 <p class="balance">{{mymoney.balance}}</p>
             </div>
         </div>
-    
+
         <div class="panel-nobrd mt20">
             <router-link :to="{name:'myBankCard'}" class="panel-chunk">
                 <img class="pull-left" width="19" height="19" src="../../../assets/images/icons-v3/icons1/icon_yhk.png" alt="" /> &nbsp;&nbsp;银行卡
@@ -19,10 +19,10 @@
                 <i class="arr-rt pos-rt-middle"></i>
             </router-link>
         </div>
-    
+
         <div class="container mt30">
             <a class="btn btn-lg btn-block btn-success" href="wallet-recharge.html?balance=<%- mymoney.balance %>">充值</a>
-            <a class="btn btn-lg btn-block btn-default mt15" href="withdraw-deposit.html">提现</a>
+            <router-link class="btn btn-lg btn-block btn-default mt15" :to="{name:'withdrawDeposit'}">提现</router-link>
         </div>
     </div>
 </template>
