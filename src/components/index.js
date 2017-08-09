@@ -14,6 +14,8 @@ import ModelLayer3 from './modelLayer1/modelLayer3'
 import ModelLayer4 from './modelLayer1/modelLayer4'
 import plusMinus from './plusMinus/plusMinus'
 import switchTpl from './switchTpl/switchTpl'
+import ONavBar from './o-navbar/navbar'
+import OTabItem from './o-tab-item/tab-item'
 //import SelfDiv from './test'
 // import CountDown from '../../components/countdown/countdown.vue'
 
@@ -32,4 +34,6 @@ export {
     ModelLayer4,
     plusMinus,
     switchTpl,
+    OTabItem,
+    ONavBar
 }
