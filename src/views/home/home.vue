@@ -56,11 +56,10 @@
                             <a v-for="(menu, index) in slideMenus"
                                :key="index"
                                :class="{mt10: index >= 4}"
-                               :href="(linkUrl[menu.type] || '') + menu.line + (menu.type == 0 ? '&shopClassName=' + menu.name : '' )">
+                               :href="'#/'+(linkUrl[menu.type] || '') + menu.line + (menu.type == 0 ? '&shopClassName=' + menu.name : '' )">
                                 <img class="radius50" width="48" height="48" :src="menu.pic" :alt="menu.name">
                                 <p class="mt5 nowrap">{{ menu.name }}</p>
                             </a>
-
                         </div>
                     </swiper-slide>
 
@@ -186,11 +185,7 @@
                     '5': 'te',
                     '6': 'zeng'
                 },
-                linkUrl: [
-                    'shop-all-class.html?shopClassId=',
-                    'shop-detail.html?shopId=',
-                    'product-datail.html?goodsId='
-                ],
+                linkUrl: ['service?shopClassId=','shopdetail?shopId=','productdatail?goodsId='],
                 indexData:{
                     geoCode:'',
                     slide:[],

@@ -1894,7 +1894,7 @@ a.panel-chunk {
     float: left;
 }
 .classify-sort-layer {
-    display: none;
+    /*display: none;*/
     position: fixed;
     top: 93px;
     left: 0;
