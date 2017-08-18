@@ -2,7 +2,7 @@
     <div class="mycenter">
         <!--<transition name="slide-left" mode="out-in">-->
         <transition name="router-fade" mode="out-in">
-            <router-view class="child-view1"></router-view>
+            <router-view></router-view>
         </transition>
     </div>
 </template>
@@ -52,6 +52,4 @@
     }
 </script>
 
-<style>
 
-</style>

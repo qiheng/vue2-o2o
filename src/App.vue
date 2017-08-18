@@ -34,6 +34,7 @@
     .child-view {
         position: absolute;
         width: 100%;
+        height: 100%;
         transition: all .5s cubic-bezier(.55,0,.1,1);
     }
 

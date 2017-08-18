@@ -12,6 +12,7 @@
         props: {
             fixed: Boolean,
             type: String,
+            align: String,
             value: {}
         },
         computed: {
@@ -21,7 +22,6 @@
                     {
                         'is-fixed': this.fixed,
                     },
-
                 ]
             }
         }

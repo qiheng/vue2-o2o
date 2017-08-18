@@ -7,6 +7,7 @@ import store from './store'
 import router from './router'
 import axios from './http'
 import api from './api'
+import { Loading, ConfirmPlugin, AlertPlugin, LoadingPlugin, ToastPlugin } from 'vux'
 
 Vue.config.productionTip = false;
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
@@ -16,9 +17,18 @@ Vue.prototype.$api = api;
 // 移除移动端点击延迟
 FastClick.attach(document.body);
 
+// plugin
+[ConfirmPlugin, AlertPlugin, LoadingPlugin, ToastPlugin].forEach(item => {
+    Vue.use(item)
+})
+
 // 组件
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper);
+
+// https://github.com/wangdahoo/vue-scroller
+import VueScroller from 'vue-scroller'
+Vue.use(VueScroller)
 
 //import Loadmore from 'mint-loadmore';
 //import 'mint-ui/lib/style.css'
@@ -34,8 +44,9 @@ Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
 
 // 自定义组件
 import * as components from './components'
-console.log(components.Empty)
 Object.keys(components).forEach(k => Vue.component(k, components[k]));
+
+Vue.component('x-loading', Loading);
 
 import Notiejs from '@/components/notiejs';
 Vue.use(Notiejs);

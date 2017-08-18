@@ -10,12 +10,13 @@
         </div>
 
         <div class="order-list">
-            <loading v-show="loading"></loading>
+            <!--<loading v-show="loading"></loading>-->
 
             <template v-if="!loading">
                 <template v-if="ordersList.length">
-                    <loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
-                        <div v-for="(ordersItem, index) in ordersList" class="panel sure-order-list">
+                    <scroller ref="loadmore"
+                              :on-infinite="infinite">
+                    <div v-for="(ordersItem, index) in ordersList" class="panel sure-order-list">
                         <div class="panel-hd">
                             <div class="pull-left">
                                 <img class="pull-left mr5 mt3 radius50" width="30" height="30"
@@ -103,7 +104,8 @@
                             </div>
                         </div>
                     </div>
-                    </loadmore>
+
+                    </scroller>
                 </template>
 
                 <empty v-else :msg="emptyMsg">
@@ -154,6 +156,7 @@
                 currentNavIndex:3,
                 _loadMore: null,
                 loading: true,
+                timeId: null,
                 allLoaded: false,
                 tabmeuns: ['全部', '待付款', '待完成', '待评价', '退款'],
                 emptyMsg: {
@@ -164,11 +167,12 @@
                     page: 1,
                     type: 0
                 },
+                noData: false,
                 ordersList: [],
                 reasonList: []
             }
         },
-        created: function () {
+        created () {
             var _this = this;
 
             this.params.type = this.query.type || 0;
@@ -178,10 +182,12 @@
 //			_A.getRefundreasonData(function (reasonList) {
 //				_this.reasonList = reasonList
 //			});
+
+
         },
         methods: {
-            getOrders: function (bConcat, cb) {
-                var _this = this;
+            getOrders (bConcat, cb) {
+                //var _this = this;
 
                 if ($.isFunction(bConcat)) {
                     cb = bConcat;
@@ -190,71 +196,103 @@
 
                 !bConcat  ? (this.loading = true) : '';
 
-                _this.$axios.post(this.$api.eOrderslist, $.param(this.params))
+                this.$axios.post(this.$api.eOrderslist, $.param(this.params))
                     .then(({data, status}) => {
                         let ordersList = data;
 
-                        _this.loading = false;
+                        this.loading = false;
+
+                        // 返回空列表，表示无数据
+                        if (!ordersList.length) {
+                            this.noData = true
+                        }
 
                         // 合并
                         if (bConcat) {
-                            _this.ordersList = _this.ordersList.concat(ordersList)
+                            this.ordersList = this.ordersList.concat(ordersList)
                         } else {
-                            _this.ordersList = ordersList
+                            this.ordersList = ordersList
                         }
 
-                        _this.$nextTick(function () {
+                        this.$nextTick(function () {
                             cb && cb(ordersList)
                         })
                     })
             },
-            tabNav: function (index) {
+            // 下拉更新
+//            refresh (done) {
+//                setTimeout(() => {
+//                    done();
+//                },1500)
+//            },
+            // 上拉加载更多
+            infinite (done) {
+
+                clearTimeout(this.timeId);
+
+                if (this.noData) {
+                    setTimeout(() => {
+                        console.log('come over')
+                        done(true)
+                    }, 500)
+                   return;
+                }
+
+                this.timeId = setTimeout(() => {
+                    this.params.page++;
+
+                    this.getOrders(true, () => {
+                        done()
+                    })
+
+                }, 1500)
+
+            },
+            tabNav (index) {
+
                 this.params.type = index;
                 this.params.page = 1;
+                this.noData = false;
                 //this._loadMore = null;
 
                 this.getOrders();
             },
-            hideBtn: function (ev) {
+            hideBtn (ev) {
                 ev.target.style.display = 'none'
             },
             // 取消订单
-            cancel: function (ordersId, ev, idx) {
+            cancel (ordersId, ev, idx) {
                 var _this = this;
 
-                layer.open({
-                    title: '温馨提示',
-                    shift: 1,
+                this.$vux.confirm.show({
+                    title:'温馨提示',
                     content:'您确定要取消订单吗？',
-                    btn: ['确定', '取消'],
-                    yes: function (index, layerEl) {
-                        layer.close(index);
+                    onCancel () {
 
-                        // 提交取消处理
-                        _A.cancelOrdersData({ordersId: ordersId}, function () {
-
-                            layer.msg('取消成功',{shift: 1}, function () {
-
-                                if (_this.param.type == 0) {
-                                    // tab:全部，重新获取数据
-                                    _this.param.page = 1;
-                                    _this.getOrders();
-                                } else {
-                                    // 其它移除
-                                    _this.ordersList.splice(idx, 1);
-                                }
-
-                            });
-
-                        })
                     },
-                    cancel: function () {
-                        //$btn.removeClass('disabled');
+                    onConfirm () {
+                        _this.$axios.post(_this.$api.cancelorders, $.param({ordersId: ordersId}))
+                            .then(({data, status}) => {
+                            _this.$vux.toast.show({
+                                    text: '取消成功',
+                                    onHide () {
+                                        if (_this.params.type == 0) {
+                                            // tab:全部，重新获取数据
+                                            _this.params.page = 1;
+                                            _this.getOrders();
+                                        } else {
+                                            // 其它移除
+                                            _this.ordersList.splice(idx, 1);
+                                        }
+                                    }
+                                })
+                            })
                     }
-                });
+                })
+
             },
             // 确认订单
-            sure: function (ordersId, ev, idx) {
+            sure (ordersId, ev, idx) {
                 var _this = this,
                     dataset = ev.target.dataset;
 
@@ -262,20 +300,24 @@
                 dataset.isDisabled = true;
 
                 // 提交确认服务处理
-                _A.confirmOrdersData({ordersId: ordersId}, function () {
-                    //$btn.remove();
-                    //redirect_url(location.href);
-                    //_this.hideBtn(ev)
-                    layer.msg('确认成功',{shift: 1}, function () {
-                        //_this.ordersList.splice(idx, 1);
-                        redirect_url(location.href);
+                this.$axios.post(this.$api.confirmorders, $.param({ordersId: ordersId}))
+                    .then((data, status) => {
+
+                        this.$vux.confirm.show({
+                            title:'温馨提示',
+                            content:'确认成功',
+                            onCancel () {
+                                dataset.isDisabled = false;
+                            },
+                            onConfirm () {
+                                this.$router.go(0)
+                            }
+                        })
+
                     })
-                }).fail(function () {
-                    dataset.isDisabled = false;
-                })
             },
             // 退款
-            refund: function (ordersId, ev) {
+            refund (ordersId, ev) {
                 var _this = this,
                     dataset = ev.target.dataset;
 
@@ -383,6 +425,24 @@
     }
 </script>
 
-<style lang="" scoped>
+<style lang="less">
+    .order-detail {
+        padding-bottom: 0;
+        padding-top: 40px;
+        height: 100%;
 
+        .my-tab-order {
+            position: absolute;
+            top:0;
+            width: 100%;
+            z-index: 5;
+        }
+
+        .order-list {
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+        }
+
+    }
 </style>
