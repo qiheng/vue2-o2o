@@ -16,7 +16,7 @@ Vue.prototype.$api = api;
 
 // 移除移动端点击延迟
 FastClick.attach(document.body);
-
+console.log('change')
 // plugin
 [ConfirmPlugin, AlertPlugin, LoadingPlugin, ToastPlugin].forEach(item => {
     Vue.use(item)
