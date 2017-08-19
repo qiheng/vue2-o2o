@@ -1,32 +1,86 @@
 <template>
     <!-- 积分记录 start -->
     <div class="score-record">
-        <div class="panel">
-            <!-- 数据区 -->
-            <div class="f16 panel-chunk" v-for="(scoreRe,index) in record">
-                <h3>{{scoreRe.summary}}</h3>
-                <p class="f14 lightgray mt5">{{scoreRe.ctime}}</p>
-                <ins class="pos-rt-middle limegreen">{{scoreRe.change}}</ins>
+        <scroller
+            :on-infinite="infinite">
+            <div class="panel">
+                <!-- 数据区 -->
+                <div class="f16 panel-chunk" v-for="(scoreRe,index) in ordersList">
+                    <h3>{{scoreRe.summary}}</h3>
+                    <p class="f14 lightgray mt5">{{scoreRe.ctime}}</p>
+                    <ins class="pos-rt-middle limegreen">{{scoreRe.change}}</ins>
+                </div>
             </div>
-        </div>
+        </scroller>
     </div>
 </template>
 <script>
+    import {mapGetters} from 'vuex'
     export default {
         data(){
             return{
-                record:[],
+                ordersList:[],
+                loading: true,
+                noData: false,
+                recordLeg:'',
+                params: {
+                    page: 1
+                },
             }
         },
     // 页面初始化
         created:function(){
-            var _this = this;
-            this.$axios.get(this.$api.scorelog)
-            .then(function(data,status){
-                 _this.record = data.data;
-                 console.log(data.summary,'21221332132132');
-                 console.log(_this.record,'+++++++++++++++++++++++++++');
-            })
+            this.scoreLog();
+        },
+        methods:{
+            scoreLog (bConcat, cb) {
+                var _this = this;
+
+                if ($.isFunction(bConcat)) {
+                    cb = bConcat;
+                    bConcat = null;
+                }
+                !bConcat  ? (this.loading = true) : '';
+
+                this.$axios.post(this.$api.scorelog,$.param(this.params))
+                    .then(({data, status}) => {
+                        let ordersList = data;
+                        this.loading = false;
+                        // 返回空列表，表示无数据
+                        if (!ordersList.length) {
+                            this.noData = true
+                        }
+
+                        // 合并
+                        if (bConcat) {
+                            this.ordersList = this.ordersList.concat(ordersList)
+                        } else {
+                            this.ordersList = ordersList
+                        }
+
+                        this.$nextTick(function () {
+                            cb && cb(ordersList)
+                        })
+                    })
+            },
+            infinite (done) {
+                clearTimeout(this.timeId);
+                if (this.noData) {
+                    setTimeout(() => {
+                        console.log('come over')
+                        done(true)
+                    }, 500)
+                    return;
+                }
+                this.timeId = setTimeout(() => {
+                    this.params.page++;
+
+                    this.scoreLog(true, () => {
+                        done()
+                    })
+
+                }, 1500)
+            },
         }
     }
 </script>
