@@ -21,7 +21,7 @@
         </div>
 
         <div class="container mt30">
-            <a class="btn btn-lg btn-block btn-success" href="wallet-recharge.html?balance=<%- mymoney.balance %>">充值</a>
+            <router-link class="btn btn-lg btn-block btn-success" :to="{name:'walletRecharge'}">充值</router-link>
             <router-link class="btn btn-lg btn-block btn-default mt15" :to="{name:'withdrawDeposit'}">提现</router-link>
         </div>
     </div>
