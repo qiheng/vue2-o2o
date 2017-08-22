@@ -66,11 +66,18 @@
                                     <template v-if="ordersItem.statusOrder == 1 || ordersItem.statusOrder == 2">
                                         <!--<a class="btn btn-default" :href="'tel:'+ordersItem.shop.phone">催单</a>-->
                                         <!--<a @click.prevent="refund(ordersItem.ordersId, $event)" class="J-refund btn btn-primary" href="javascript:;">申请退款</a>-->
-                                        <a class="J-refund btn btn-primary" :href="'refund-reason.html?ordersId='+ordersItem.ordersId + '&priceCount=' + ordersItem.priceCount">申请退款</a>
+
+                                        <router-link class="J-refund btn btn-primary" :to="{name:'refundReason',query:{'ordersId':ordersItem.ordersId,'priceCount':ordersItem.priceCount}}">申请退款22</router-link>
                                     </template>
                                     <template v-if="ordersItem.statusOrder == 3 || ordersItem.statusOrder == 4">
                                         <!--<a class="btn btn-default" :href="'tel:'+ordersItem.shop.phone">催单</a>-->
-                                        <a v-if="!(ordersItem.shop.shopTypeId == config.shopTypeId.spws && ordersItem.payType === HDFK_VAL)" class="J-refund btn btn-default" :href="'refund-reason.html?ordersId='+ordersItem.ordersId + '&priceCount=' + ordersItem.priceCount">申请退款</a>
+                                        <!--<a v-if="!(ordersItem.shop.shopTypeId == config.shopTypeId.spws && ordersItem.payType === HDFK_VAL)" class="J-refund btn btn-default" :href="'refund-reason.html?ordersId='+ordersItem.ordersId + '&priceCount=' + ordersItem.priceCount">申请退款</a>-->
+
+
+                                        <!--<router-link class="mr15" :to="{name:'editAddress', query: {type:'edit',userAddressId : addressItem.userAddressId} }"></router-link>-->
+
+                                        <router-link v-if="!(ordersItem.shop.shopTypeId == config.shopTypeId.spws && ordersItem.payType === HDFK_VAL)" class="J-refund btn btn-default" :to="{name:'refundReason',query:{'ordersId':ordersItem.ordersId,'priceCount':ordersItem.priceCount}}">申请退款</router-link>
+
                                         <a @click.prevent="sure(ordersItem.ordersId, $event, index)" class="J-sure btn btn-primary" href="javascript:;">确认订单</a>
                                     </template>
                                     <!--<template v-if="ordersItem.statusOrder == 7">
