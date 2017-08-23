@@ -52,6 +52,7 @@ const OrderList = r => require.ensure([], () => r(require('@/views/mycenter/orde
 const search = r => require.ensure([], () => r(require('@/views/home/search/search')), 'home'); // 首页--搜索跳转页面
 const searchResult = r => require.ensure([], () => r(require('@/views/home/searchResult/searchResult')), 'home'); // 首页--搜索跳转页面
 const service = r => require.ensure([], () => r(require('@/views/home/service/service')), 'home'); // 首页--服务
+const shopdetail = r => require.ensure([], () => r(require('@/views/home/shopdetail/shopdetail')), 'home'); // 首页--店铺详情
 const myWallet = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myWallet')), 'users'); // 我的-个人中心-余额
 const myBankCard = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/myBankCard')), 'users'); // 我的-个人中心-银行卡
 const WalletDetails = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/walletDetails')), 'users'); // 我的-个人中心-钱包明细
@@ -79,6 +80,11 @@ const router = new Router({
             path: '/service',
             name: 'service',
             component: service
+        },
+        {
+            path: '/shopdetail',
+            name: 'shopdetail',
+            component: shopdetail
         },
         {
             path: '/searchResult',
