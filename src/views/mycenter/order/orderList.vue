@@ -432,7 +432,7 @@
     }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     .order-detail {
         padding-bottom: 0;
         padding-top: 40px;

@@ -28,7 +28,7 @@
             <p class="mt15">
                 <a class="pull-right" href="find-password.html">找回密码</a>
                 <a href="register.html">手机快速注册</a>
-                <!--<a href="javascript:;" @click="logout">退出</a>-->
+                <a href="javascript:;" @click="logout">退出</a>
             </p>
         </div>
         <!-- 第三方登录 -->
@@ -88,9 +88,13 @@ export default {
 
             // 登录后跳转回来源页面
             if (_this.$route.query.redirect) {
-                _this.$router.replace(_this.$route.query.redirect)
+                console.log('url1==',_this.$route.query.redirect)
+                _this.$router.replace({
+                    path: _this.$route.query.redirect
+                })
             } else {
                 //_this.$router.go(-1);
+                console.log('url2')
                 _this.$router.replace({
                     path: '/'
                 })
@@ -146,7 +150,7 @@ export default {
             }
 
             this.$axios.post(this.$api.login, $.param(this.params))
-                .then(({status, data}) => {
+                .then(({status, data, msg}) => {
 
                     if (data.status == 1) {
 //                        console.log('_this.$router:',_this.$router)
@@ -162,14 +166,14 @@ export default {
                         _this.forward();
 
                     } else if (status == -90) {
-                        alert(data.msg);
+                        alert(msg);
                         _this.forward();
                     } else {
 
                         // todo
                         _this.$notiejs.top({
                             state: 2,
-                            msg: data.msg,
+                            msg: msg,
                             end () {
                                 _this.isDisabled = false
                             }

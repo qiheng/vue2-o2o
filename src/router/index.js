@@ -62,6 +62,8 @@ const BankCardDetail = r => require.ensure([], () => r(require('@/views/mycenter
 const addBankCard = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/addBankCard')), 'users'); // 我的-个人中心-添加银行卡
 const withdrawDeposit = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/withdrawDeposit')), 'users'); // 我的-个人中心-提现
 
+const ChooseCity = r => require.ensure([], () => r(require('@/views/chooseCity/choose-city')), 'home'); // 选择地区
+
 
 Vue.use(Router);
 
@@ -75,6 +77,11 @@ const router = new Router({
             path: '/search',
             name: 'search',
             component: search
+        },
+        {
+            path: '/chooseCity',
+            name: 'chooseCity',
+            component: ChooseCity
         },
         {
             path: '/service',

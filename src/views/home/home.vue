@@ -6,9 +6,9 @@
             :headType="'link'"
             :posModel="'fixed'"
             v-nav-slide-changecolor:#e62739>
-            <a slot="headTxt"
-               :href="'choose-city.html?currentCity='+indexData.geoCode"
-               class="J-chose-city-toggle1 select-place pull-left">{{ indexData.geoCode }}</a>
+            <router-link slot="headTxt"
+               :to="{name:'chooseCity', query: {currentCity: indexData.geoCode}}"
+               class="J-chose-city-toggle1 select-place pull-left">{{ indexData.geoCode }}</router-link>
         </header-top>
         <!-- 导顶部导航 end -->
 
@@ -228,8 +228,15 @@
         },
         mounted: function () {
             let _this = this;
+
             console.log('userInfo:',this.userInfo)
+
             // 获取首页数据
+            if (this.query.longitude != null) {
+                for (let key in this.params) {
+                    this.params[key] = this.query[key]
+                }
+            }
 
             this.$axios.get(this.$api.index, {params:this.params}).then(({data, status}) => {
 
@@ -272,6 +279,9 @@
             }
         },
         computed: {
+            query () {
+                return this.$route.query
+            },
             ...mapGetters(['userInfo', 'config'])
         }
 
