@@ -49,4 +49,14 @@
         transform: translate(-30px, 0);
     }
 
+    .viewbox-container, .viewbox {
+        height: 100%;
+        overflow:hidden;
+    }
+
+    .viewbox {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
 </style>

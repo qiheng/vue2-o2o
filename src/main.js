@@ -1,5 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+
 import Vue from 'vue'
 import FastClick from 'fastclick'
 import App from './App'
@@ -46,7 +47,7 @@ Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
 import * as components from './components'
 Object.keys(components).forEach(k => Vue.component(k, components[k]));
 
-Vue.component('x-loading', Loading);
+// Vue.component('x-loading', Loading);
 
 import Notiejs from '@/components/notiejs';
 Vue.use(Notiejs);

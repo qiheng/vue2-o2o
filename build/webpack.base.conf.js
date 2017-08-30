@@ -27,7 +27,8 @@ let webpackConfig = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src')
+      '@': resolve('src'),
+      'jquery': 'jquery'
     }
   },
   module: {
@@ -73,8 +74,10 @@ let webpackConfig = {
   // 增加一个plugins
   plugins: [
     new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
+        $: 'jquery',
+        jQuery: 'jquery',
+        jquery: 'jquery',
+        'window.jQuery': 'jquery'
     })
   ]
 }

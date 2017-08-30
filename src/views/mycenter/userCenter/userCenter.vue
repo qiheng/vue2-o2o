@@ -1,6 +1,6 @@
 <template>
-    <div class="pb60">
-        <div class="my-center">
+    <div class="viewbox-container ">
+        <div class="viewbox pb60 my-center">
 
             <section class="panel-nobrd user-info">
                 <!-- 用户信息 start -->

@@ -1,6 +1,6 @@
 <template>
-    <div class="pb60">
-        <div class="classify-panel">
+    <div class="viewbox-container">
+        <div class="viewbox classify-panel pb60">
             <div v-for="(list, index) in categoryList" :key="index" :data-i="index" class="classify-item" v-if="list.shopCategoryList">
                 <div class="classify-hd">
                     <img class="pull-left radius50 mr5" width="20" height="20" :src="list.pic+'?x-oss-process=image/resize,m_fixed,h_40,w_40'" :alt="list.name"/>

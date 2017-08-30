@@ -1,5 +1,5 @@
 <template>
-    <div class="mycenter">
+    <div>
         <!--<transition name="slide-left" mode="out-in">-->
         <transition name="router-fade" mode="out-in">
             <router-view></router-view>
