@@ -81,15 +81,64 @@
                             距离结束时间
                             <count-down @end-time="endTime" :times="120" :format="1"></count-down>
                         </div>
+
+                    </swiper-slide>
+
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"  slot="pagination"></div>
+                </swiper>
+            </div>
+        </div>
+        <!-- 服务类别 end -->
+
+        <!--<a class="block flashSale-panel" href="sales-promotion.html?salesType=1&amp;salesId=3db0e8068a414972bd41d8d8697b0d5c">-->
+            <!--<div class="clearfix flashSale-hd">-->
+                <!--<img class="flashSale-xsqg" width="120" src="../../assets/images/index/flash-sale.png" alt="">-->
+                <!--<div class="bfc-panel">-->
+                    <!--<h2 class="f18 dib icon-go">-->
+                        <!--春季大酬宾-->
+                    <!--</h2>-->
+                    <!--<div class="flashSale-dwtime" data-time="260942.144" data-format="1">-->
+                        <!--距离结束时间-->
+                        <!--<count-down @end-time="endTime" :times="120" :format="1"></count-down>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="flashSale-img">-->
+                <!--<img class="img-responsive" src="http://rhytcsht.img-cn-shenzhen.aliyuncs.com/upload/201704/14/14921508961554984.jpg?x-oss-process=image/resize,m_fixed,h_720,w_300" alt="">-->
+            <!--</div>-->
+        <!--</a>-->
+
+        <router-link class="block flashSale-panel" :to="{name:'salesPromotion'}">
+            <div class="clearfix flashSale-hd">
+                <img class="flashSale-xsqg" width="120" src="../../assets/images/index/flash-sale.png" alt="">
+                <div class="bfc-panel">
+                    <h2 class="f18 dib icon-go">
+                        春季大酬宾
+                    </h2>
+                    <div class="flashSale-dwtime" data-time="260942.144" data-format="1">
+                        距离结束时间
+                        <count-down @end-time="endTime" :times="120" :format="1"></count-down>
+
                     </div>
                 </div>
+
+            </div>
+            <div class="flashSale-img">
+                <img class="img-responsive" src="http://rhytcsht.img-cn-shenzhen.aliyuncs.com/upload/201704/14/14921508961554984.jpg?x-oss-process=image/resize,m_fixed,h_720,w_300" alt="">
+            </div>
+        </router-link>
+
                 <div class="flashSale-img">
                     <img class="img-responsive" src="http://rhytcsht.img-cn-shenzhen.aliyuncs.com/upload/201704/14/14921508961554984.jpg?x-oss-process=image/resize,m_fixed,h_720,w_300" alt="">
                 </div>
             </a>
 
 
+        <div class="panel clearfix home-promotion-panel">
+
             <div class="panel clearfix home-promotion-panel">
+
 
                 <a class="pull-left" href="sales-promotion.html?salesType=2&amp;salesId=5f9b0356a5ee4f96ab71c5666cf39123">
                     <div class="home-promotion-hd">
@@ -347,8 +396,8 @@
 
 </script>
 
-
 <style scoped>
-
-
+    .home-promotion-panel{
+        margin-bottom: 55px;
+    }
 </style>
