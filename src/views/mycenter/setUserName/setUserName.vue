@@ -11,85 +11,86 @@
         <div class="container mt30">
             <input @click.prevent="submitFn" type="submit" value="保存" class="btn btn-block btn-lg btn-primary" :class="{disabled: isDisabled}" />
         </div>
-
-        <div v-show="show6">
-            <toast v-model="show6" type="text" width="20em">{{'昵称不能为空或者跟修改前一致'}}</toast>
-        </div>
-
+        <toast v-model="show6" type="text" width="20em" position="middle">{{text}}</toast>
     </form>
+
     <!-- 表单 end -->
 </template>
 
 <script>
-    import { Toast, Group, XSwitch, XButton } from 'vux'
-    import {mapActions} from 'vuex'
-    import qs from 'qs'
-    import validator from '@/assets/js/validator'
+import { Toast, Group, XSwitch, XButton } from 'vux'
+import { mapActions } from 'vuex'
+import qs from 'qs'
+import validator from '@/assets/js/validator'
 
-    export default {
-        components: {
-            Toast,
-            Group,
-            XSwitch,
-            XButton
-        },
-        data () {
-            return {
-                isDisabled: false,
-                show6: false,
-                params: {
-                    username: ''
-                }
+export default {
+    components: {
+        Toast,
+        Group,
+        XSwitch,
+        XButton
+    },
+    data() {
+        return {
+            isDisabled: false,
+            show6: false,
+            text: '',
+            params: {
+                username: ''
             }
-        },
-        created: function () {
-            const query = this.query;
+        }
+    },
+    created: function() {
+        const query = this.query;
 
-            // 初始化
-            if (this.query.username) {
-                this.params.username = query.username;
-            }
+        // 初始化
+        if (this.query.username) {
+            this.params.username = query.username;
+        }
 
-            //console.log('$store----', this.$store)
-        },
-        methods: {
-            ...mapActions(['updateUserName']),
-            submitFn () {
-                var _this = this;
-                console.log(_this.$,'------------------------------------------------------')
-                var {params, query} = this;
+        //console.log('$store----', this.$store)
+    },
+    methods: {
+        ...mapActions(['updateUserName']),
+        submitFn() {
+            var _this = this;
+            console.log(_this.$, '------------------------------------------------------')
+            var { params, query } = this;
 
-                if (_this.isDisabled) return;
-                _this.isDisabled = true;
+            if (_this.isDisabled) return;
+            _this.isDisabled = true;
 
-                if (params.username === '' || params.username === query.username) {
-//                    alert('昵称不能为空或者跟修改前一致');
-                    _this.show6 = true;
+            if (params.username === '' || params.username === query.username) {
+                this.text = '昵称不能为空或者跟修改前一致'
+                _this.show6 = true;
+                _this.isDisabled = false;
+                return;
+                /*return notiejs.alert(2, '昵称不能为空或者跟修改前一致', 2000, function () {
                     _this.isDisabled = false;
-                    return;
+                });*/
 
-                    /*return notiejs.alert(2, '昵称不能为空或者跟修改前一致', 2000, function () {
-                        _this.isDisabled = false;
-                    });*/
-
-                }
-                var username = qs.stringify(params)
-                console.log(username)
-                // 修改用户昵称
-                _this.$axios.post(this.$api.changeusername,username)
-                .then(({status, data}) => {
+            }
+            var username = qs.stringify(params)
+            console.log(username)
+            // 修改用户昵称
+            _this.$axios.post(this.$api.changeusername, username)
+                .then(({ status, data }) => {
                     console.log('修改该昵称:', data);
-
-                    if (data.status === 1) {
-                        alert('修改成功');
+                    if (status === 1) {
+                        this.text = '昵称修改成功'
+                        this.show6 = true;
                         _this.updateUserName(params.username)
-                        _this.$router.back();
+                        this.$vux.toast.show({
+                            onHide(){
+                                _this.$router.back();
+                            }    
+                        })
                     } else {
                         _this.isDisabled = false;
                     }
 
                 })
-                .then(({status, data}) => {
+                .then(({ status, data }) => {
                     //console.log('data----------',data)
                     alert(11111)
                 })
@@ -98,24 +99,24 @@
                 })
 
 
-                /*_this.api.changeusername({username: _this.username}, function() {
+            /*_this.api.changeusername({username: _this.username}, function() {
 
-                    _theuser.username = _this.username;
-                    store.set('__theuser', _theuser);
+                _theuser.username = _this.username;
+                store.set('__theuser', _theuser);
 
-                    redirect_url(forward())
-                }).always(function () {
-                    _this.isDisabled = false;
-                });*/
+                redirect_url(forward())
+            }).always(function () {
+                _this.isDisabled = false;
+            });*/
 
-            }
-        },
-        computed: {
-            query () {
-                return this.$route.query;
-            }
+        }
+    },
+    computed: {
+        query() {
+            return this.$route.query;
         }
     }
+}
 </script>
 
 <style>
