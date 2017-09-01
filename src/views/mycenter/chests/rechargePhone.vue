@@ -7,38 +7,11 @@
         <dl class="deno-chose">
             <dt>请选择充值面额</dt>
             <dd>
-                <ul class="list-fl">
-                    <li>
-                        <label>
-                            <input type="radio" id="one" value="10" v-model="cardnum" checked>
-                            <span>10元</span>
-                        </label>
-                        <label>
-                            <input type="radio" id="one" value="50" v-model="cardnum">
-                            <span>50元</span>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="radio" id="one" value="20" v-model="cardnum">
-                            <span>20元</span>
-                        </label>
-                        <label>
-                            <input type="radio" id="one" value="100" v-model="cardnum">
-                            <span>100元</span>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="radio" id="one" value="30" v-model="cardnum">
-                            <span>30元</span>
-                        </label>
-                        <label>
-                            <input type="radio" id="one" value="300" v-model="cardnum">
-                            <span>300元</span>
-                        </label>
-                    </li>
-                </ul>
+                <div class="list-fl">
+                    <label v-for="(item,index) in moneys" :key="index" :class="{'active':item.checked}" @click="changeFn(index,item)">
+                        <span>{{item.value}}元</span>
+                    </label>
+                </div>
             </dd>
             <dd class="text-right">
                 <span class="f16 emb-red">售价：&yen;
@@ -47,7 +20,7 @@
             </dd>
         </dl>
         <div class="mt30">
-            <input type="submit" @click.prevent="submitFn" class="btn btn-block btn-primary btn-lg" value="立即充值" :class="{disabled: isDisabled}"/>
+            <input type="submit" @click.prevent="submitFn" class="btn btn-block btn-primary btn-lg" value="立即充值" :class="{disabled: isDisabled}" />
         </div>
         <div class="lightgray mt15">
             <h3>温馨提示：</h3>
@@ -57,7 +30,6 @@
             </ol>
         </div>
     </div>
-    
 </template>
 <script>
 import validator from '@/assets/js/validator'
@@ -65,7 +37,15 @@ import qs from 'qs'
 export default {
     data() {
         return {
-            content:'',
+            moneys: [
+                { value: 10, checked: true },
+                { value: 20, checked: false },
+                { value: 30, checked: false },
+                { value: 50, checked: false },
+                { value: 100, checked: false },
+                { value: 300, checked: false }
+            ],
+            content: '',
             phoneno: '',
             cardnum: 10,
             isDisabled: false,
@@ -79,6 +59,13 @@ export default {
             validator.config = {
                 phoneno: [{ strategy: 'isNonEmpty', errorMsg: '请输入手机号码！' }, { strategy: 'isMobile' }],
             }
+        },
+        changeFn(index, item) {
+            for (let key of this.moneys) {
+                key.checked = false
+            }
+            this.moneys[index].checked = true;
+            this.cardnum = item.value
         },
         submitFn() {
             let _this = this,
@@ -109,7 +96,7 @@ export default {
                         _this.$notiejs({
                             state: 2,
                             msg: request.msg,
-                             end() {
+                            end() {
                                 _this.isDisabled = false
                             }
                         });
@@ -139,13 +126,16 @@ body {
 .deno-chose .list-fl label:first-child {
     margin-bottom: 20px;
 }
-
+.deno-chose .list-fl label:nth-child(3n-1){
+    margin: 0 18px 
+}
 .deno-chose .list-fl label span {
     position: relative;
     display: block;
     padding: 10px 15px;
-    width: 100%;
-    display: block;
+    width: 30%;
+    display: inline-block;
+    text-align: center;
     margin-left: auto;
     margin-right: auto;
     border: 1px solid #e5e5e5;
@@ -154,15 +144,9 @@ body {
     color: #666;
 }
 
-.deno-chose .list-fl label input {
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-}
-.deno-chose .list-fl label input:checked ~ span{
-    border-color: #e62739;
-    color:#e62739
-}
 
+.deno-chose .list-fl label.active span {
+    border-color: #e62739;
+    color: #e62739
+}
 </style>
