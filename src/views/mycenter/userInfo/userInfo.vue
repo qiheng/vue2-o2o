@@ -80,7 +80,6 @@
                 </a>
             </div>
 
-
             <!--<div class="container mt30">
                 <input type="submit" value="用户退出" class="btn btn-block btn-lg btn-primary" />
             </div>-->
@@ -104,7 +103,7 @@
         },
         created: function () {
             var _this = this;
-
+            
         },
         methods: {
             ...mapActions(['recordUserInfo']),
