@@ -61,8 +61,40 @@ const MyBankInfo = r => require.ensure([], () => r(require('@/views/mycenter/myW
 const BankCardDetail = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/bankCardDetail')), 'users'); // 我的-个人中心-银行卡详情
 const addBankCard = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/addBankCard')), 'users'); // 我的-个人中心-添加银行卡
 const withdrawDeposit = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/withdrawDeposit')), 'users'); // 我的-个人中心-提现
+const walletRecharge = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/walletRecharge')), 'users'); // 我的-个人中心-提现
+
+
+const inputConsumerCode = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/inputConsumerCode')), 'users'); // 我的-个人中心-店铺管理- 消费码
+const marketingPromotion = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/marketingPromotion')), 'users'); // 我的-个人中心-店铺管理- 营销管理
+const result = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/result')), 'users'); // 我的-个人中心-店铺管理- 消费码核销成功提示
+const goodsManage = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/goodsManage')), 'users'); // 我的-个人中心-店铺管理- 商品管理
+const orderManage = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/orderManage')), 'users'); // 我的-个人中心-店铺管理- 消订单管理
+const servicePersonManage = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/servicePersonManage')), 'users'); // 我的-个人中心-店铺管理- 服务人员管理
+const pictureManage = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/pictureManage')), 'users'); // 我的-个人中心-店铺管理- 图片管理
+const adminAuthority = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/adminAuthority')), 'users'); // 我的-个人中心-店铺管理- 图片管理
+const viewCheckError = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/viewCheckError')), 'users'); // 我的-个人中心-店铺管理- 查看投诉
+const salesList = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/salesList')), 'users'); // 我的-个人中心-店铺管理-营销管理--限时折扣
+const shopNotice = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopNotice')), 'users'); // 我的-个人中心-店铺管理-营销管理--店铺动态
+const shopEditSetup = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetup')), 'users'); // 我的-个人中心-店铺管理--店铺设置
+const shopEditSetupName = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupName')), 'users'); // 我的-个人中心-店铺管理--店铺设置--店铺名称
+const shopEditSetupPhone = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupPhone')), 'users'); // 我的-个人中心-店铺管理--店铺设置--店铺电话
+const shopEditSetupDesc = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupDesc')), 'users'); // 我的-个人中心-店铺管理--店铺设置--店铺描述
+const shopEditSetupPay = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupPay')), 'users'); // 我的-个人中心-店铺管理--店铺设置--支付方式
+const shopEditSetupRange = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupRange')), 'users'); // 我的-个人中心-店铺管理--店铺设置--服务范围
+const shopEditSetupAddress = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupAddress')), 'users'); // 我的-个人中心-店铺管理--店铺设置--店铺地址
+const shopEditSetupClassify = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupClassify')), 'users'); // 我的-个人中心-店铺管理--店铺设置--店铺分类
+const shopDetail = r => require.ensure([], () => r(require('@/views/mycenter/myCollect/shopDetail')), 'user'); // 我的-个人中心-店铺收藏页面
+const refundReason = r => require.ensure([], () => r(require('@/views/mycenter/order/refundReason')), 'order'); // 我的-订单列表
+const bankcardpage = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/bankcardpage')), 'users'); // 我的-个人中心-添加银行卡---银行卡协议
+const register = r => require.ensure([], () => r(require('@/views/register/register')), 'users'); // 注册页面
+const salesPromotion = r => require.ensure([], () => r(require('@/views/home/salesPromotion/salesPromotion')), 'home'); // 首页--限时抢购
+const choosePayWay = r => require.ensure([], () => r(require('@/views/mycenter/order/choosePayWay')), 'order'); // 我的-订单列表--未付款
+const nativeBenditong = r => require.ensure([], () => r(require('@/views/mycenter/nativeBenditong/nativeBenditong')), 'order'); // 我的-本地通
+const shopQrcode = r => require.ensure([], () => r(require('@/views/mycenter/myCollect/shopQrcode')), 'user'); // 我的-个人中心-二维码页面
+const shopComplain = r => require.ensure([], () => r(require('@/views/mycenter/myCollect/shopComplain')), 'user'); // 我的-个人中心-店铺投诉页面
 
 const ChooseCity = r => require.ensure([], () => r(require('@/views/chooseCity/choose-city')), 'home'); // 选择地区
+
 
 
 Vue.use(Router);
@@ -79,11 +111,19 @@ const router = new Router({
             component: search
         },
         {
+
+            path: '/salesPromotion',
+            name: 'salesPromotion',
+            component: salesPromotion
+        },
+        {
+
             path: '/chooseCity',
             name: 'chooseCity',
             component: ChooseCity
         },
         {
+
             path: '/service',
             name: 'service',
             component: service
@@ -104,6 +144,11 @@ const router = new Router({
             component: Login
         },
         {
+            path: '/register',
+            name: 'register',
+            component: register
+        },
+        {
             path: '/classify',
             name: 'classify',
             component: Classify
@@ -119,6 +164,11 @@ const router = new Router({
             component: Notice
         },
         {
+            path: '/nativeBenditong',
+            name: 'nativeBenditong',
+            component: nativeBenditong
+        },
+        {
             path: '/notice/:noticeId',
             name: 'noticeDetail',
             component: NoticeDetail
@@ -130,9 +180,9 @@ const router = new Router({
         },
         {
             path: '/mycenter',
-            //name: 'mycenter',
+            name: 'mycenter',
             component: Mycenter,
-            //meta: { requiresAuth: true },
+            meta: { requiresAuth: true },
             children: [{
                     path: '',
                     name: 'userCenter',
@@ -145,8 +195,18 @@ const router = new Router({
                     component: OrderList,
                 },
                 {
+                    path: 'refundReason',
+                    name: 'refundReason',
+                    component: refundReason,
+                },
+                {
+                    path: 'choosePayWay',
+                    name: 'choosePayWay',
+                    component: choosePayWay,
+                },
+                {
                     path: 'userInfo',
-                    //name: 'userInfo',
+                    name: 'userInfo',
                     component: UserInfo,
                     children: [{
                         path: 'setUserName',
@@ -167,6 +227,24 @@ const router = new Router({
                     path: 'myCollect',
                     name: 'myCollect',
                     component: myCollect
+                },
+                {
+
+                    path: 'shopDetail',
+                    name: 'shopDetail',
+                    component: shopDetail
+                },
+                {
+
+                    path: 'shopQrcode',
+                    name: 'shopQrcode',
+                    component: shopQrcode
+                },
+                {
+
+                    path: 'shopComplain',
+                    name: 'shopComplain',
+                    component: shopComplain
                 },
                 {
                     path: 'mySetup',
@@ -194,9 +272,99 @@ const router = new Router({
                     component: shopManage
                 },
                 {
-                    path: 'choseShopTmp',
-                    name: 'choseShopTmp',
-                    component: choseShopTmp
+                    path: 'inputConsumerCode',
+                    name: 'inputConsumerCode',
+                    component: inputConsumerCode
+                },
+                {
+                    path: 'marketingPromotion',
+                    name: 'marketingPromotion',
+                    component: marketingPromotion
+                },
+                {
+                    path: 'result',
+                    name: 'result',
+                    component: result
+                },
+                {
+                    path: 'goodsManage',
+                    name: 'goodsManage',
+                    component: goodsManage
+                },
+                {
+                    path: 'orderManage',
+                    name: 'orderManage',
+                    component: orderManage
+                },
+                {
+                    path: 'servicePersonManage',
+                    name: 'servicePersonManage',
+                    component: servicePersonManage
+                },
+                {
+                    path: 'pictureManage',
+                    name: 'pictureManage',
+                    component: pictureManage
+                },
+                {
+                    path: 'adminAuthority',
+                    name: 'adminAuthority',
+                    component: adminAuthority
+                },
+                {
+                    path: 'viewCheckError',
+                    name: 'viewCheckError',
+                    component: viewCheckError
+                },
+                {
+                    path: 'shopEditSetup',
+                    name: 'shopEditSetup',
+                    component: shopEditSetup
+                },
+                {
+                    path: 'shopEditSetupName',
+                    name: 'shopEditSetupName',
+                    component: shopEditSetupName
+                },
+                {
+                    path: 'shopEditSetupPhone',
+                    name: 'shopEditSetupPhone',
+                    component: shopEditSetupPhone
+                },
+                {
+                    path: 'shopEditSetupDesc',
+                    name: 'shopEditSetupDesc',
+                    component: shopEditSetupDesc
+                },
+                {
+                    path: 'shopEditSetupPay',
+                    name: 'shopEditSetupPay',
+                    component: shopEditSetupPay
+                },
+                {
+                    path: 'shopEditSetupRange',
+                    name: 'shopEditSetupRange',
+                    component: shopEditSetupRange
+                },
+                {
+                    path: 'shopEditSetupAddress',
+                    name: 'shopEditSetupAddress',
+                    component: shopEditSetupAddress
+                },
+                {
+                    path: 'shopEditSetupClassify',
+                    name: 'shopEditSetupClassify',
+                    component: shopEditSetupClassify
+                },
+                {
+                    path: 'salesList',
+                    name: 'salesList',
+                    component: salesList
+                },
+                {
+                    path: 'shopNotice',
+                    name: 'shopNotice',
+                    component: shopNotice
                 },
                 {
                     path: '/myWallet',
@@ -205,7 +373,7 @@ const router = new Router({
                 },
                 {
                     path: 'myBankInfo',
-                    //name: 'myBankInfo',
+                    name: 'myBankInfo',
                     component: MyBankInfo,
                     children: [{
                             path: '',
@@ -226,6 +394,11 @@ const router = new Router({
                     component: addBankCard
                 },
                 {
+                    path: '/bankcardpage',
+                    name: 'bankcardpage',
+                    component: bankcardpage
+                },
+                {
                     path: '/walletDetails',
                     name: 'walletDetails',
                     component: WalletDetails
@@ -235,7 +408,11 @@ const router = new Router({
                     name: 'withdrawDeposit',
                     component: withdrawDeposit
                 },
-
+                {
+                    path: '/walletRecharge',
+                    name: 'walletRecharge',
+                    component: walletRecharge
+                },
                 {
                     path: 'aboutUs',
                     name: 'aboutUs',
@@ -253,7 +430,7 @@ const router = new Router({
                 },
                 {
                     path: 'coupons',
-                    //name: 'coupons',
+                    name: 'coupons',
                     component: Coupons,
                     children: [{
                             path: '',
@@ -269,7 +446,7 @@ const router = new Router({
                 },
                 {
                     path: 'address',
-                    //name: 'address',
+                    name: 'address',
                     component: Address,
                     children: [{
                             path: '',
@@ -285,7 +462,7 @@ const router = new Router({
                 },
                 {
                     path: 'chests',
-                    //name: 'chests',
+                    name: 'chests',
                     component: Chests,
                     children: [{
                             path: '',
