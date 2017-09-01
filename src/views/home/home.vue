@@ -216,7 +216,7 @@
         <!-- 主导航 -->
         <main-nav></main-nav>
     </div>
-
+</div>
 </template>
 
 <script>
