@@ -12,7 +12,6 @@
                 <input type="tel" name="link" v-model="params.link" placeholder="请输入您的手机号，方便我们联系您">
             </dd>
         </dl>
-
         <div class="container mt30">
             <input @click.prevent="submitFn" type="submit" value="提交" class="btn btn-block btn-primary btn-lg" :class="{disabled: isDisabled}" />
         </div>
@@ -20,6 +19,7 @@
 </template>
 <script>
     import validator from '@/assets/js/validator'
+    import {mapGetters} from 'vuex'
     import qs from 'qs'
     export default {
         data(){
@@ -76,6 +76,13 @@
             var newVal = qs.stringify(this.params)
             this.$axios.post(this.$api.opinion, newVal)
                 .then(function ({status, data}) {
+                    _this.$notiejs({
+                        state: 1,
+                        msg: '提交成功',
+                        end () {
+                            window.location.href = 'http:localhost:8089/#/mycenter/mySetup'
+                        }
+                    })
                     if(status !=1){
                         _this.$notiejs({
                             state: 2,

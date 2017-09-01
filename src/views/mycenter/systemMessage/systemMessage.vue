@@ -32,78 +32,8 @@
                 </div>
             </div>
         </scroller>
-
 </template>
-
-
-
 <script>
-//import { mapActions } from 'vuex'
-//export default {
-//    data() {
-//        return {
-//            ordersList:[],
-//            loading: true,
-//            noData: false,
-//            params: {
-//                page: 1,
-//            },
-//        }
-//    },
-//    created:function() {
-//        this.scoreLog();
-//    },
-//    methods: {
-//        scoreLog (bConcat, cb) {
-//            if ($.isFunction(bConcat)) {
-//                cb = bConcat;
-//                bConcat = null;
-//            }
-//            !bConcat ? (this.loading = true) : '';
-//                //this.$axios.post(this.$api.messagelist,$.param(this.params))
-//            this.$axios.post(this.$api.messagelist,$.param(this.params))
-//                .then(({data, status}) => {
-//                    let ordersList = data;
-//                    this.loading = false;
-//                    // 返回空列表，表示无数据
-//                    if (!ordersList.length) {
-//                        this.noData = true
-//                    }
-//
-//                    // 合并
-//                    if (bConcat) {
-//                        this.ordersList = this.ordersList.concat(ordersList)
-//                    } else {
-//                        this.ordersList = ordersList
-//                    }
-//
-//                    this.$nextTick(function () {
-//                        cb && cb(ordersList)
-//                    })
-//                })
-//        },
-//            // 上拉加载更多
-//            infinite (done) {
-//                clearTimeout(this.timeId);
-//                if (this.noData) {
-//                    setTimeout(() => {
-//                        console.log('come over')
-//                        done(true)
-//                    }, 500)
-//                    return;
-//                }
-//                this.timeId = setTimeout(() => {
-//                    this.params.page++;
-//                    this.scoreLog(true, () => {
-//                        done()
-//                    })
-//
-//                }, 1500)
-//            },
-//        }
-//    }
-
-
 import {mapGetters} from 'vuex'
 export default {
     data(){
@@ -139,14 +69,12 @@ export default {
                     if (!ordersList.length) {
                         this.noData = true
                     }
-
                     // 合并
                     if (bConcat) {
                         this.ordersList = this.ordersList.concat(ordersList)
                     } else {
                         this.ordersList = ordersList
                     }
-
                     this.$nextTick(function () {
                         cb && cb(ordersList)
                     })

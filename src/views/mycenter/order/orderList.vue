@@ -58,8 +58,8 @@
                                 <template v-if="ordersItem.statusPay == 0">
                                     <template v-if="ordersItem.statusOrder == 0">
                                         <a @click.prevent="cancel(ordersItem.ordersId, $event, index)" class="J-cancel-order btn btn-default" href="javascript:;">取消订单</a>
-                                        <a v-if="!(ordersItem.shop.shopTypeId == config.shopTypeId.spws && ordersItem.payType === HDFK_VAL)" class="btn btn-primary"
-                                           :href="'choose-pay-way.html?ordersId='+ordersItem.ordersId">立即付款</a>
+                                        <router-link v-if="!(ordersItem.shop.shopTypeId == config.shopTypeId.spws && ordersItem.payType === HDFK_VAL)" class="btn btn-primary"
+                                           :to="{name:'choosePayWay',query:{'ordersId':ordersItem.ordersId}}">立即付款</router-link>
                                     </template>
                                 </template>
                                 <template v-if="ordersItem.statusPay == 1">
@@ -67,7 +67,8 @@
                                         <!--<a class="btn btn-default" :href="'tel:'+ordersItem.shop.phone">催单</a>-->
                                         <!--<a @click.prevent="refund(ordersItem.ordersId, $event)" class="J-refund btn btn-primary" href="javascript:;">申请退款</a>-->
 
-                                        <router-link class="J-refund btn btn-primary" :to="{name:'refundReason',query:{'ordersId':ordersItem.ordersId,'priceCount':ordersItem.priceCount}}">申请退款22</router-link>
+                                        <router-link class="J-refund btn btn-primary" :to="{name:'refundReason',query:{'ordersId':ordersItem.ordersId,'priceCount':ordersItem.priceCount}}">申请退款</router-link>
+
                                     </template>
                                     <template v-if="ordersItem.statusOrder == 3 || ordersItem.statusOrder == 4">
                                         <!--<a class="btn btn-default" :href="'tel:'+ordersItem.shop.phone">催单</a>-->

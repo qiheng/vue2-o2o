@@ -16,6 +16,9 @@ import plusMinus from './plusMinus/plusMinus'
 import switchTpl from './switchTpl/switchTpl'
 import ONavBar from './o-navbar/navbar'
 import OTabItem from './o-tab-item/tab-item'
+import menus from './menus/menus'
+
+
 //import SelfDiv from './test'
 // import CountDown from '../../components/countdown/countdown.vue'
 
@@ -35,5 +38,6 @@ export {
     plusMinus,
     switchTpl,
     OTabItem,
-    ONavBar
+    ONavBar,
+    menus
 }

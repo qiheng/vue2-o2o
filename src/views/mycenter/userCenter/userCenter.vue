@@ -5,7 +5,7 @@
             <section class="panel-nobrd user-info">
                 <!-- 用户信息 start -->
                 <div class="panel-hd">
-                    <router-link :to="{name: 'userInfo'}" class="block clearfix">
+                    <router-link :to="{name:'userInfo'}" class="block clearfix">
                         <!--<img class="head pull-left" width="60" height="60" :src="(userInfo.headpic || config.defaultHeaderPic) + '?x-oss-process=image/resize,m_fixed,h_100,w_100'" >-->
                         <img class="head pull-left" width="60" height="60" :src="userInfo.headpic + '?x-oss-process=image/resize,m_fixed,h_100,w_100'">
                         <div class="bfc-panel">
@@ -87,10 +87,11 @@
             </nav>
 
             <nav class="panel-nobrd">
-                <a class="block panel-chunk" href="native-benditong.html?shopClassId=29D316360C2120EFE050AA0A1B2B413E">
+                <!--<router-link class="J-refund btn btn-primary" :to="{name:'refundReason',query:{'ordersId':ordersItem.ordersId,'priceCount':ordersItem.priceCount}}">申请退款</router-link>-->
+                <router-link class="block panel-chunk" :to="{name:'nativeBenditong'}">
                     <h3 class="icos4 i4-bdt">本地通</h3>
                     <i class="arr-rt"></i>
-                </a>
+                </router-link>
 
                 <router-link class="block panel-chunk" :to="{name:'chests'}">
                     <h3 class="icos4 i4-bm">便民服务</h3>
@@ -119,33 +120,6 @@
                     <i class="arr-rt"></i>
                 </router-link>
             </nav>
-
-            <!--<nav class="panel">
-                        <a class="block panel-chunk" href="my-order.html">
-                            <h3 class="icos4 i4-order">我的订单</h3>
-                            <i class="arr-rt"></i>
-                        </a>
-
-                        <a class="block panel-chunk " href="my-active.html">
-                            <h3 class="icos4 i4-active">我的活动</h3>
-                            <i class="arr-rt"></i>
-                        </a>
-
-
-                        <a class="block panel-chunk" href="my-recommend.html">
-                            <h3 class="icos4 i4-mytui">推荐朋友</h3>
-                            <i class="arr-rt"></i>
-                        </a>
-                        <a class="block panel-chunk" href="daily-recom.html">
-                            <h3 class="icos4 i4-tui">每日精品推荐</h3>
-                            <i class="arr-rt"></i>
-                        </a>
-                        <a class="block panel-chunk" href="dial-record.html">
-                            <h3 class="icos4 i4-record">拨号记录</h3>
-                            <i class="arr-rt"></i>
-                        </a>
-                    </nav>-->
-
         </div>
         <main-nav :current-nav-index="currentNavIndex"></main-nav>
     </div>

@@ -32,7 +32,6 @@
                     <span class="pull-right">每日签到获1积分</span>
                 </dd>
             </dl>
-
         </div>
         <div class="checkinScoreLayer hidden">
             <img width="100%" src="../../../assets/images/icons-v3/bg_jifen2.png" alt=""/>
@@ -98,6 +97,22 @@
                 } else {
 //                    $layer.msg('您今天已经签到');
                     alert('您今天已经签到++++++++++');
+
+                    // 显示
+//                    this.$vux.alert.show({
+//                        title: 'Vux is Cool',
+//                        content: '您今天已经签到',
+//                        onShow () {
+//                            console.log('Plugin: I\'m showing')
+//                        },
+//                        onHide () {
+//                            console.log('Plugin: I\'m hiding')
+//                        }
+//                    })
+//// 隐藏
+//                    this.$vux.alert.hide()
+//
+
                 }
             }
         }

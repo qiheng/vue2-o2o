@@ -7,7 +7,9 @@
                 <div class="bg-white p10"><img class="pull-left mr5" width="18"  src="../../../assets/images/icons-v3/icons1/icon_shop2.png" alt=""/>收藏店铺</div>
                 <!--普通-->
                 <div v-for="myfavorityshop in myfavorityshopslist" class="container panel-item">
-                    <router-link class="block panel-inner" :to="'shop-detail.html?shopId='+ myfavorityshop.shopId">
+                    <!--<router-link class="block panel-inner" :to="'shop-detail.html?shopId='+ myfavorityshop.shopId">-->
+                    {{myfavorityshop.shopId}}
+                    <router-link class="block panel-inner" :to="{name:'shopDetail',query:{'shopId':myfavorityshop.shopId}}">
                         <img class="panel-pic" width="70" height="70"
                         :src="(myfavorityshop.pic ? myfavorityshop.pic : config.defaultGoodsPic)+'?x-oss-process=image/resize,m_fixed,h_140,w_140'" alt="">
 
@@ -20,8 +22,8 @@
 
                             <p>
                                 <i :class="'star2 star-'+Math.round(myfavorityshop.score)"></i><span class="dib-middle ml5 orange">{{ myfavorityshop.score }}</span>
-                        </p>
-                        <p class="nowrap mt5">{{ myfavorityshop.summary }}</p>
+                            </p>
+                            <p class="nowrap mt5">{{ myfavorityshop.summary }}</p>
                             <div class="clearfix mt5">
                                 <p class="pull-left">
                                     <span class="i-label mr10">{{ myfavorityshop.shopCategoryName }}</span>
@@ -36,7 +38,7 @@
             </template>
             <empty v-else :msg="emptyMsg">
                 <img slot="icon" width="180" src="../../../assets/images/empty/img_shouc@2x.png" alt=""/>
-                <router-link slot="button" :to="config.index" class="btn btn-default mt20">返回首页</router-link>
+                <router-link slot="button" :to="{name:'home'}" class="btn btn-default mt20">返回首页</router-link>
             </empty>
         </div>
     </div>

@@ -22,5 +22,5 @@
     }
 </script>
 <style scoped>
-    .about-con {text-indent: 2em;}
+    .about-con {text-indent: 2em;background: #ffffff;}
 </style>

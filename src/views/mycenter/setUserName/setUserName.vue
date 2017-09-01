@@ -12,19 +12,31 @@
             <input @click.prevent="submitFn" type="submit" value="保存" class="btn btn-block btn-lg btn-primary" :class="{disabled: isDisabled}" />
         </div>
 
+        <div v-show="show6">
+            <toast v-model="show6" type="text" width="20em">{{'昵称不能为空或者跟修改前一致'}}</toast>
+        </div>
+
     </form>
     <!-- 表单 end -->
 </template>
 
 <script>
+    import { Toast, Group, XSwitch, XButton } from 'vux'
     import {mapActions} from 'vuex'
     import qs from 'qs'
-import validator from '@/assets/js/validator'
+    import validator from '@/assets/js/validator'
 
     export default {
+        components: {
+            Toast,
+            Group,
+            XSwitch,
+            XButton
+        },
         data () {
             return {
                 isDisabled: false,
+                show6: false,
                 params: {
                     username: ''
                 }
@@ -51,7 +63,8 @@ import validator from '@/assets/js/validator'
                 _this.isDisabled = true;
 
                 if (params.username === '' || params.username === query.username) {
-                    alert('昵称不能为空或者跟修改前一致');
+//                    alert('昵称不能为空或者跟修改前一致');
+                    _this.show6 = true;
                     _this.isDisabled = false;
                     return;
 

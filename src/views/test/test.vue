@@ -1,31 +1,33 @@
 <template>
     <div>
-        <group>
-            <cell title="title" value="xx"></cell>
-        </group>
-        <!--<x-loading v-model="show"></x-loading>-->
-        <o-nav-bar v-model="selected" :type="'primary'" fixed>
-            <o-tab-item :id="meun" v-for="meun in meunList">
-                {{ meun }}
-            </o-tab-item>
-        </o-nav-bar>
+        <menus :types="type" @onchange="onchange"></menus>
     </div>
 </template>
-
 <script>
-    import { Group, Cell } from 'vux'
-
-    export default {
-        components: {
-            Group,
-            Cell
+    export default{
+        data(){
+            return{
+                type:[
+                    {
+                        text:'全部订单'
+                    },
+                    {
+                        text:'未发货'
+                    },
+                    {
+                        text:'已发货'
+                    },
+                    {
+                        text:'未评价'
+                    },
+                ]
+            }
         },
-        data () {
-            return {
-                show: true,
-                selected:'news',
-                meunList:['my', 'news', 'job', 'cheseina']
+        methods:{
+            onchange:function (index) {
+                console.log(index)
             }
         }
     }
+
 </script>

@@ -62,7 +62,7 @@ export default {
     manageIndex         : '/manage/index',  // 店铺管理首页
     updateshopnotice    : '/manage/updateshopnotice',  // 编辑促销信息
     delshopnotice       : '/manage/delshopnotice',  // 删除促销信息
-    seterrorlist        : '/manage/seterrorlist',  // 纠错列表
+    manageSeterrorlist  : '/manage/seterrorlist',  // 纠错列表
     getgrade            : '/manage/getgrade',  // 获取积分
     addshopnotice       : '/manage/addshopnotice',  // 添加促销信息
     searchorders        : '/manage/searchorders',  // 搜索订单

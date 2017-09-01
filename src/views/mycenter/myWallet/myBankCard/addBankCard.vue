@@ -41,7 +41,9 @@
         </div>
 
 
-        <p class="container ptb15 gray"><label for="protocol"><input id="protocol" type="checkbox" checked="checked">&nbsp;我已阅读并同意</label> <a class="blue" href="/bankcardpage.html">《银行卡支付协议》</a></p>
+        <p class="container ptb15 gray"><label for="protocol"><input id="protocol" type="checkbox" checked="checked">&nbsp;我已阅读并同意</label>
+            <router-link class="blue" :to="{name:'bankcardpage'}">《银行卡支付协议》</router-link>
+        </p>
 
         <div class="container mt30">
             <input type="submit" value="绑定" @click.prevent="submitFn" class="btn btn-block btn-primary btn-lg" />

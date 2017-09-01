@@ -3,7 +3,7 @@
     <div class="jfen-shop-wrap" v-cloak>
         <empty :msg="emptyMsg">
             <img slot="icon" width="100" src="../../../assets/images/empty/img_wzjsz@2x.png" alt=""/>
-            <a slot="button" @click.prevent="back" href="javascript:;" class="btn btn-default mt20">返回上一页</a>
+            <a href="javascript:;" slot="button" onclick="window.history.go(-1)"  class="btn btn-default mt20">返回上一页</a>
         </empty>
     </div>
     <!-- 积分商城 end -->
