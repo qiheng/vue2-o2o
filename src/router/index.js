@@ -23,7 +23,7 @@ const scoreRecord = r => require.ensure([], () => r(require('@/views/mycenter/my
 
 const jifenShop = r => require.ensure([], () => r(require('@/views/mycenter/jifenShop/jifenShop')), 'users'); // 我的-个人中心-积分商城
 const shopManage = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopManage')), 'users'); // 我的-个人中心-店铺管理（有店铺情况）
-const choseShopTmp = r => require.ensure([], () => r(require('@/views/mycenter/choseShopTmp/choseShopTmp')), 'users'); // 我的-个人中心-店铺管理（没店铺）
+// const choseShopTmp = r => require.ensure([], () => r(require('@/views/mycenter/choseShopTmp/choseShopTmp')), 'users'); // 我的-个人中心-店铺管理（没店铺）
 
 
 
@@ -94,6 +94,7 @@ const shopQrcode = r => require.ensure([], () => r(require('@/views/mycenter/myC
 const shopComplain = r => require.ensure([], () => r(require('@/views/mycenter/myCollect/shopComplain')), 'user'); // 我的-个人中心-店铺投诉页面
 
 const ChooseCity = r => require.ensure([], () => r(require('@/views/chooseCity/choose-city')), 'home'); // 选择地区
+const mycenterBindPhoneNum = r => require.ensure([], () => r(require('@/views/mycenter/setPhone/mycenterBindPhoneNum')), 'users'); // 我的-个人中心-设置手机号码页面
 
 
 
@@ -217,6 +218,11 @@ const router = new Router({
                         name: 'setPhone',
                         component: SetPhone,
                     }, {
+                            path: 'mycenterBindPhoneNum',
+                            name: 'mycenterBindPhoneNum',
+                            component: mycenterBindPhoneNum,
+                        }
+                    , {
                         path: 'changePassword',
                         name: 'changePassword',
                         component: changePassword,
