@@ -19,6 +19,7 @@
         <div class="container mt30">
 
             <input @click.prevent="submitFn" type="submit" value="验证" class="btn btn-block btn-primary btn-lg" :class="{disabled: isDisabled}" />
+            <router-link :to="{name:'mycenterBindPhoneNum'}">跳转</router-link>
         </div>
         <toast v-model="shows" type="text" width="20em" position="middle">{{text}}</toast>
     </div>
