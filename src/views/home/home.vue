@@ -235,7 +235,7 @@
                     '5': 'te',
                     '6': 'zeng'
                 },
-                linkUrl: ['service?shopClassId=','shopdetail?shopId=','productdatail?goodsId='],
+                linkUrl: ['service?shopClassId=','shopdetail?shopId=','productdetails?goodsId='],
                 indexData:{
                     areaIsOpen: 1,
                     geoCode:'',

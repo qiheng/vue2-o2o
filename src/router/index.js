@@ -53,6 +53,8 @@ const search = r => require.ensure([], () => r(require('@/views/home/search/sear
 const searchResult = r => require.ensure([], () => r(require('@/views/home/searchResult/searchResult')), 'home'); // 首页--搜索跳转页面
 const service = r => require.ensure([], () => r(require('@/views/home/service/service')), 'home'); // 首页--服务
 const shopdetail = r => require.ensure([], () => r(require('@/views/home/shopdetail/shopdetail')), 'home'); // 首页--店铺详情
+const picture = r => require.ensure([], () => r(require('@/views/home/shopdetail/picture')), 'home'); // 首页--店铺详情
+const productdetails = r => require.ensure([], () => r(require('@/views/home/productdetails/productdetails')), 'home'); // 首页--店铺详情
 const myWallet = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myWallet')), 'users'); // 我的-个人中心-余额
 const myBankCard = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/myBankCard')), 'users'); // 我的-个人中心-银行卡
 const WalletDetails = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/walletDetails')), 'users'); // 我的-个人中心-钱包明细
@@ -133,6 +135,16 @@ const router = new Router({
             path: '/shopdetail',
             name: 'shopdetail',
             component: shopdetail
+        },
+        {
+            path: '/picture',
+            name: 'picture',
+            component: picture
+        },
+        {
+            path: '/productdetails',
+            name: 'productdetails',
+            component: productdetails
         },
         {
             path: '/searchResult',

@@ -3,7 +3,8 @@
 		<div class="container panel-item merchant-info-panel">
 			<div class="panel-inner">
 				<div class="panel-pic">
-					<a href="picture-manage.html?type=preview&amp;shopId=f898cbc15d07952b015d07b07ef80001"><img width="72" height="72" :src="shopview.shop.pic" alt=""></a>
+					<!--<a href="picture-manage.html?type=preview&amp;shopId=f898cbc15d07952b015d07b07ef80001"><img width="72" height="72" :src="shopview.shop.pic" alt=""></a>-->
+					<router-link :to="{name:'picture',query:{shopId:query.shopId}}"><img width="72" height="72" :src="shopview.shop.pic" alt=""></router-link>
 				</div>
 				<div class="merchant-btns" style="z-index: 1;">
 					<a href="javascript:;" class="like-btn" data-user-fav="0"></a>
@@ -49,7 +50,7 @@
 							
 							<div class="panel-item" v-for="item in goods.list">
 								<div class="panel-inner">
-									<a href="product-datail.html?goodsId=f898cbc15d07bf6e015d07ca30fb0008" class="panel-pic"><img width="70" height="70" :src="item.pics[0].picUrl" alt=""></a>
+									<router-link :to="{name:'productdetails',query:{goodsId:item.goodsId}}"  class="panel-pic"><img width="70" height="70" :src="item.pics[0].picUrl" alt=""></router-link>
 									<div class="panel-info f12">
 										<h2 class="panel-tit nowrap"><a data-rel-tit="true" href="product-datail.html?goodsId=f898cbc15d07bf6e015d07ca30fb0008">{{item.name}}</a></h2>
 										<div class="mt5 clearfix">
@@ -102,7 +103,7 @@
 					</div>
 				</div>
 			</div>
-			<shopcart :select-goods="selectGoods"></shopcart>
+			<shopcart :select-goods="selectGoods" :phone="shopview.shop.phone"></shopcart>
 		</div>
 	</div>
 </template>
@@ -172,7 +173,6 @@
 						}
 					})
 				}
-//				console.log(goods)
 				return goods;
 			}
 		},

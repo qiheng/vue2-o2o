@@ -4,7 +4,7 @@
 			<a class="min-cart" href="javascript:;"><ins class="counter nums">{{totalCount}}</ins></a>
 			<!-- 空 -->
 			<div class="empty-cart">
-				<a class="J-contact-sell btn btn-primary btn-contact" href="tel:17817288944">联系商家</a>
+				<a class="J-contact-sell btn btn-primary btn-contact" :href="'tel:'+phone">联系商家</a>
 				<p class="p-empty lightgray">购物车是空的</p>
 			</div>
 			<!-- 非空 -->
@@ -39,6 +39,9 @@
 				default(){
 					return []
 				}
+			},
+			phone: {
+				type: String
 			}
 		},
 		computed: {

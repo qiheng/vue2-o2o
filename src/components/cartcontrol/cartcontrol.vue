@@ -11,9 +11,6 @@
 		props:{
 			goods:{
 				type:Object
-			},
-			selectGoods:{
-				type:Array
 			}
 		},
 		methods: {
