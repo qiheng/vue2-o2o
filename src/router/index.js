@@ -504,27 +504,27 @@ router.beforeEach((to, form, next) => {
 
     store.commit('UPDATE_PAGE_LOADING', {pageLoading: true})
 
-if (to.matched.some(r => r.meta.requiresAuth)) {
-    //console.log('======main======',store.state.user.userInfo)
-    if (store.state.user.userInfo) {
-        next()
+    if (to.matched.some(r => r.meta.requiresAuth)) {
+        //console.log('======main======',store.state.user.userInfo)
+        if (store.state.user.userInfo) {
+            next()
+        } else {
+            next({
+                path: '/login',
+                query: { redirect: to.fullPath }
+            })
+        }
     } else {
-        next({
-            path: '/login',
-            query: { redirect: to.fullPath }
-        })
+        next();
     }
-} else {
-    next();
-}
 })
 
 // 页面加载后
 router.afterEach(route => {
 
     setTimeout( _ => {
-    store.commit('UPDATE_PAGE_LOADING', {pageLoading: false})
-},  600)
+        store.commit('UPDATE_PAGE_LOADING', {pageLoading: false})
+    },  600)
 
 })
 

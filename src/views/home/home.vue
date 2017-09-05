@@ -272,58 +272,64 @@
                     //,freeMode: true
                 },
                 params: {
-                    longitude: 118.91251988,
-                    latitude: 39.42564104
+                    longitude:114.085945,
+                    latitude:22.547
+//                    longitude: 118.91251988,
+//                    latitude: 39.42564104
                 }
             }
         },
-        mounted () {
-            let _this = this;
-
-            //console.log('userInfo:',this.userInfo)
-
-
-            // 获取首页数据
-            if (this.query.longitude != null) {
-                for (let key in this.params) {
-                    this.params[key] = this.query[key]
-                }
-            }
-
-            this.$axios.get(this.$api.index, {params:this.params}).then(({data, status}) => {
-                this.loaded = true;
-
-                if (status == 1 ) {
-                    this.indexData = Object.assign(this.indexData, data);
-                    this.indexData.slide = [];
-
-                    // 对服务菜单导航特殊处理
-                    const num = 8;
-                    let len = this.indexData.menu.length;
-                    let pages = 0
-
-                    if (len) {
-                        let meunList = [];
-                        pages = Math.ceil(len / num)
-
-                        for(let i = 0; i < pages; i++) {
-                            meunList.push(this.indexData.menu.splice(0, 8))
-                        }
-
-                        this.indexData.menu = meunList;
-
-                        console.log('meunList--',meunList)
-
-                    }
-
-                }
-
-            })
+        activated () {
+            this.initDate();
+            this.getIndex();
         },
         methods: {
             endTime () {
                 console.log('edn!!')
-            }
+            },
+            // 初始化数据
+            initDate () {
+                // 获取首页数据
+                if (this.query.longitude != null) {
+                    for (let key in this.params) {
+                        this.params[key] = this.query[key]
+                    }
+                }
+            },
+            // 获取首页数据
+            getIndex () {
+
+                this.$axios.get(this.$api.index, {params:this.params}).then(({data, status}) => {
+                    this.loaded = true;
+
+                    if (status == 1 ) {
+                        this.indexData = Object.assign(this.indexData, data);
+                        this.indexData.slide = [];
+
+                        // 对服务菜单导航特殊处理
+                        const num = 8;
+                        let len = this.indexData.menu.length;
+                        let pages = 0
+
+                        if (len) {
+                            let meunList = [];
+                            pages = Math.ceil(len / num)
+
+                            for(let i = 0; i < pages; i++) {
+                                meunList.push(this.indexData.menu.splice(0, 8))
+                            }
+
+                            this.indexData.menu = meunList;
+
+                            console.log('meunList--',meunList)
+
+                        }
+
+                    }
+
+                })
+
+            },
         },
         computed: {
             query () {
