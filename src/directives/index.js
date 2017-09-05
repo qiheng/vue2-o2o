@@ -64,10 +64,10 @@ Vue.directive('nav-slide-changecolor', function (el, binding) {
         $(el).css({'background-color': 'rgba('+ tmp.join(',') +')'})
     };
 
-    //setTimeout(() => {
+    // setTimeout(() => {
         // 初始执行一次
         scrollFn();
-    //}, 1000)
+    // }, 0)
 
     $(_scrollEl).off('.nav').on('scroll.nav resize.nav load.nav', scrollFn)
     //$(window).off('.nav').on('scroll.nav resize.nav load.nav', scrollFn)
