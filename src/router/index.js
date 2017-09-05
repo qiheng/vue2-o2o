@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '@/store'
 //import Hello from '@/components/Hello'
 
-const test = r => require.ensure([], () => r(require('../views/test/test')), 'test'); // 测试页面K
+const test = r => require.ensure([], () => r(require('@/views/test/test')), 'test'); // 测试页面K
 
 const Login = r => require.ensure([], () => r(require('@/views/login/login')), 'users'); // 登录页面
 const Home = r => require.ensure([], () => r(require('@/views/home/home')), 'navtab'); // 首页页面
@@ -53,8 +54,8 @@ const search = r => require.ensure([], () => r(require('@/views/home/search/sear
 const searchResult = r => require.ensure([], () => r(require('@/views/home/searchResult/searchResult')), 'home'); // 首页--搜索跳转页面
 const service = r => require.ensure([], () => r(require('@/views/home/service/service')), 'home'); // 首页--服务
 const shopdetail = r => require.ensure([], () => r(require('@/views/home/shopdetail/shopdetail')), 'home'); // 首页--店铺详情
-const picture = r => require.ensure([], () => r(require('@/views/home/shopdetail/picture')), 'home'); // 首页--店铺详情
-const productdetails = r => require.ensure([], () => r(require('@/views/home/productdetails/productdetails')), 'home'); // 首页--店铺详情
+// const picture = r => require.ensure([], () => r(require('@/views/home/shopdetail/picture')), 'home'); // 首页--店铺详情
+// const productdetails = r => require.ensure([], () => r(require('@/views/home/productdetails/productdetails')), 'home'); // 首页--店铺详情
 const myWallet = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myWallet')), 'users'); // 我的-个人中心-余额
 const myBankCard = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/myBankCard')), 'users'); // 我的-个人中心-银行卡
 const WalletDetails = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/walletDetails')), 'users'); // 我的-个人中心-钱包明细
@@ -96,18 +97,16 @@ const shopQrcode = r => require.ensure([], () => r(require('@/views/mycenter/myC
 const shopComplain = r => require.ensure([], () => r(require('@/views/mycenter/myCollect/shopComplain')), 'user'); // 我的-个人中心-店铺投诉页面
 
 const ChooseCity = r => require.ensure([], () => r(require('@/views/chooseCity/choose-city')), 'home'); // 选择地区
-const mycenterBindPhoneNum = r => require.ensure([], () => r(require('@/views/mycenter/setPhone/mycenterBindPhoneNum')), 'users'); // 我的-个人中心-设置手机号码页面
-
 
 
 Vue.use(Router);
 
 const router = new Router({
     routes: [{
-            path: '/',
-            name: 'home',
-            component: Home
-        },
+        path: '/',
+        name: 'home',
+        component: Home
+    },
         {
             path: '/search',
             name: 'search',
@@ -126,7 +125,6 @@ const router = new Router({
             component: ChooseCity
         },
         {
-
             path: '/service',
             name: 'service',
             component: service
@@ -136,16 +134,16 @@ const router = new Router({
             name: 'shopdetail',
             component: shopdetail
         },
-        {
-            path: '/picture',
-            name: 'picture',
-            component: picture
-        },
-        {
-            path: '/productdetails',
-            name: 'productdetails',
-            component: productdetails
-        },
+        // {
+        //     path: '/picture',
+        //     name: 'picture',
+        //     component: picture
+        // },
+        // {
+        //     path: '/productdetails',
+        //     name: 'productdetails',
+        //     component: productdetails
+        // },
         {
             path: '/searchResult',
             name: 'searchResult',
@@ -193,33 +191,23 @@ const router = new Router({
         },
         {
             path: '/mycenter',
-            name: 'mycenter',
+            //name: 'mycenter',
             component: Mycenter,
-            meta: { requiresAuth: true },
+            //meta: { requiresAuth: true },
             children: [{
-                    path: '',
-                    name: 'userCenter',
-                    meta: { requiresAuth: true },
-                    component: Usercenter,
-                },
+                path: '',
+                name: 'userCenter',
+                meta: { requiresAuth: true },
+                component: Usercenter,
+            },
                 {
                     path: 'order',
                     name: 'order',
                     component: OrderList,
                 },
                 {
-                    path: 'refundReason',
-                    name: 'refundReason',
-                    component: refundReason,
-                },
-                {
-                    path: 'choosePayWay',
-                    name: 'choosePayWay',
-                    component: choosePayWay,
-                },
-                {
                     path: 'userInfo',
-                    name: 'userInfo',
+                    //name: 'userInfo',
                     component: UserInfo,
                     children: [{
                         path: 'setUserName',
@@ -229,16 +217,17 @@ const router = new Router({
                         path: 'setPhone',
                         name: 'setPhone',
                         component: SetPhone,
-                    }, {
-                            path: 'mycenterBindPhoneNum',
-                            name: 'mycenterBindPhoneNum',
-                            component: mycenterBindPhoneNum,
-                        }
-                    , {
-                        path: 'changePassword',
-                        name: 'changePassword',
-                        component: changePassword,
-                    }]
+                    },
+                        // {
+                        //     path: 'mycenterBindPhoneNum',
+                        //     name: 'mycenterBindPhoneNum',
+                        //     component: mycenterBindPhoneNum,
+                        // },
+                        {
+                            path: 'changePassword',
+                            name: 'changePassword',
+                            component: changePassword,
+                        }]
                 },
                 {
 
@@ -391,13 +380,13 @@ const router = new Router({
                 },
                 {
                     path: 'myBankInfo',
-                    name: 'myBankInfo',
+                    //name: 'myBankInfo',
                     component: MyBankInfo,
                     children: [{
-                            path: '',
-                            name: 'myBankCard',
-                            component: myBankCard,
-                        },
+                        path: '',
+                        name: 'myBankCard',
+                        component: myBankCard,
+                    },
                         {
                             path: 'bankCardDetail',
                             name: 'bankCardDetail',
@@ -448,13 +437,13 @@ const router = new Router({
                 },
                 {
                     path: 'coupons',
-                    name: 'coupons',
+                    //name: 'coupons',
                     component: Coupons,
                     children: [{
-                            path: '',
-                            name: 'couponsInfo',
-                            component: CouponsInfo
-                        },
+                        path: '',
+                        name: 'couponsInfo',
+                        component: CouponsInfo
+                    },
                         {
                             path: 'couponsAdd',
                             name: 'couponsAdd',
@@ -464,13 +453,13 @@ const router = new Router({
                 },
                 {
                     path: 'address',
-                    name: 'address',
+                    //name: 'address',
                     component: Address,
                     children: [{
-                            path: '',
-                            name: 'addressInfo',
-                            component: AddressInfo
-                        },
+                        path: '',
+                        name: 'addressInfo',
+                        component: AddressInfo
+                    },
                         {
                             path: 'editAddress',
                             name: 'editAddress',
@@ -480,13 +469,13 @@ const router = new Router({
                 },
                 {
                     path: 'chests',
-                    name: 'chests',
+                    //name: 'chests',
                     component: Chests,
                     children: [{
-                            path: '',
-                            name: 'chestsInfo',
-                            component: ChestsInfo,
-                        },
+                        path: '',
+                        name: 'chestsInfo',
+                        component: ChestsInfo,
+                    },
                         {
                             path: 'handilyPhone',
                             name: 'handilyPhone',
@@ -509,5 +498,34 @@ const router = new Router({
     ],
     //mode:'history'
 });
+
+// 登录中间验证，页面需要登录而没有登录的情况直接跳转登录
+router.beforeEach((to, form, next) => {
+
+    store.commit('UPDATE_PAGE_LOADING', {pageLoading: true})
+
+if (to.matched.some(r => r.meta.requiresAuth)) {
+    //console.log('======main======',store.state.user.userInfo)
+    if (store.state.user.userInfo) {
+        next()
+    } else {
+        next({
+            path: '/login',
+            query: { redirect: to.fullPath }
+        })
+    }
+} else {
+    next();
+}
+})
+
+// 页面加载后
+router.afterEach(route => {
+
+    setTimeout( _ => {
+    store.commit('UPDATE_PAGE_LOADING', {pageLoading: false})
+},  600)
+
+})
 
 export default router

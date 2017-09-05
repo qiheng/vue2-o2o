@@ -1,5 +1,5 @@
 <template>
-    <div class="home11 viewbox-container">
+    <div class="home viewbox-container">
         <!-- 导顶部导航 start -->
         <div ref="searchNav">
             <header-top
