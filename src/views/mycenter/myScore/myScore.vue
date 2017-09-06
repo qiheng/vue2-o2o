@@ -41,13 +41,21 @@
                 <p class="score">+1</p>
             </div>
         </div>
+        <toast v-model="shows" type="text" width="20em" position="middle">{{text}}</toast>
     </div>
 </template>
 <script>
-//    import layer from '@/assets/js/layer'
+    import { mapActions, mapGetters } from 'vuex'
+    import { Toast, Countdown } from 'vux'
     export default {
+        components: {
+            Toast,
+            Countdown
+        },
         data() {
             return{
+                shows: false,
+                text:'',
                 checkInfo:{}
             }
         },
@@ -74,45 +82,14 @@
                     this.$axios.get(this.$api.signin)
                     .then(function(data){
                         _this.checkInfo.data.score = data.data.score;
-                        alert('签到成功++++++++++');
-                                console.log(data.data.score,'666666666666666666')
-//                        $layer.open({
-//                            title: false,
-//                            type: 1,
-//                            //area:['80%'],
-//                            closeBtn:0,
-//                            time: 3000,
-//                            shadeClose: true,
-//                            content: $('.checkinScoreLayer'),
-//                            //btn: ['确定', '取消']
-//                            yes: function (index, layerEl) {
-//
-//                                // 更改下签到的状态
-                                _this.checkInfo.data.isSignin = 1;
-
-//                            }
-//                        })
-
+                        _this.text = '签到成功';
+                        _this.shows = true;
+                        // 更改下签到的状态
+                            _this.checkInfo.data.isSignin = 1;
                     })
                 } else {
-//                    $layer.msg('您今天已经签到');
-                    alert('您今天已经签到++++++++++');
-
-                    // 显示
-//                    this.$vux.alert.show({
-//                        title: 'Vux is Cool',
-//                        content: '您今天已经签到',
-//                        onShow () {
-//                            console.log('Plugin: I\'m showing')
-//                        },
-//                        onHide () {
-//                            console.log('Plugin: I\'m hiding')
-//                        }
-//                    })
-//// 隐藏
-//                    this.$vux.alert.hide()
-//
-
+                    _this.text = '您今天已经签到';
+                    _this.shows = true;
                 }
             }
         }
@@ -145,7 +122,6 @@
         padding: 15px 10px;
         border-radius: 5px;
         background-color: #fff;
-
     }
 
     .checkIn-rule {

@@ -17,10 +17,9 @@
 
         </div>
         <div class="container mt30">
-
             <input @click.prevent="submitFn" type="submit" value="验证" class="btn btn-block btn-primary btn-lg" :class="{disabled: isDisabled}" />
         </div>
-        <toast v-model="shows" type="text" width="20em" position="middle">{{text}}</toast>
+        <toast v-model="shows" type="text" width="24em" position="middle">{{text}}</toast>
     </div>
 </template>
 <script>
@@ -82,66 +81,23 @@
                 that.countdown.show = true;
                 const params = qs.stringify({ phone: this.param.phone });
                 // 发验证码
-                this.$axios.post(this.$api.sendcodebychangephone2, params)
+                this.$axios.post(this.$api.sendcodebychangephone1, params)
                     .then(function(result) {
-                        that.text = '验证码已经发送至您的手机请注意查收';
+                        console.log(result.data,'-----------------------------------');
+                        console.log(result.msg,'----------------------------------+++++++++++++++++++++-');
+                        if(result.msg == '操作失败'){
+                            that.text = '请不要重复操作';
+                            that.countdown.getCodeText = '获取验证码'
+                            that.countdown.start = false;
+                            that.countdown.show = false;
+                        }else{
+                            that.text = '验证码已经发送至您的手机请注意查收';
+                        }
                         that.shows = true;
                         return false;
                     })
-                // .always(function() {
-                //     this.isSendDisabled = false;
-                // });
             },
-            // errorTips: function() {
-            //     var vm = this;
-            //     $.each(validator.messages, function(i, val) {
-            //         vm.$notiejs({
-            //             state: 2,
-            //             msg: val,
-            //             end() {
-            //                 vm.isDisabled = false
-            //             }
-            //         });
-            //         return false;
-            //     })
-            // },
-            // getVerCode() {
-            //     var vm = this;
-            //     //$dt = $(e.target);
-
-            //     if (this.isSendDisabled) return;
-            //     this.isSendDisabled = true;
-
-            //     // 校验表单
-            //     if (!validator.validate({ phone: this.phone }, true)) {
-
-            //         this.isSendDisabled = false;
-            //         return this.errorTips()
-            //     }
-
-            //     // 倒计时
-            //     down_time_60s();
-
-            //     // 发验证码
-            //     vm.$axios.get(vm.$api.sendcodebychangephone1, { params: { phone: this.phone } })
-            //         .then(function(result) {
-            //             vm.$notiejs({
-            //                 state: 2,
-            //                 msg: result.msg,
-            //                 end() {
-            //                     down_time_60s.clear();
-            //                 }
-            //             });
-            //             return false;
-            //         }).always(function() {
-            //             vm.isSendDisabled = false;
-            //         });
-            // },
             submitFn() {
-                console.log(this.$route)
-
-
-
                 let _this = this,
                     oValChar = {};
                 if (this.isDisabled) return;
@@ -165,7 +121,7 @@
                 }
                 const params = qs.stringify(this.param);
                 // 发验证码
-                this.$axios.post(this.$api.changepassword1, params)
+                this.$axios.post(this.$api.changepassword2, params)
                     .then(({ msg, status }) => {
                         if (status == -9) {
                             _this.text = msg;
@@ -176,12 +132,10 @@
                                 }
                             })
                             return false;
+                        } else {
+                            this.$router.push({ path: 'mycenter' })
                         }
                     })
-                // .always(function() {
-                //     this.isSendDisabled = false;
-                // });
-
             }
         },
         computed: {
@@ -190,30 +144,4 @@
             }
         }
     }
-    function down_time_60s(el, calback) {
-        down_time_60s.t = 60;
-
-        var dt = function() {
-            down_time_60s.t = --(down_time_60s.t);
-
-            if (down_time_60s.t <= 0) {
-                el.text('获取验证码');
-                el.removeClass('disabled');
-                calback && calback(el);
-                return;
-            }
-
-            el.text(down_time_60s.t + 's后重新获取');
-
-            setTimeout(arguments.callee, 1000);
-        };
-
-        dt();
-    }
-    /**
-     * 清除倒计时
-     */
-    down_time_60s.clear = function() {
-        down_time_60s.t = 0;
-    };
 </script>

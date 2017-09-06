@@ -80,7 +80,7 @@
                         state: 1,
                         msg: '提交成功',
                         end () {
-                            window.location.href = 'http:localhost:8089/#/mycenter/mySetup'
+                            _this.$router.push({ path: 'mySetup' });
                         }
                     })
                     if(status !=1){

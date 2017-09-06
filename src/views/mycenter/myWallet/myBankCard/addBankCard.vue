@@ -152,17 +152,18 @@
             // 回调
             var successFn = function () {
             //返回银行卡列表
-                _this.$notiejs({
+                vm.$notiejs({
                     state: 1,
                     msg: '添加成功',
                     end() {
-                        redirect_url(_backUrl);
+                        vm.$router.push({ path: 'myBankInfo' })
+//                        redirect_url(_backUrl);
                     }
                 });
             },
                 errorFn = function () {
                     if (result.status === -11) { // 密码验证失败
-                        _this.$notiejs({
+                        vm.$notiejs({
                             state: 1,
                             msg: result.msg,
                             end() {

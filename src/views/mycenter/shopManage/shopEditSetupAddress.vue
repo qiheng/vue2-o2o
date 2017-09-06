@@ -108,7 +108,8 @@
                                 vm.shop.address = vm.address;
 
                                 localStorage.setItem('__shopInfo',JSON.stringify(vm.shop));
-                                window.location.href = 'http://localhost:8089/#/mycenter/shopEditSetup';
+                                vm.$router.push({ path: 'shopEditSetup' })
+//                                window.location.href = 'http://localhost:8089/#/mycenter/shopEditSetup';
                             }
                         })
                     }).catch(function (result) {
@@ -150,7 +151,9 @@
         var shop = JSON.parse(localStorage.getItem('__shopInfo'));
 
         if (!shop) {
-            window.location.href = 'http://localhost:8089/#/mycenter/shopEditSetup';
+            vm.$router.push({ path: 'shopEditSetup' })
+
+//            window.location.href = 'http://localhost:8089/#/mycenter/shopEditSetup';
             // redirect_url(forward())
         }
         vm.shop = shop;

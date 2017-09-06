@@ -89,7 +89,8 @@
                             state: 1,
                             msg: '保存成功',
                             end() {
-                                window.location.href = 'http://localhost:8089/#/mycenter/shopEditSetup';
+                                vm.$router.push({ path: 'shopEditSetup' })
+//                                window.location.href = 'http://localhost:8089/#/mycenter/shopEditSetup';
                             }
                         });
                     }).catch(function () {

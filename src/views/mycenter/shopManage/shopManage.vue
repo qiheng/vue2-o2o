@@ -198,9 +198,7 @@
                         })
 
                     });
-
                     modules = tmp;
-
                 }
 
                 _this.modules = modules;

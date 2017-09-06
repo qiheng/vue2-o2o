@@ -125,6 +125,7 @@
                                     'getBrandWCPayRequest', config,
                                     function(res){
                                         if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+
                                             redirect_url('result?t=chongzhi');
                                         }
                                     }

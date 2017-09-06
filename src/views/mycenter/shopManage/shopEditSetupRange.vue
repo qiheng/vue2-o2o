@@ -67,19 +67,12 @@
                 vm.$axios.get(vm.$api.setshopattribute,{params:{name: 'range', value: Number(this.shop.range)}})
                     .then(function () {
                         if (vm.shop.shopId) {
-                            console.log(vm.shop.shopId,'+++++++++++++++++++++++6666');
-                            console.log(vm.shop,'+++++++++++++++++++++++666677777777777777');
                             localStorage.setItem('__shopInfo',JSON.stringify(vm.shop));
                         }
                         vm.show7 = true;
-                        window.location.href = 'http://localhost:8089/#/mycenter/shopEditSetup';
-//                        vm.$notiejs({
-//                            state: 1,
-//                            msg: '设置成功',
-//                            time:2000,
-//                            end:{
-//                            }
-//                        })
+
+                        vm.$router.push({ path: 'shopEditSetup' })
+
                     }).catch(function () {
                         vm.isDisabled = false;
                     })
