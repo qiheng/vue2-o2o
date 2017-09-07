@@ -191,9 +191,9 @@ const router = new Router({
         },
         {
             path: '/mycenter',
-            //name: 'mycenter',
+            name: 'mycenter',
             component: Mycenter,
-            //meta: { requiresAuth: true },
+            meta: { requiresAuth: true },
             children: [{
                 path: '',
                 name: 'userCenter',
@@ -207,7 +207,7 @@ const router = new Router({
                 },
                 {
                     path: 'userInfo',
-                    //name: 'userInfo',
+                    name: 'userInfo',
                     component: UserInfo,
                     children: [{
                         path: 'setUserName',
@@ -380,7 +380,7 @@ const router = new Router({
                 },
                 {
                     path: 'myBankInfo',
-                    //name: 'myBankInfo',
+                    name: 'myBankInfo',
                     component: MyBankInfo,
                     children: [{
                         path: '',
@@ -437,7 +437,7 @@ const router = new Router({
                 },
                 {
                     path: 'coupons',
-                    //name: 'coupons',
+                    name: 'coupons',
                     component: Coupons,
                     children: [{
                         path: '',
@@ -453,7 +453,7 @@ const router = new Router({
                 },
                 {
                     path: 'address',
-                    //name: 'address',
+                    name: 'address',
                     component: Address,
                     children: [{
                         path: '',
@@ -469,7 +469,7 @@ const router = new Router({
                 },
                 {
                     path: 'chests',
-                    //name: 'chests',
+                    name: 'chests',
                     component: Chests,
                     children: [{
                         path: '',

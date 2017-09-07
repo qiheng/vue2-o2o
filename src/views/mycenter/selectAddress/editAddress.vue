@@ -129,6 +129,7 @@ export default {
             this.changeAddressData()
         },
         changeAddressData() {
+            var _this = this;
             const param = this.addressData;
             const closeParam = qs.stringify(param);
             const openData = qs.parse(closeParam);
@@ -136,11 +137,12 @@ export default {
             const subData = qs.stringify(openData);
             this.$axios.post(this.$api.saveaddress, subData)
                 .then(request => {
-                    this.$notiejs({
+                    _this.$notiejs({
                         state: 1,
                         msg: request.msg,
                         end() {
-                            this.isDisabled = false
+                            _this.$router.push({ path: '/mycenter/address' })
+                            _this.isDisabled = false;
                         }
                     });
                 });

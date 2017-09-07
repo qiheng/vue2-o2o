@@ -166,6 +166,7 @@
 //                })
             },
             payValidatorFn : function(res){
+                var _this = this;
                 this.params.passwordPay = res;
                 let submitData = qs.stringify(this.params)
                 console.log(submitData,'666666666666666666666666666666666666')
@@ -174,7 +175,6 @@
                         this.$notiejs({
                             state: 1,
                             msg: res.msg,
-
                         })
                         this.closeLayerFn()
                     })},

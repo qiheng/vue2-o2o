@@ -33,26 +33,61 @@
         <div class="container mt30">
             <router-link :to="{name:'editAddress'}" class="btn btn-block btn-primary btn-lg">新建收货地址</router-link>
         </div>
+        <div>
+            <confirm
+                v-model="show4"
+                :close-on-confirm="false"
+                @on-cancel="onCancel"
+
+                @on-confirm="onConfirm">
+                <p style="text-align:center;">{{ '你确定删除吗?'}}</p>
+            </confirm>
+        </div>
     </div>
 </template>
 <script>
+import  { Confirm  } from 'vux'
 import { mapActions, mapGetters } from 'vuex'
 
 import qs from 'qs'
 export default {
+    components: {
+        Confirm,
+    },
     data() {
         return {
             emptyMsg: {
                 mainMsg: '暂无地址列表~',
                 subMsg: '赶快去添加吧~'
             },
-            addressList: []
+            show4: false,
+            addressList: [],
+            itemIndex:'',
+            addressItem:{}
         }
     },
     created() {
         this.getAddressListData()
     },
     methods: {
+        onCancel () {
+            this.show4 = false;
+        },
+        onConfirm () {
+            let addressItem = this.addressItem;
+            const param = qs.stringify({ 'userAddressId': addressItem.userAddressId, 'isDefault': addressItem.isDefault })
+            this.$axios.post(this.$api.deladdress, param).then(requset => {
+                this.addressList.splice(this.itemIndex, 1);
+            })
+            this.$vux.loading.show({
+                transition: '',
+                text: '删除成功'
+            });
+            setTimeout(() => {
+                this.$vux.loading.hide()
+                this.show4 = false
+            }, 1000);
+        },
         getAddressListData() {
             this.$axios.get(this.$api.addresslist)
                 .then(requset => {
@@ -60,26 +95,9 @@ export default {
                 })
         },
         delAddressData(index) {
-            let addressItem = this.addressList[index];
-            const param = qs.stringify({ 'userAddressId': addressItem.userAddressId, 'isDefault': addressItem.isDefault })
-            this.$axios.post(this.$api.deladdress, param).then(requset => {
-                this.addressList.splice(index, 1);
-            })
-
-            // this.$layer.open({
-            //     title: '温馨提示',
-            //     shift: 1,
-            //     content: '您确定要删除吗？',
-            //     btn: ['确定', '取消'],
-            //     yes: function (idx, layerEl) {
-            //         layer.close(idx);
-
-            //     },
-            //     cancel: function () {
-
-            //     }
-            // });
-
+            this.addressItem = this.addressList[index];
+            this.itemIndex = index;
+            this.show4 = true;
         }
     },
     computed: {

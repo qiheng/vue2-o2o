@@ -156,7 +156,8 @@
                     state: 1,
                     msg: '添加成功',
                     end() {
-                        vm.$router.push({ path: 'myBankInfo' })
+                        vm.$router.push({ path: 'myBankInfo' });
+                        alert('2322200')
 //                        redirect_url(_backUrl);
                     }
                 });
