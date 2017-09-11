@@ -82,13 +82,13 @@ import validator from '@/assets/js/validator'
         created: function () {
             this.getHotSearch();
             this.getHistory();
-
-            let query = this.query;
+            var _this = this;
+            let query = _this.query;
             query.t;
-            if(query.t == this.search){
-                query.t.placeholder = this.search.placeholder
+            if(_this.query.t == _this.search){
+                _this.query.t.placeholder = _this.search.placeholder
             }
-            console.log(query.t,'4114454455454');
+            console.log(_this.query.t,'4114454455454');
         },
         methods: {
             // 历史记录
