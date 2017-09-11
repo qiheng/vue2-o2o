@@ -25,11 +25,11 @@
             </div>
         </div>
         <div class="fm-group  mt10">
-            <input type="hidden" name="isDefault" v-model="addressData.isDefault" />
+            <input type="hidden" name="addressData.isDefault" v-model="addressData.isDefault" />
             <div class="fm-line set-default-address J-radio">
                 <div class="clearfix">
                     <label class="l-label">设为默认地址</label>
-                    <switch-tpl v-model="addressData.isDefault"></switch-tpl>
+                    <x-switch :title="''"></x-switch>
                 </div>
             </div>
         </div>
@@ -42,9 +42,14 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { XSwitch, Group } from 'vux'
 import validator from '@/assets/js/validator'
 import qs from 'qs'
 export default {
+    components: {
+        XSwitch,
+        Group
+    },
     data() {
         return {
             isDisabled: false,
@@ -53,6 +58,7 @@ export default {
                 title: '选择地址'
             },
             define: 10,
+            val: true,
             proviance: {},
             city: {},
             area: {},
@@ -64,7 +70,8 @@ export default {
                 city: '',
                 area: '',
                 address: '',
-                isDefault: false
+                userAddressId:'',
+                isDefault: true
             }
         }
     },
@@ -75,13 +82,29 @@ export default {
             this.addressData.userAddressId = query.userAddressId;
             this.$axios.get(this.$api.getaddress + '?userAddressId=' + query.userAddressId)
                 .then(request => {
+
+
                     this.addressData = request.data;
-                    this.addressData.isDefault = (request.data.isDefault == 1) ? true : false;
+//                    this.addressData.isDefault = this.val;
+                    console.log(this.addressData,'+++++++++++++++++++++++++++++++++++++++++');
+                    this.val = (request.data.isDefault ==1) ? true :false;
+//                    this.addressData.isDefault = (request.data.isDefault == 1) ? true : false;
+                    console.log(request.data.isDefault,'+++++++++++++++++++++++++++++++++++++++++66666666666666666666666666666');
                 })
         }
         this.init();
     },
     methods: {
+        onClick (newVal, oldVal) {
+            console.log(newVal, oldVal)
+            this.$vux.loading.show({
+                text: 'in processing'
+            })
+            setTimeout(() => {
+                this.$vux.loading.hide()
+                this.val = newVal
+            }, 1000)
+        },
         init() {
             validator.config = {
                 linkman: { strategy: 'isNonEmpty', errorMsg: '收货人姓名不能为空' },
@@ -133,7 +156,13 @@ export default {
             const param = this.addressData;
             const closeParam = qs.stringify(param);
             const openData = qs.parse(closeParam);
-            openData.isDefault == 'false' ? openData.isDefault = 0 : openData.isDefault = 1;
+
+
+            _this.val == false ? openData.isDefault = 1 : openData.isDefault = 0;
+            if(openData.isDefault = 1){
+                this.val = true;
+            }
+
             const subData = qs.stringify(openData);
             this.$axios.post(this.$api.saveaddress, subData)
                 .then(request => {

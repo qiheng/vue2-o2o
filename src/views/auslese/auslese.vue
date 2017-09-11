@@ -18,6 +18,8 @@
                     </a>
                     <div class="white f12 auslese-shopInfo" style="text-align: center">
                         <a :href="'shop-detail.html?shopId='+selfShopItem.shopId"><img :src="selfShopItem.pic+'?x-oss-process=image/resize,m_fixed,h_115,w_115'" alt=""/></a>
+                        <!--<a :href="'shop-detail.html?shopId='+selfShopItem.shopId"><img :src="selfShopItem.pic+'?x-oss-process=image/resize,m_fixed,h_115,w_115'" alt=""/></a>-->
+
                         <p class="f16 mt5"><em>{{ selfShopItem.name | cutstr(20) }}</em></p>
                         <!--<p>{{ JSON.stringify(selfShopList[0]) }}</p>-->
                         <p>{{ selfShopItem.shopCategoryName }}&nbsp;<i :class="'text-left star2 star-'+(Math.round(selfShopItem.score))"></i></p>
@@ -35,9 +37,9 @@
                         <h2 class="f16">推荐店铺</h2>
                     </div>
 
-                    <a v-for="(recommendShopItem, index) in recommendShopList" class="container panel-item" :href="'shop-detail.html?shopId='+recommendShopItem.shopId">
+                    <!--<a v-for="(recommendShopItem, index) in recommendShopList" class="container panel-item" :href="'shop-detail.html?shopId='+recommendShopItem.shopId">-->
+                    <router-link v-for="(recommendShopItem, index) in recommendShopList" class="container panel-item" :to="{name:'shopDetail',query:{'shopId':recommendShopItem.shopId}}">
                         <div class="panel-inner">
-
                             <div class="panel-pic">
                                 <img width="72" height="72"
                                      :src="recommendShopItem.pic+'?x-oss-process=image/resize,m_fixed,h_115,w_115'" alt=""/>
@@ -70,7 +72,7 @@
 
                             </div>
                         </div>
-                    </a>
+                    </router-link>
                 </template>
                 <empty v-else :msg="emptyMsg" class="mt30"></empty>
             </div>

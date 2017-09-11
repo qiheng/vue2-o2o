@@ -8,9 +8,9 @@
         </div>
 
         <div class="container mt30">
-            <input @click.prevent="submitFn" v-if="showHide" type="submit" value="验证" class="btn btn-block btn-lg btn-primary" :class="{disabled:isDisabled}">
+            <input @click.prevent="submitFn" v-if="showHide" type="submit" value="验证" class="btn btn-block btn-lg btn-primary">
             <router-link :to="{name:'result'}" v-if="show">
-                <input  type="submit" value="验证" class="btn btn-block btn-lg btn-primary" :class="{disabled:isDisabled}">
+                <input  type="submit" value="验证" class="btn btn-block btn-lg btn-primary">
             </router-link>
         </div>
     </form>
@@ -37,7 +37,6 @@
                         state: 2,
                         msg: '请输入消费码',
                         end() {
-                            _this.isDisabled = false;
                             _this.showHide = true;
                             _this.show = false;
                             _this.isDisabled = true;
@@ -49,8 +48,7 @@
                     .then(function () {
                         this.show = true;
                         _this.showHide = false;
-//                        this.isDisabled = false;
-
+                        this.isDisabled = false;
 //                        window.location.href = result;
 //                        redirect_url('result.html?t=xfcode')
                     })

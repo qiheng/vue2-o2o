@@ -3,8 +3,7 @@
         <!-- 导顶部导航 start -->
         <div class="header nav-header-search">
             <a @click="searchHandle(keywrod)" href="javascript:;" class="btn icos-sprite search-btn pull-right"></a>
-            <!--<div class="header-search"><input type="search" class="search-key" v-model="keywrod" :placeholder="search[query.t].placeholder" /></div>-->
-            <div class="header-search"><input type="search" class="search-key" v-model="keywrod" :placeholder="search[query.t].placeholder"/></div>
+            <div class="header-search"><input type="search" class="search-key" v-model="keywrod" :placeholder="search[query.t].placeholder" /></div>
         </div>
         <!-- 导顶部导航 end -->
 
@@ -46,38 +45,38 @@ import validator from '@/assets/js/validator'
                 keywrod: '',
                 historysearches: [],
                 hotSearchList: [],
-                search: [
-                     {
+                search: {
+                    '0': {
                         url: 'search-result.html',
                         placeholder: '输入搜索商家、商品名称',
                         name: 'home'
                     },
-                    {
+                    '1': {
                         url: 'search-result.html',
                         placeholder: '输入搜索商品名称',
                         name: 'favorite'
                     },
-                    {
+                    '2': {
                         url: 'search-result.html',
                         placeholder: '输入搜索促销商品名称',
                         name: 'sale'
                     },
-                    {
+                    '3': {
                         url: 'search-result.html',
                         placeholder: '输入搜索商家名称',
                         name: 'o2o'
                     },
-                     {
+                    '4': {
                         url: 'search-result.html',
                         placeholder: '输入搜索商家名称',
                         name: 'synthe'
                     },
-                     {
+                    '5': {
                         url: 'search-result.html',
                         placeholder: '输入搜索关键词',
                         name: 'bdt'
                     }
-                ]
+                }
             }
         },
         created: function () {
@@ -86,7 +85,7 @@ import validator from '@/assets/js/validator'
 
             let query = this.query;
             query.t;
-            if(query.t == this.search){ debugger
+            if(query.t == this.search){
                 query.t.placeholder = this.search.placeholder
             }
             console.log(query.t,'4114454455454');
@@ -118,6 +117,7 @@ import validator from '@/assets/js/validator'
             },
             // 搜索操作
             searchHandle: function (key) {
+                var _this = this;
                 var historysearches = this.historysearches;
 
                 if (key === undefined || key === '') {
@@ -125,7 +125,6 @@ import validator from '@/assets/js/validator'
                         state: 2,
                         msg: '请输入搜索关键词',
                     });
-
                     return false
                 }
 
@@ -139,6 +138,7 @@ import validator from '@/assets/js/validator'
                 }
 
                 // 跳转结果页
+                _this.$router.push({path:'searchResult',query:{'key':key,'t':_this.query.t}})
 //                redirect_url('search-result.html?key='+ key +'&t=' + query.t);
             },
             // 清空历史记录操作

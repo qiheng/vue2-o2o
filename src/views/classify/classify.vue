@@ -8,11 +8,16 @@
                 </div>
                 <div class="classify-bd">
                     <ul class="list-fl">
-                        <li><a :href="'shop-all-class.html?shopClassId='+list.shopClassId">全部</a></li>
+                        <!--<li><a :href="'shop-all-class.html?shopClassId='+list.shopClassId">全部</a></li>-->
+                        <li><router-link :to="{name:'shopAllClass',query:{'shopClassId':list.shopClassId}}">全部</router-link></li>
                         <li v-for="(subList, idx) in list.shopCategoryList" :key="idx" v-if="subList.name" :class="{hidden:idx >= initShowSize && list.isHidden}">
-                            <a class="nowrap" :href="'shop-all-class.html?shopCategoryId='
-                            +subList.shopCategoryId+'&shopClassId='
-                            +list.shopClassId+'&shopClassName='+subList.name" v-text="subList.name"></a>
+                            <!--<a class="nowrap" :href="'shop-all-class.html?shopCategoryId='-->
+                            <!--+subList.shopCategoryId+'&shopClassId='-->
+                            <!--+list.shopClassId+'&shopClassName='+subList.name" v-text="subList.name"></a>-->
+
+                            <router-link class="nowrap" :to="{name:'shopAllClass',query:{'shopCategoryId':subList.shopCategoryId,'shopClassId':list.shopClassId,'shopClassName':subList.name}}" v-text="subList.name"></router-link>
+                            <!--<router-link class="nowrap" :to="'{name:'shopAllClass'}" v-text="subList.name"></router-link>-->
+
                         </li>
                         <li v-if="list.shopCategoryList.length > initShowSize">
                             <a @click="showMore(index)" href="javascript:;">
@@ -22,9 +27,7 @@
                     </ul>
                 </div>
             </div>
-
         </div>
-
         <!-- 主导航 -->
         <main-nav :current-nav-index="currentNavIndex"></main-nav>
     </div>

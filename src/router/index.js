@@ -98,6 +98,11 @@ const shopComplain = r => require.ensure([], () => r(require('@/views/mycenter/m
 
 const ChooseCity = r => require.ensure([], () => r(require('@/views/chooseCity/choose-city')), 'home'); // 选择地区
 
+const addServicePerson = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/addServicePerson')), 'users'); // 我的-个人中心-店铺管理- 添加服务人员
+const shopAllClass = r => require.ensure([], () => r(require('@/views/classify/shopAllClass')), 'navtab'); //  分类页面详情
+
+
+
 
 Vue.use(Router);
 
@@ -164,6 +169,12 @@ const router = new Router({
             name: 'classify',
             component: Classify
         },
+        {
+            path: '/shopAllClass',
+            name: 'shopAllClass',
+            component: shopAllClass
+        },
+
         {
             path: '/auslese',
             name: 'auslese',
@@ -307,6 +318,11 @@ const router = new Router({
                     path: 'servicePersonManage',
                     name: 'servicePersonManage',
                     component: servicePersonManage
+                },
+                {
+                    path: 'addServicePerson',
+                    name: 'addServicePerson',
+                    component: addServicePerson
                 },
                 {
                     path: 'pictureManage',
