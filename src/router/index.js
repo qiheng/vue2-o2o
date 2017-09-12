@@ -100,7 +100,7 @@ const ChooseCity = r => require.ensure([], () => r(require('@/views/chooseCity/c
 
 const addServicePerson = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/addServicePerson')), 'users'); // 我的-个人中心-店铺管理- 添加服务人员
 const shopAllClass = r => require.ensure([], () => r(require('@/views/classify/shopAllClass')), 'navtab'); //  分类页面详情
-
+const addAdmin = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/addAdmin')), 'users'); // 我的-个人中心-店铺管理- 图片管理
 
 
 
@@ -333,6 +333,11 @@ const router = new Router({
                     path: 'adminAuthority',
                     name: 'adminAuthority',
                     component: adminAuthority
+                },
+                {
+                    path: 'addAdmin',
+                    name: 'addAdmin',
+                    component: addAdmin
                 },
                 {
                     path: 'viewCheckError',

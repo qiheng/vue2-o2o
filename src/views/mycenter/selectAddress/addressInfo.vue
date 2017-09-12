@@ -38,7 +38,6 @@
                 v-model="show4"
                 :close-on-confirm="false"
                 @on-cancel="onCancel"
-
                 @on-confirm="onConfirm">
                 <p style="text-align:center;">{{ '你确定删除吗?'}}</p>
             </confirm>
