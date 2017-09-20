@@ -104,66 +104,9 @@
                         });
                         return false;
                     })
-
                 }
                 this.layerData.visible = !this.layerData.visible;
                 console.log(this.params,'6666666666666666666666666666666666666666666666666666666')
-                // 提现处理
-//                payPwdLayer(function (layero, index) {
-//                    var $inpt = $(layero).find('.int-pwd'), _val;
-//                    // 处理密码
-//                    $inpt.off('keyup').on('keyup', function () {
-//                        _val = $.trim($inpt.val());
-//
-//                        if (/^\d{6}$/.test(_val)) {
-//                            oValChar['passwordPay'] = _val;
-//
-//                            this.$axios.get(this.$api.withdraw)
-//                                .then(function () {
-//                                    vm.$notiejs({
-//                                        state: 1,
-//                                        msg: '提现成功',
-//                                        end() {
-//                                            redirect_url('result.html?t=tixian');
-//                                        }
-//                                    });
-//                                })
-//                                , function noFn(result) {
-//                                vm.isDisabled = false;
-//
-//                                if (result.status === -11) { // 密码验证失败
-//                                    vm.$notiejs({
-//                                        state: 2,
-//                                        msg: result.msg,
-//                                        end() {
-//                                            return false;
-//                                        }
-//                                    });
-//                                }
-//
-//                                if (result.status === -15) { // 余额不足
-//                                    vm.$notiejs({
-//                                        state: 2,
-//                                        msg: result.msg,
-//                                        end() {
-//                                            return false;
-//                                        }
-//                                    });
-//                                }
-//
-//                                if (result.status === -17) { // 提现金额太小
-//                                    vm.$notiejs({
-//                                        state: 2,
-//                                        msg: result.msg,
-//                                        end() {
-//                                            return false;
-//                                        }
-//                                    });
-//                                }
-//                            }
-//                        }
-//                    })
-//                })
             },
             payValidatorFn : function(res){
                 var _this = this;

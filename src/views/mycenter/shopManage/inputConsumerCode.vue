@@ -43,16 +43,15 @@
                         }
                     });
                 }
+
                 // 提交验证消费码
                 this.$axios.get(this.$api.confirmordersbycode,{params:'code: this.code'})
                     .then(function () {
                         this.show = true;
                         _this.showHide = false;
                         this.isDisabled = false;
-//                        window.location.href = result;
-//                        redirect_url('result.html?t=xfcode')
+                        _this.$router.push({ path: 'result' ,query:{'t':xfcode}})
                     })
-
             }
         }
     }

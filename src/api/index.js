@@ -160,6 +160,7 @@ export default {
     salecategory        : '/salecategory', // 促销页分类
     salegoods           : '/salegoods', // 促销商品列表
     salespage           : '/salespage', // 活动列表页
+    promotionModel      : '/promotionModel', // 商品详情
     noticelist          : '/noticelist', // 公告列表
     getnotice           : '/getnotice', // 公告
     getshopcategorylist : '/getshopcategorylist', // 获取分类数据
@@ -200,7 +201,6 @@ export default {
     shareScore          : '/shareScore', // 用户分享获取积分
     sitecategory        : '/sitecategory', // 分类
     getcitys            : '/getcitys', // 获取所有城市
-
     choiceness   : '/choiceness', // 精选
 }
 

@@ -101,7 +101,8 @@ const ChooseCity = r => require.ensure([], () => r(require('@/views/chooseCity/c
 const addServicePerson = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/addServicePerson')), 'users'); // 我的-个人中心-店铺管理- 添加服务人员
 const shopAllClass = r => require.ensure([], () => r(require('@/views/classify/shopAllClass')), 'navtab'); //  分类页面详情
 const addAdmin = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/addAdmin')), 'users'); // 我的-个人中心-店铺管理- 图片管理
-
+const shopEditSetupTime = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupTime')), 'users'); // 我的-个人中心-店铺管理--店铺设置--店铺时间
+const productDetail = r => require.ensure([], () => r(require('@/views/home/productDetail/productDetail')), 'home'); // 首页--商品详情页面
 
 
 Vue.use(Router);
@@ -117,6 +118,12 @@ const router = new Router({
             name: 'search',
             component: search
         },
+        {
+            path: '/productDetail',
+            name: 'productDetail',
+            component: productDetail
+        },
+
         {
 
             path: '/salesPromotion',
@@ -383,6 +390,11 @@ const router = new Router({
                     path: 'shopEditSetupClassify',
                     name: 'shopEditSetupClassify',
                     component: shopEditSetupClassify
+                },
+                {
+                    path: 'shopEditSetupTime',
+                    name: 'shopEditSetupTime',
+                    component: shopEditSetupTime
                 },
                 {
                     path: 'salesList',

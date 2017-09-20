@@ -56,10 +56,10 @@
             <div class="fm-group mt10">
                 <div class="fm-line">
                     <label class="l-label">营业时间</label>
-                    <a class="pull-right" href="shop-edit-setup-time.html">
+                    <router-link class="pull-right" :to="{name:'shopEditSetupTime'}">
                         <input class="text-right lightgray mr10" type="text" value="修改" readonly="readonly"/>
                         <i class="arr-rt pos-rt-middle"></i>
-                    </a>
+                    </router-link>
                 </div>
                 <div class="fm-line">
                     <label class="l-label">店铺描述</label>
@@ -221,7 +221,6 @@
                         if (query['dev']) {
                             console.log('ajax msg: ' + res);
                         }
-
                         // noFn && noFn(res, resTxt);
                         if (noFn && noFn(res, resTxt) === false) return;
                         // 404
@@ -253,7 +252,6 @@
                             state: 1,
                             msg: '修改成功',
                         });
-
                     }
 
                     // 错误处理

@@ -24,7 +24,7 @@
             <p class="container mt30">
                 <router-link :to="{name:'addServicePerson',query:{'type':'add'}}" class="btn btn-block btn-primary btn-lg" >添加服务人员</router-link>
             </p>
-            <a href="shop-manage.html" class="go-back"></a>
+            <router-link :to="{name:'shopManage'}" class="go-back"></router-link>
         </template>
     </div>
 </template>

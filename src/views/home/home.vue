@@ -70,7 +70,7 @@
             </div>
             <!-- 服务类别 end -->
 
-            <a class="block flashSale-panel" href="sales-promotion.html?salesType=1&amp;salesId=3db0e8068a414972bd41d8d8697b0d5c">
+            <router-link class="block flashSale-panel" :to="{name:'salesPromotion'}">
                 <div class="clearfix flashSale-hd">
                     <img class="flashSale-xsqg" width="120" src="../../assets/images/index/flash-sale.png" alt="">
                     <div class="bfc-panel">
@@ -90,25 +90,6 @@
             </div>
         </div>
         <!-- 服务类别 end -->
-
-        <!--<a class="block flashSale-panel" href="sales-promotion.html?salesType=1&amp;salesId=3db0e8068a414972bd41d8d8697b0d5c">-->
-            <!--<div class="clearfix flashSale-hd">-->
-                <!--<img class="flashSale-xsqg" width="120" src="../../assets/images/index/flash-sale.png" alt="">-->
-                <!--<div class="bfc-panel">-->
-                    <!--<h2 class="f18 dib icon-go">-->
-                        <!--春季大酬宾-->
-                    <!--</h2>-->
-                    <!--<div class="flashSale-dwtime" data-time="260942.144" data-format="1">-->
-                        <!--距离结束时间-->
-                        <!--<count-down @end-time="endTime" :times="120" :format="1"></count-down>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="flashSale-img">-->
-                <!--<img class="img-responsive" src="http://rhytcsht.img-cn-shenzhen.aliyuncs.com/upload/201704/14/14921508961554984.jpg?x-oss-process=image/resize,m_fixed,h_720,w_300" alt="">-->
-            <!--</div>-->
-        <!--</a>-->
-
         <router-link class="block flashSale-panel" :to="{name:'salesPromotion'}">
             <div class="clearfix flashSale-hd">
                 <img class="flashSale-xsqg" width="120" src="../../assets/images/index/flash-sale.png" alt="">
@@ -132,30 +113,28 @@
                 <div class="flashSale-img">
                     <img class="img-responsive" src="http://rhytcsht.img-cn-shenzhen.aliyuncs.com/upload/201704/14/14921508961554984.jpg?x-oss-process=image/resize,m_fixed,h_720,w_300" alt="">
                 </div>
-            </a>
+            </router-link>
 
 
         <div class="panel clearfix home-promotion-panel">
 
             <div class="panel clearfix home-promotion-panel">
-
-
-                <a class="pull-left" href="sales-promotion.html?salesType=2&amp;salesId=5f9b0356a5ee4f96ab71c5666cf39123">
+                <router-link class="pull-left" :to="{name:'salesPromotion',query:{'salesType':'2','salesId':'5f9b0356a5ee4f96ab71c5666cf39123'}}">
                     <div class="home-promotion-hd">
                         <h2 class="f18 icon-go go-2">9.9元专&nbsp;</h2>
                         <h3 style="color: #ff9700"></h3>
                     </div>
                     <img class="img-responsive home-promotion-img" src="http://rhytcsht.img-cn-shenzhen.aliyuncs.com/upload/201703/21/14900591936962118.png" alt="">
-                </a>
+                </router-link>
 
-                <a class="pull-left" href="sales-promotion.html?salesType=3&amp;salesId=4df557624a5d4f6f97441cbd95bd597f">
+
+                <router-link class="pull-left" :to="{name:'salesPromotion',query:{'salesType':'3','salesId':'4df557624a5d4f6f97441cbd95bd597f'}}">
                     <div class="home-promotion-hd">
                         <h2 class="f18 icon-go go-2">今天半价&nbsp;</h2>
                         <h3 style="color: #ff9700"></h3>
                     </div>
                     <img class="img-responsive home-promotion-img" src="http://rhytcsht.img-cn-shenzhen.aliyuncs.com/upload/201703/21/14900591576829285.png" alt="">
-                </a>
-
+                </router-link>
             </div>
 
             <!-- 商家列表 start -->
@@ -165,22 +144,16 @@
                     <img width="22" class="pull-left mr5" src="../../assets/images/icons-v3/icons1/icon_shop.png">
                     <h2 class="f16">附近店铺</h2>
                 </div>
-
-                <a v-for="shopItem in indexData.shops" class="container panel-item"
-                   :href="'shop-detail.html?shopId='+shopItem.shopId">
+                <router-link v-for="shopItem in indexData.shops" class="container panel-item"
+                   :to="{name:'shopDetail',query:{'shopId':shopItem.shopId}}">
                     <div class="panel-inner">
-
                         <div class="panel-pic">
                             <img width="72" height="72"
                                  :src="(shopItem.pic ? shopItem.pic + '?x-oss-process=image/resize,m_fixed,h_100,w_100' : config.defaultGoodsPic)" alt="">
-
                         </div>
                         <div class="gray f12 panel-info">
                             <h2 class="panel-tit">{{ shopItem.name | cutstr(16) }}
-
                                 <span v-if="shopItem.self" class="i-label ml10 f12">自营</span>
-
-                                <!--<i class="lv lv-1">v1</i>-->
                             </h2>
                             <p>
                                 <i :class="'star2 star-'+Math.round(shopItem.score)"></i><span class="dib-middle ml5 orange">{{ shopItem.score }}</span>
@@ -188,40 +161,29 @@
                             </p>
                             <p class="nowrap mt5">{{ shopItem.summary }}</p>
                             <div class="clearfix mt5">
-                                <!--<span class="pull-left mr5"><ins class="orange"><%- data.shopCategoryName %></ins></span>-->
                                 <p class="pull-left">
                                     <span class="i-label mr5">{{ shopItem.shopCategoryName }}</span>
-                                    <!--<span class="i-label">{{ shopTypeName[shopItem.shopTypeId] }}</span>-->
                                 </p>
                                 <i class="pull-right ml5 mt5">
-                                    <!--<i class="i-dwei"></i>&lt;-->
                                     {{ shopItem.distance }}
                                 </i>
                             </div>
-
                             <ul v-if="shopItem.saleList.length" class="panel-yhInfo f12">
                                 <li v-for="saleItem in shopItem.saleList" :class="saleClass[saleItem.salesType]">{{ saleItem.name }}</li>
                             </ul>
-
-
                         </div>
                     </div>
-                </a>
-
+                </router-link>
             </div>
             <!-- 商家列表 end -->
-
         </div>
-
         <!-- 主导航 -->
         <main-nav></main-nav>
     </div>
 </div>
 </template>
-
 <script>
     import {mapGetters} from 'vuex'
-
     export default {
         data () {
             return {
