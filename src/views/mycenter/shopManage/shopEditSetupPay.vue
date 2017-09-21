@@ -2,27 +2,28 @@
     <div class="pay-way-wrap" v-cloak>
         <div class="panel pay-select-panel mt10">
             <div class="pay-select-way">
-                <template v-if="!isOrderChoose">
+
                     <div class="J-radio pay-select-otps">
                         <i class="pay-zxzf"></i>在线支付
-                        <span class="i-radio" :class="{checked: zxzf.length}" data-pay="0"></span>
+                        <span :class="{checked: zxzf.length,checked:active2}" data-pay="0"  @click="clickActive(1)" class="i-radio"></span>
                     </div>
+
                     <div class="J-radio pay-select-otps">
                         <i class="pay-hdfk"></i>货到付款
-                        <span class="i-radio" :class="{checked: hdfk.length}" data-pay="1"></span>
+                        <span :class="{checked: hdfk.length , checked:active}" data-pay="1"  @click="clickActive(2)" class="i-radio"></span>
                     </div>
-                </template>
-                <template v-else>
-                    <div v-if="(query.supportPayType.indexOf('5') == -1 && query.supportPayType.length > 0) ||
-            (query.supportPayType.indexOf('5') != -1 && query.supportPayType.length > 1)" class="J-radio pay-select-otps">
-                        <i class="pay-zxzf"></i>在线支付
-                        <span class="i-radio" data-pay="0"></span>
-                    </div>
-                    <div v-if="query.supportPayType.indexOf('5') != -1" class="J-radio pay-select-otps">
-                        <i class="pay-hdfk"></i>货到付款
-                        <span class="i-radio" data-pay="1"></span>
-                    </div>
-                </template>
+
+                <!--<template v-else>-->
+                    <!--<div v-if="(query.supportPayType.indexOf('5') == -1 && query.supportPayType.length > 0) ||-->
+            <!--(query.supportPayType.indexOf('5') != -1 && query.supportPayType.length > 1)" class="J-radio pay-select-otps">-->
+                        <!--<i class="pay-zxzf"></i>在线支付-->
+                        <!--<span class="i-radio" data-pay="0"></span>-->
+                    <!--</div>-->
+                    <!--<div v-if="query.supportPayType.indexOf('5') != -1" class="J-radio pay-select-otps">-->
+                        <!--<i class="pay-hdfk"></i>货到付款-->
+                        <!--<span class="i-radio" data-pay="1"></span>-->
+                    <!--</div>-->
+                <!--</template>-->
             </div>
         </div>
         <div v-if="!isOrderChoose" class="container mt30">
@@ -39,6 +40,9 @@
                 hdfk: [],
                 payTypeArr: [],
                 shop: {},
+                item1:1,
+                active:false,
+                active2:false,
 //                query: query
             }
         },
@@ -83,14 +87,23 @@
                     })
 
                 }
-
             }
-
         },
         mounted: function () {
-//            bindEvent(this)
+
         },
         methods: {
+            clickActive: function(eq) {
+                if(this.item1===eq){
+                    eq = 1;
+                    this.active2 = !this.active2;
+                }
+                else{
+                    eq = 2;
+                    this.active = !this.active;
+                }
+
+            },
             submitFn: function () {
                 var _this = this;
 
@@ -105,7 +118,7 @@
 //                            redirect_url(forward())
 //                        });
                     })
-            }
+            },
         },
         computed: {
             // 设置是否支付方式
