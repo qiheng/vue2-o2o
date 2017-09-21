@@ -12,18 +12,6 @@
                         <i class="pay-hdfk"></i>货到付款
                         <span :class="{checked: hdfk.length , checked:active}" data-pay="1"  @click="clickActive(2)" class="i-radio"></span>
                     </div>
-
-                <!--<template v-else>-->
-                    <!--<div v-if="(query.supportPayType.indexOf('5') == -1 && query.supportPayType.length > 0) ||-->
-            <!--(query.supportPayType.indexOf('5') != -1 && query.supportPayType.length > 1)" class="J-radio pay-select-otps">-->
-                        <!--<i class="pay-zxzf"></i>在线支付-->
-                        <!--<span class="i-radio" data-pay="0"></span>-->
-                    <!--</div>-->
-                    <!--<div v-if="query.supportPayType.indexOf('5') != -1" class="J-radio pay-select-otps">-->
-                        <!--<i class="pay-hdfk"></i>货到付款-->
-                        <!--<span class="i-radio" data-pay="1"></span>-->
-                    <!--</div>-->
-                <!--</template>-->
             </div>
         </div>
         <div v-if="!isOrderChoose" class="container mt30">
@@ -65,7 +53,7 @@
                     payTypeTxt = '';
 
                 if (!shop) {
-//                    redirect_url(forward())
+                    this.$router.push({path:'shopEditSetup'});
                 }
 
                 this.shop = shop;
@@ -75,7 +63,7 @@
                 if (!!payTypeTxt) {
 
                     this.payTypeArr = payTypeTxt.split(',');
-                    //console.log(this.payTypeArr)
+
                     // 货到付款
                     if (this.payTypeArr.indexOf('5') != -1) {
                         this.hdfk = [5]
@@ -114,9 +102,13 @@
 
                         localStorage.setItem('__shopInfo',JSON.stringify( _this.shop));
 
-//                        notiejs.alert(1, '保存成功', 2000, function () {
-//                            redirect_url(forward())
-//                        });
+                        _this.$notiejs({
+                            state: 1,
+                            msg: '保存成功',
+                            end() {
+                                _this.$router.push({path:'shopEditSetup'});
+                            }
+                        })
                     })
             },
         },
