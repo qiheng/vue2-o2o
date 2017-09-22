@@ -109,7 +109,6 @@
 
                                 localStorage.setItem('__shopInfo',JSON.stringify(vm.shop));
                                 vm.$router.push({ path: 'shopEditSetup' })
-//                                window.location.href = 'http://localhost:8089/#/mycenter/shopEditSetup';
                             }
                         })
                     }).catch(function (result) {

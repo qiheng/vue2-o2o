@@ -103,6 +103,10 @@ const shopAllClass = r => require.ensure([], () => r(require('@/views/classify/s
 const addAdmin = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/addAdmin')), 'users'); // 我的-个人中心-店铺管理- 图片管理
 const shopEditSetupTime = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupTime')), 'users'); // 我的-个人中心-店铺管理--店铺设置--店铺时间
 const productDetail = r => require.ensure([], () => r(require('@/views/home/productDetail/productDetail')), 'home'); // 首页--商品详情页面
+const myOrderDetail = r => require.ensure([], () => r(require('@/views/mycenter/order/myOrderDetail')), 'order'); // 我的-订单详情
+const wsSetPrice = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/wsSetPrice')), 'users'); // 我的-个人中心-店铺管理-外卖设置
+const logisticsManage = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/logisticsManage')), 'users'); // 我的-个人中心-店铺管理-物流设置
+
 
 
 Vue.use(Router);
@@ -206,6 +210,11 @@ const router = new Router({
             path: '/test',
             name: 'test',
             component: test
+        },
+        {
+            path: '/myOrderDetail',
+            name: 'myOrderDetail',
+            component: myOrderDetail
         },
         {
             path: '/mycenter',
@@ -405,6 +414,16 @@ const router = new Router({
                     path: 'shopNotice',
                     name: 'shopNotice',
                     component: shopNotice
+                },
+                {
+                    path: 'wsSetPrice',
+                    name: 'wsSetPrice',
+                    component: wsSetPrice
+                },
+                {
+                    path: 'logisticsManage',
+                    name: 'logisticsManage',
+                    component: logisticsManage
                 },
                 {
                     path: '/myWallet',

@@ -29,15 +29,16 @@
                             <span class="orange pos-rt-middle">{{ ordersItem.statusOrderMsg }}</span>
                         </div>
 
-                        <a class="block ml30 p10 lh-22" :href="'my-order-detail.html?ordersId='+ordersItem.ordersId">
 
+
+                        <router-link class="block ml30 p10 lh-22" :to="{name:'myOrderDetail'}">
                             <div v-for="goodsItem in ordersItem.orderDetail" class="clearfix">
                                 <p class="pull-left two-thirds nowrap">{{ goodsItem.goodsName }}</p>
                                 <p class="pull-left">x{{ goodsItem.goodsCount }}</p>
                                 <p class="pull-right one-fourth text-right">&yen;{{ goodsItem.goodsPrice | toFixed }}</p>
                             </div>
+                        </router-link>
 
-                        </a>
 
                         <div class="pb10 lightgray text-right">
                             共{{ordersItem.goodsCount}}件商品&nbsp;&nbsp;合计&yen;{{ ordersItem.priceCount | toFixed }}

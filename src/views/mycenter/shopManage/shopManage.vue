@@ -113,7 +113,7 @@
                             id:11,
                             name: '外送费设置',
                             pic:'icon_wsfsz.png',
-                            href:'inputConsumerCode',
+                            href:'wsSetPrice',
 
 //                            href:'ws-set-price.html' + ((shopMangeData.shop.priceBeginSend != null) ? '?priceBeginSend='+shopMangeData.shop.priceBeginSend + '&priceSend=' + shopMangeData.shop.priceSend : ''),
 //                            isQxShow:(shopMangeData.shop.shopTypeId === shopTypeId.jsws)
@@ -123,7 +123,7 @@
                             id:12,
                             name: '物流设置',
                             pic:'icon_wlsz.png',
-                            href:'inputConsumerCode',
+                            href:'logisticsManage',
 //                            href:'logistics-manage.html?shopId=' + shopMangeData.shop.shopId,
 //                            isQxShow:(shopMangeData.shop.shopTypeId === shopTypeId.synthe)
                             isQxShow:true

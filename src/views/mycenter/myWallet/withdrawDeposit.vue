@@ -93,7 +93,6 @@
 
                 // 校验表单
                 if (!validator.validate(oValChar, true)) {
-
                     return $.each(validator.messages, function (i, val) {
                         vm.$notiejs({
                             state: 2,
@@ -118,6 +117,9 @@
                         this.$notiejs({
                             state: 1,
                             msg: res.msg,
+                            end() {
+                                _this.$router.push({path:'myWallet'});
+                            }
                         })
                         this.closeLayerFn()
                     })},
