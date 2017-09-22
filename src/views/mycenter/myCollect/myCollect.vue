@@ -8,7 +8,6 @@
                 <!--普通-->
                 <div v-for="myfavorityshop in myfavorityshopslist" class="container panel-item">
                     <!--<router-link class="block panel-inner" :to="'shop-detail.html?shopId='+ myfavorityshop.shopId">-->
-                    {{myfavorityshop.shopId}}
                     <router-link class="block panel-inner" :to="{name:'shopDetail',query:{'shopId':myfavorityshop.shopId}}">
                         <img class="panel-pic" width="70" height="70"
                         :src="(myfavorityshop.pic ? myfavorityshop.pic : config.defaultGoodsPic)+'?x-oss-process=image/resize,m_fixed,h_140,w_140'" alt="">

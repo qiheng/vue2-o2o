@@ -165,9 +165,9 @@
                             id:14,
                             name: '邀请注册',
                             pic:'icon_yqzc.png',
-                            href:'inputConsumerCode',
+                            href:'',
 //                            href:'',
-                            isQxShow:true
+                            isQxShow:false
                         },
                         {
                             id:4,

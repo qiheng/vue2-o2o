@@ -106,6 +106,8 @@ const productDetail = r => require.ensure([], () => r(require('@/views/home/prod
 const myOrderDetail = r => require.ensure([], () => r(require('@/views/mycenter/order/myOrderDetail')), 'order'); // 我的-订单详情
 const wsSetPrice = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/wsSetPrice')), 'users'); // 我的-个人中心-店铺管理-外卖设置
 const logisticsManage = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/logisticsManage')), 'users'); // 我的-个人中心-店铺管理-物流设置
+const addUpdateLogistics = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/addUpdateLogistics')), 'users'); // 我的-个人中心-店铺管理-添加物流
+const orderComments = r => require.ensure([], () => r(require('@/views/mycenter/order/orderComments')), 'order'); // 我的-订单详情--订单评价
 
 
 
@@ -127,7 +129,16 @@ const router = new Router({
             name: 'productDetail',
             component: productDetail
         },
-
+        {
+            path: '/refundReason',
+            name: 'refundReason',
+            component: refundReason
+        },
+        {
+            path: '/orderComments',
+            name: 'orderComments',
+            component: orderComments
+        },
         {
 
             path: '/salesPromotion',
@@ -149,6 +160,11 @@ const router = new Router({
             path: '/shopdetail',
             name: 'shopdetail',
             component: shopdetail
+        },
+        {
+            path: '/choosePayWay',
+            name: 'choosePayWay',
+            component: choosePayWay
         },
         // {
         //     path: '/picture',
@@ -419,6 +435,11 @@ const router = new Router({
                     path: 'wsSetPrice',
                     name: 'wsSetPrice',
                     component: wsSetPrice
+                },
+                {
+                    path: 'addUpdateLogistics',
+                    name: 'addUpdateLogistics',
+                    component: addUpdateLogistics
                 },
                 {
                     path: 'logisticsManage',

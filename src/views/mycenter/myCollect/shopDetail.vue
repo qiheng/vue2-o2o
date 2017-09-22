@@ -39,9 +39,9 @@
                     <template v-if="shopViewData.shop.shopTypeId == shopTypeId.o2o || shopViewData.shop.shopTypeId == shopTypeId.jsws">
                         <span class="pull-right">服务范围<ins class="gray">{{shopViewData.shop.reangName}}</ins></span>
                     </template>
-                    <template v-else-if="shopViewData.shop.shopTypeId == shopTypeId.ddxf">
-                        <a class="pull-right f16" :href="'order-verify-book.html?shopId='+shopViewData.shop.shopId+'&forward=shop-detail.html'">预约</a>
-                    </template>
+                    <!--<template v-else-if="shopViewData.shop.shopTypeId == shopTypeId.ddxf">-->
+                        <!--<a class="pull-right f16" :href="'order-verify-book.html?shopId='+shopViewData.shop.shopId+'&forward=shop-detail.html'">预约</a>-->
+                    <!--</template>-->
                     <p class="nowrap">{{shopViewData.wholeAddress}}</p>
                 </div>
             </div>
@@ -314,10 +314,10 @@
                         <li class="panel-chunk" v-for="goodsItem in shopCart">
                             <div class="pull-right" :data-num="goodsItem.num">
                                 <span class="price emb-red mr5">&yen; <i data-rel-price="true" class="f18">{{ goodsItem.price }}</i></span>
-                                <!--<slot name="buyCart" :cart-list="cartList"-->
-                                      <!--:goods-item="goodsItem"-->
-                                      <!--:shop-id="shop.shopId"-->
-                                      <!--:key="goodsItem.goodsId"></slot>-->
+                                <slot name="buyCart" :cart-list="cartList"
+                                      :goods-item="goodsItem"
+                                      :shop-id="shop.shopId"
+                                      :key="goodsItem.goodsId"></slot>
                             </div>
                             <h2 data-rel-tit="true" class="nowrap f16">{{ goodsItem.name }}</h2>
                         </li>
