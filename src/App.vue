@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <!--<img src="./assets/images/logo.png">-->
-        <x-loading :show="config.pageLoading"></x-loading>
+        <x-loading v-show="config.pageLoading"></x-loading>
         <transition name="slide-left" mode="out-in">
             <keep-alive>
                 <router-view class="child-view"></router-view>
