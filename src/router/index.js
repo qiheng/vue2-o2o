@@ -53,9 +53,7 @@ const OrderList = r => require.ensure([], () => r(require('@/views/mycenter/orde
 const search = r => require.ensure([], () => r(require('@/views/home/search/search')), 'home'); // 首页--搜索跳转页面
 const searchResult = r => require.ensure([], () => r(require('@/views/home/searchResult/searchResult')), 'home'); // 首页--搜索跳转页面
 const service = r => require.ensure([], () => r(require('@/views/home/service/service')), 'home'); // 首页--服务
-const shopdetail = r => require.ensure([], () => r(require('@/views/home/shopdetail/shopdetail')), 'home'); // 首页--店铺详情
-// const picture = r => require.ensure([], () => r(require('@/views/home/shopdetail/picture')), 'home'); // 首页--店铺详情
-// const productdetails = r => require.ensure([], () => r(require('@/views/home/productdetails/productdetails')), 'home'); // 首页--店铺详情
+
 const myWallet = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myWallet')), 'users'); // 我的-个人中心-余额
 const myBankCard = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/myBankCard')), 'users'); // 我的-个人中心-银行卡
 const WalletDetails = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/walletDetails')), 'users'); // 我的-个人中心-钱包明细
@@ -86,7 +84,10 @@ const shopEditSetupPay = r => require.ensure([], () => r(require('@/views/mycent
 const shopEditSetupRange = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupRange')), 'users'); // 我的-个人中心-店铺管理--店铺设置--服务范围
 const shopEditSetupAddress = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupAddress')), 'users'); // 我的-个人中心-店铺管理--店铺设置--店铺地址
 const shopEditSetupClassify = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupClassify')), 'users'); // 我的-个人中心-店铺管理--店铺设置--店铺分类
-const shopDetail = r => require.ensure([], () => r(require('@/views/mycenter/myCollect/shopDetail')), 'user'); // 我的-个人中心-店铺收藏页面
+
+// 店铺详情
+const shopDetail = r => require.ensure([], () => r(require('@/views/shopDetail/shopDetail')), 'shop');
+
 const refundReason = r => require.ensure([], () => r(require('@/views/mycenter/order/refundReason')), 'order'); // 我的-订单列表
 const bankcardpage = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/bankcardpage')), 'users'); // 我的-个人中心-添加银行卡---银行卡协议
 const register = r => require.ensure([], () => r(require('@/views/register/register')), 'users'); // 注册页面
@@ -115,10 +116,10 @@ Vue.use(Router);
 
 const router = new Router({
     routes: [{
-        path: '/',
-        name: 'home',
-        component: Home
-    },
+            path: '/',
+            name: 'home',
+            component: Home
+        },
         {
             path: '/search',
             name: 'search',
@@ -156,10 +157,11 @@ const router = new Router({
             name: 'service',
             component: service
         },
+        // 店铺详情
         {
-            path: '/shopdetail',
-            name: 'shopdetail',
-            component: shopdetail
+            path: '/shopDetail',
+            name: 'shopDetail',
+            component: shopDetail
         },
         {
             path: '/choosePayWay',
@@ -277,12 +279,6 @@ const router = new Router({
                     path: 'myCollect',
                     name: 'myCollect',
                     component: myCollect
-                },
-                {
-
-                    path: 'shopDetail',
-                    name: 'shopDetail',
-                    component: shopDetail
                 },
                 {
 

@@ -32,8 +32,10 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
         let result = response.data;
-        console.log('===== response success response =====',response);
+
         console.log('===== response success =====');
+        console.log('===== response success response =====',response);
+
         // 未登录
         if (result.status == -91) {
             store.dispatch('recordUserInfo', null);
@@ -43,7 +45,8 @@ axios.interceptors.response.use(
             })
         }
 
-        return response.data
+        return result
+        //return response.data
     },
     err => {
         if (err.response) {

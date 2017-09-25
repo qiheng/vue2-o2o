@@ -1,12 +1,14 @@
 <template>
     <div>
-        <menus :types="type" @onchange="onchange"></menus>
+        <h1>asdfasd</h1>
+        {{name}}
     </div>
 </template>
 <script>
     export default{
         data(){
             return{
+                name: '',
                 type:[
                     {
                         text:'全部订单'
@@ -23,9 +25,14 @@
                 ]
             }
         },
-        methods:{
-            onchange:function (index) {
-                console.log(index)
+        created () {
+            this.name = this.query.name
+            console.log(this.query)
+        },
+        computed: {
+            query () {
+
+                return this.$route.query;
             }
         }
     }

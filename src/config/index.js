@@ -1,4 +1,4 @@
-/**
+    /**
  * Created by qiheng on 2017/4/25.
  */
 
@@ -22,6 +22,27 @@ const shopTypeName = { // 大类名字
     '29FCFAF9EDD4375DE050AA0A1B2B54AF' : '上门服务', // 服务(上门服务)
     '4ede38cc7c69451790d7fe69e224d000' : '商品外送', //  商品外送
     'feb280f1210c4fefbfd86e33d30eda0a' : '到店消费' // 到店消费
+};
+
+// 营业时间
+const weekDay = {
+    w1: '周一',
+    w2: '周二',
+    w3: '周三',
+    w4: '周四',
+    w5: '周五',
+    w6: '周六',
+    w0: '周日'
+};
+
+// 促销类型对应的图标
+const saleClass = {
+    '1': 'jian',
+    '2': 'te',
+    '3': 'zeng',
+    '4': 'jian',
+    '5': 'te',
+    '6': 'zeng'
 };
 
 // 默认首页

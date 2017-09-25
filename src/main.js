@@ -63,10 +63,10 @@ if (window.sessionStorage && window.sessionStorage.userInfo) {
 
 /* eslint-disable no-new */
 new Vue({
-        el: '#app-box',
-        router,
-        store,
-        render: h => h(App)
-//template: '<App/>',
-//components: { App }
+    el: '#app-box',
+    router,
+    store,
+    render: h => h(App)
+    //template: '<App/>',
+    //components: { App }
 })

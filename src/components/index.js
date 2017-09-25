@@ -18,11 +18,10 @@ import ONavBar from './o-navbar/navbar'
 import OTabItem from './o-tab-item/tab-item'
 import menus from './menus/menus'
 
-
-//import SelfDiv from './test'
-// import CountDown from '../../components/countdown/countdown.vue'
-
-// console.log('CountDown-----',CountDown)
+// 购物车
+import MinCart from './cart/cart'
+// 加入购物车按钮
+import BuyToCart from './buyToCart/buyToCart'
 
 export {
     CountDown,
@@ -39,5 +38,7 @@ export {
     switchTpl,
     OTabItem,
     ONavBar,
-    menus
+    menus,
+    MinCart,
+    BuyToCart
 }
