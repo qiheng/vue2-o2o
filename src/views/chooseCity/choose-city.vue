@@ -1,6 +1,6 @@
 <template>
     <div class="choose-city-wrap">
-        <scroller>
+        <scroller ref="scroller">
             <div v-if="currentCity" class="panel">
                 <p class="panel-chunk">当前城市：{{ currentCity }}</p>
             </div>
@@ -29,6 +29,7 @@
         data () {
             return {
                 loading: true,
+                myScroll: null,
                 currentCity: '',
                 gpsCity:{
                     name: '定位中...'
@@ -59,13 +60,19 @@
                 });
 
             // gps 定位
-            //this.getPlaceInfo()
+            this.getPlaceInfo()
 
         },
         mounted () {
             if (this.query.currentCity != null) {
                 this.currentCity = this.query.currentCity;
             }
+
+            this.myScroll = this.$refs.scroller;
+
+        },
+        activated () {
+
         },
         methods: {
             // 选择地区
@@ -80,9 +87,9 @@
                         alert('请选择地区')
                         return;
                     };
+
                     console.log('city--',city)
                     this.currentCity = el.innerHTML;
-                    //this.myScroll.scrollTo(0,0,400,false)
 
                     // 返回
                     this.$router.push({
@@ -99,7 +106,7 @@
             },
             // 滚动到指定的地区选择
             moveTo: function (nav) {
-                this.myScroll.scrollToElement(document.querySelector('#'+nav), 400, null, null, false)
+                this.myScroll.scrollTo(0, document.querySelector('#'+nav).offsetTop, true)
             },
             // 获取定位经纬度
             getPlaceInfo: function getPlaceInfo() {
@@ -111,13 +118,13 @@
 
                 // 获取经纬度成功
                 function getPositionSuccess(e) {
-                    mapPoint.culLongitude = e.coords.longitude; // 经度
-                    mapPoint.culLatitude = e.coords.latitude; // 纬度
+                    mapPoint.longitude = e.coords.longitude; // 经度
+                    mapPoint.latitude = e.coords.latitude; // 纬度
 
                     store.set('mapPoint', mapPoint);
 
                     // 解析地址
-                    this.$axios.post(this.$api.getareabylonglat, {longitude: mapPoint.culLongitude, latitude: mapPoint.culLatitude})
+                    this.$axios.post(this.$api.getareabylonglat, mapPoint)
                         .then(({data, status}) => {
 
                         _this.gpsCity = Object.assign(_this.gpsCity, {name: city.area.name}, mapPoint);
@@ -162,7 +169,7 @@
 
     .anchor-layer {
         position: fixed;
-        right: 5px;
+        right: 0;
         top:50%;
         padding: 20px 0;
         text-align: center;
@@ -170,7 +177,7 @@
 
         li a {
             display: block;
-            padding: 2px 5px 2px 30px;
+            padding: 2px 10px 2px 30px;
         }
     }
 </style>
