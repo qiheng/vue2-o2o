@@ -116,10 +116,13 @@ Vue.use(Router);
 
 const router = new Router({
     routes: [{
-            path: '/',
-            name: 'home',
-            component: Home
-        },
+        path: '/',
+        name: 'home',
+        component: Home,
+        meta: {
+            showPageHeader: false,
+        }
+    },
         {
             path: '/search',
             name: 'search',
