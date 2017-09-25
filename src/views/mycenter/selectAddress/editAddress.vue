@@ -83,7 +83,6 @@ export default {
             this.$axios.get(this.$api.getaddress + '?userAddressId=' + query.userAddressId)
                 .then(request => {
 
-
                     this.addressData = request.data;
 //                    this.addressData.isDefault = this.val;
                     console.log(this.addressData,'+++++++++++++++++++++++++++++++++++++++++');

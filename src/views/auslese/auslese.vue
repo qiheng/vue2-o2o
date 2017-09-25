@@ -11,21 +11,17 @@
         <div ref="viewbox" class="viewbox pb60" :style="viewPadding">
             <!-- 轮播图 start -->
             <swiper v-if="selfShopList.length >0" :options="swiperAdOption" class="slideAd">
-
                 <swiper-slide v-for="selfShopItem in selfShopList" :key="selfShopItem.picpath">
-                    <a :href="'shop-detail.html?shopId='+selfShopItem.shopId">
+                    <router-link :to="{name:'shopDetail',query:{'shopId':selfShopItem.shopId}}">
                         <img class="slide-img" width="100%" :src="selfShopItem.pic+'?x-oss-process=image/resize,m_fixed,h_255,w_720'" alt="" style="-webkit-filter: blur(8px);" />
-                    </a>
-                    <div class="white f12 auslese-shopInfo" style="text-align: center">
-                        <a :href="'shop-detail.html?shopId='+selfShopItem.shopId"><img :src="selfShopItem.pic+'?x-oss-process=image/resize,m_fixed,h_115,w_115'" alt=""/></a>
-                        <!--<a :href="'shop-detail.html?shopId='+selfShopItem.shopId"><img :src="selfShopItem.pic+'?x-oss-process=image/resize,m_fixed,h_115,w_115'" alt=""/></a>-->
+                    </router-link>
 
+                    <div class="white f12 auslese-shopInfo" style="text-align: center">
+                        <router-link :to="{name:'shopDetail',query:{'shopId':selfShopItem.shopId}}"><img :src="selfShopItem.pic+'?x-oss-process=image/resize,m_fixed,h_115,w_115'" alt=""/></router-link>
                         <p class="f16 mt5"><em>{{ selfShopItem.name | cutstr(20) }}</em></p>
-                        <!--<p>{{ JSON.stringify(selfShopList[0]) }}</p>-->
                         <p>{{ selfShopItem.shopCategoryName }}&nbsp;<i :class="'text-left star2 star-'+(Math.round(selfShopItem.score))"></i></p>
                     </div>
                 </swiper-slide>
-
                 <div class="swiper-pagination"  slot="pagination"></div>
             </swiper>
             <!-- 轮播图 end -->
