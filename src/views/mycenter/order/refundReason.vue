@@ -37,8 +37,7 @@
             var _this = this;
             this.params.ordersId = this.query.ordersId || 0;
             if (!this.query.ordersId) {
-               // redirect_url(forward())
-                window.location.href = 'http://localhost:8089/#/mycenter/order?type=0'
+                _this.$router.go(-1);
             }
         },
         methods: {
@@ -67,18 +66,13 @@
                             state:1,
                             msg: '提交成功',
                             end() {
-                                //redirect_url(forward())
-                                window.location.href = 'http://localhost:8089/#/mycenter/order?type=0'
+                                _this.$router.go(-1);
                             }
                         })
                     })
             }
         },
         computed: {
-            ...mapGetters(['config']),
-            isHdfk: function () {
-                // return this.ordersItem.shop.shopTypeId == config.shopTypeId.spws && this.ordersItem.payType === this.HDFK_VAL
-            },
             query () {
                 return this.$route.query
             }
