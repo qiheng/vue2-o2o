@@ -129,7 +129,8 @@ var cartMixin = {
             goodsItem.sendNum = this.getSendNum(goodsItem.num, sendsale) || 0;
 
             //this.cartList = $.extend({}, this.cartList, cartList);
-            this.cartList = Object.assign(this.cartList, cartList);
+            this.cartList = Object.assign({}, this.cartList, cartList);
+            console.log('=====this.cartList=====',this.cartList)
             this.saveCartList(cartList);
             //store.set('cartList', this.cartList)
         },
@@ -157,7 +158,7 @@ var cartMixin = {
                 }
 
                 //this.cartList = $.extend({}, this.cartList, cartList);
-                this.cartList = Object.assign(this.cartList, cartList);
+                this.cartList = Object.assign({}, this.cartList, cartList);
                 this.saveCartList(cartList);
                 //store.set('cartList', this.cartList)
             }

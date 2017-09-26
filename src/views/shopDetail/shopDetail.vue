@@ -268,6 +268,7 @@
                 <!-- 店铺动态 end -->
 
                 <!-- 遮罩层 -->
+
                 <div v-if="isPreview" class="fullPage"></div>
 
             </div>
@@ -351,9 +352,6 @@
              },
              // 商品列表
              goodsList: [],
-             param: {
-                 page: 1,
-             },
              sideNav: null,
              scrollCon: null
          }
@@ -477,14 +475,14 @@
 
             if (param.categoryId) {
                 // 分类商品
-                this.$axios.get(this.$api.getgoodslistbycategory, {params: this.param})
+                this.$axios.get(this.$api.getgoodslistbycategory, {params: param})
                     .then(({data, status, msg}) => {
                         successFn(data)
                     })
 
             } else {
                 // 活动促销商品
-                this.$axios.get(this.$api.salegoods, {params :this.param})
+                this.$axios.get(this.$api.getgoodslistbysalesid, {params: param})
                     .then(({data, status, msg}) => {
                         successFn(data)
                     })
@@ -494,7 +492,9 @@
         toggleCategory (index) {
             var _this = this,
                 categoryItem = {},
-                param = this.param;
+                param = {
+                    page: 1
+                };
 
             if (this.currentCategoryIndex == index) return;
 

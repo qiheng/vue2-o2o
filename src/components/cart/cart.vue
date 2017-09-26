@@ -27,7 +27,7 @@
                 <a v-else @click="chooseOk" class="btn btn-ok btn-primary" href="javascript:;">选好了</a>
 
                 <div class="bfc-panel f12">
-                    <p class="txt-line">共：&yen;<i class="f16 total-price">{{ totalPrice }}</i></p>
+                    <p class="txt-line white">共：&yen;<i class="f16 total-price">{{ totalPrice }}</i></p>
                     <p v-if="shop.openStatus === 0" class="txt-line lightgray">配送费：&yen;<i class="send-price">{{ deliveryFee | toFixed }}</i></p>
                 </div>
             </div>
@@ -80,7 +80,7 @@
 
                 num = price = tmpPrice = 0;
 
-                for (key in this.shopCart) {
+                for (let key in this.shopCart) {
                     goodsItem = this.shopCart[key];
                     tmpPrice = goodsItem.eprice * goodsItem.num;
 
@@ -183,7 +183,7 @@
         computed: {
             // 当前商店购物信息
             shopCart (){
-                return this.cartList[this.shop.shopId] || null
+                return this.cartList[this.shop.shopId] || {}
             },
             // 配送费
             deliveryFee () {
