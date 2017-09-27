@@ -60,6 +60,9 @@ Vue.use(Notiejs);
 if (window.sessionStorage && window.sessionStorage.userInfo) {
     store.dispatch('recordUserInfo', JSON.parse(window.sessionStorage.userInfo))
 }
+if (window.sessionStorage && window.sessionStorage.shopInfo) {
+    store.dispatch('saveShopInfo', JSON.parse(window.sessionStorage.shopInfo))
+}
 
 /* eslint-disable no-new */
 new Vue({
@@ -67,6 +70,6 @@ new Vue({
     router,
     store,
     render: h => h(App)
-    //template: '<App/>',
-    //components: { App }
+        //template: '<App/>',
+        //components: { App }
 })
