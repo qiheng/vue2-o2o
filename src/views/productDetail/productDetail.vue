@@ -108,7 +108,6 @@
             </div>
             <!-- 店铺信息 end -->
 
-
             <!-- 商品详情 start -->
             <div class="panel">
                 <div class="panel-hd">
@@ -129,11 +128,11 @@
                   @total-num="onTotalNum">
             <template slot="buyCart" scope="props">
                 <buy-to-cart :cart-list="props.cartList"
-                          :goods-item="props.goodsItem"
-                          :shop-id="props.shopId"
-                          :key="props.goodsItem.goodsId"
-                          @add-cart="addCartFun"
-                          @reduce-cart="reduceCartFun">
+                      :goods-item="props.goodsItem"
+                      :shop-id="props.shopId"
+                      :key="props.goodsItem.goodsId"
+                      @add-cart="addCartFun"
+                      @reduce-cart="reduceCartFun">
                 </buy-to-cart>
             </template>
         </min-cart>
@@ -177,8 +176,8 @@
                 }
             }
         },
-        mixins:[cartMixin],
-        created: function () {
+        mixins: [cartMixin],
+        created () {
             var _this = this;
 
             this.$axios.post(this.$api.goodsview, $.param({goodsId: this.query.goodsId}))
@@ -194,21 +193,22 @@
                     //_this.getMainMeuns()
                 })
 
-            });
+            })
+
         },
         methods: {
             // app端导航
-            shopGps: function (shop) {
+            shopGps (shop) {
                 if (!utils.isWeixin) {
                     redirect_url('/shopgps?latitude='+shop.latitude+'&longitude='+shop.longitude+'&address='+shop.address)
                 }
             },
-            buyFn: function () {
+            buyFn () {
                 //this.isBuyBtn = false;
                 this.$refs.buyEl.$refs.madd.click();
-                console.log(this.$refs.buyEl.$refs.madd)
+                // console.log(this.$refs.buyEl.$refs.madd)
             },
-            onTotalNum: function (num) {
+            onTotalNum (num) {
                 this.totalNum = num;
             }
         },
@@ -233,20 +233,20 @@
                 return shopTypeId
             },
             // 详细地址
-            wholeAddress: function () {
+            wholeAddress () {
                 var shop = this.goodsInfo.shop;
 
                 return shop.provinceName + shop.cityName + shop.areaName + shop.address
             },
             // 限时抢购
-            isFlashSale: function () {
+            isFlashSale () {
                 return this.goodsInfo.sales &&
                     (this.goodsInfo.sales.salesType === 1 ||
                     this.goodsInfo.sales.salesType === 5)
             }
         },
         watch: {
-            wxConfig: function (val) {
+            wxConfig (val) {
                 var _this = this,
                     goodsInfo = this.goodsInfo,
                     shareCon = {

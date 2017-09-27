@@ -396,8 +396,6 @@
 
 </script>
 
-<style scoped>
-    .home-promotion-panel{
-        margin-bottom: 55px;
-    }
+<style lang="less" scoped>
+
 </style>

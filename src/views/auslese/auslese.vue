@@ -81,6 +81,7 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex'
 
     export default {
         data () {
@@ -89,24 +90,16 @@
                 emptyMsg: {
                     mainMsg:'暂无数据~'
                 },
-                saleClass: {
-                    "1": "jian",
-                    "2": "te",
-                    "3": "zeng",
-                    "4": "jian",
-                    "5": "te",
-                    "6": "zeng"
-                },
                 swiperAdOption: {
                     pagination : '.slideAd .swiper-pagination',
                     autoplayDisableOnInteraction: false,
                     onInit: function (swiper) {
 
-                        var $wrap = $(swiper.container[0]),
+                        /*var $wrap = $(swiper.container[0]),
                             _height = $wrap.outerHeight();
 
                         $wrap.find('img').height(_height)
-
+                        */
                     }
                 },
                 slideAd:null,
@@ -135,6 +128,12 @@
 
         },
         computed: {
+            ...mapGetters(['config']),
+            // 促销活动icon类
+            saleClass () {
+                let {saleClass} = this.config;
+                return saleClass
+            },
             isTopNavDisabled () {
                 return this.loaded && !this.selfShopList.length;
             },
