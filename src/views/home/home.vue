@@ -1,7 +1,7 @@
 <template>
     <div class="home viewbox-container">
         <!-- 导顶部导航 start -->
-        <div >
+        <div>
             <header-top
                 ref="searchNav"
                 :headType="'link'"
@@ -15,20 +15,18 @@
         <!-- 导顶部导航 end -->
 
         <div ref="viewbox" class="viewbox" :style="viewPadding">
-            <keep-alive >
-                <!-- 轮播图 start -->
-                <swiper ref="slideAd" v-if="indexData.slide && indexData.slide.length" :not-next-tick="notNextTick" :options="swiperAdOption" class="slideAd" style="padding-bottom:47%">
+            <!-- 轮播图 start -->
+            <swiper ref="slideAd" v-if="indexData.slide && indexData.slide.length" :not-next-tick="notNextTick" :options="swiperAdOption" class="slideAd" style="padding-bottom:47%">
 
-                    <swiper-slide v-for="slide in indexData.slide" :key="slide.picpath">
-                        <a href="shop-detail.html?shopId=40288afe5aebae43015aebc222c60000&amp;type=0">
-                            <img width="100%" :src="slide.picpath+'?x-oss-process=image/resize,m_fixed,h_720,w_320'" alt="">
-                        </a>
-                    </swiper-slide>
+                <swiper-slide v-for="slide in indexData.slide" :key="slide.picpath">
+                    <a href="shop-detail.html?shopId=40288afe5aebae43015aebc222c60000&amp;type=0">
+                        <img width="100%" :src="slide.picpath+'?x-oss-process=image/resize,m_fixed,h_720,w_320'" alt="">
+                    </a>
+                </swiper-slide>
 
-                    <div class="swiper-pagination" slot="pagination"></div>
-                </swiper>
-                <!-- 轮播图 end -->
-            </keep-alive>
+                <div class="swiper-pagination" slot="pagination"></div>
+            </swiper>
+            <!-- 轮播图 end -->
 
             <!-- 公告 start -->
             <dl v-if="indexData.notice.length > 0" class="broadcast-msg home-broadcast-msg">
@@ -255,25 +253,9 @@
                 }
             }
         },
-        activated () {
+        mounted () {
             this.initDate();
             this.getIndex();
-
-            //this.$nextTick(() => {
-
-            console.log('--route---',this.$route)
-
-
-
-            setTimeout(() => {
-                console.log('--kkkk----',this.slideAd);
-            this.slideAd.update();
-            this.slideAd.startAutoplay();
-        }, 5000)
-
-
-            // })
-
         },
         methods: {
             endTime () {

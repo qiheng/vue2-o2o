@@ -83,7 +83,6 @@
 <script>
 
     export default {
-
         data () {
             return {
                 loaded:false,

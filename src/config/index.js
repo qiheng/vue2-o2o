@@ -61,5 +61,7 @@ export default {
     shopTypeName,
     shopTypeId,
     pageLoading,
-    ajaxLoading
+    ajaxLoading,
+    weekDay,
+    saleClass
 }

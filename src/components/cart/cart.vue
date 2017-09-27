@@ -1,6 +1,7 @@
 <template>
+    <!-- 购物车模板 start -->
     <div id="minCartPanel" class="minCartPanel2" :class="{expanded: showCartList && totalNum}">
-        <!-- 购物车模板 start -->
+
         <div @click="toggleCartList" class=" minCartMask"></div>
         <div class="minCartInfo" :class="{empty: totalNum <= 0}">
             <a @click="toggleCartList" class="min-cart" href="javascript:;"><ins class="counter nums">{{ totalNum }}</ins></a>
@@ -55,8 +56,9 @@
                 </div>
             </div>
         </div>
-        <!-- 购买商品 end -->
+
     </div>
+    <!-- 购买商品 end -->
 </template>
 
 <script>

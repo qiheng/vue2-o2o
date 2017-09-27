@@ -40,7 +40,7 @@
 
                 </div>
                 <div class="lightgray merchant-info-address" >
-                    <img class="pull-left" width="19" src="images/icons-v3/icons1/icon_adress.png" alt=""/>
+                    <img class="pull-left" width="19" src="../../assets/images/icons-v3/icons1/icon_adress.png" alt=""/>
 
                     <template v-if="shopViewData.shop.shopTypeId == shopTypeId.o2o || shopViewData.shop.shopTypeId == shopTypeId.jsws">
                         <span class="pull-right">服务范围<ins class="gray">{{shopViewData.shop.reangName}}</ins></span>
@@ -89,47 +89,50 @@
                 </div>
                 <div id="J-scroll-con" class="pull-right scroll-con" style="position: relative">
                     <scroller class="scroll-con-inner" style="padding: 0 10px">
-
                         <p class="bg-gray p10 f12">{{ categoryName }}</p>
                         <div class="product-list" :data-len="goodsList.length">
                             <loading v-show="goodsLoading"></loading>
-                            <div v-show="!goodsLoading && !goodsList.length" class="mt30 text-center">暂无商品~</div>
-                            <template v-if="goodsList.length">
-                                <div v-for="(goodsItem, index) in goodsList" class="panel-item"
-                                     :key="goodsItem.goodsId"
-                                     :data-rel-cart="goodsItem.goodsId"
-                                     :data-rel-shop-id="goodsItem.shopId"
-                                     :data-rel-shop-type-id="shopViewData.shop.shopTypeId"
-                                     :data-sendsale="goodsItem.sales && (goodsItem.sales.salesType == 3 || goodsItem.sales.salesType == 7) ? goodsItem.sales.value : '1,0'">
-                                    <!--(goodsItem.sales && goodsItem.sales.salesType == 3 || goodsItem.sales.salesType == 6 ? 1 : 0)-->
+                            <template v-if="!goodsLoading">
+                                <template v-if="goodsList.length">
+                                    <div v-for="(goodsItem, index) in goodsList" class="panel-item"
+                                         :key="goodsItem.goodsId"
+                                         :data-rel-cart="goodsItem.goodsId"
+                                         :data-rel-shop-id="goodsItem.shopId"
+                                         :data-rel-shop-type-id="shopViewData.shop.shopTypeId"
+                                         :data-sendsale="goodsItem.sales && (goodsItem.sales.salesType == 3 || goodsItem.sales.salesType == 7) ? goodsItem.sales.value : '1,0'">
+                                        <!--(goodsItem.sales && goodsItem.sales.salesType == 3 || goodsItem.sales.salesType == 6 ? 1 : 0)-->
 
-                                    <div class="panel-inner">
-                                        <a class="panel-pic" :href="'product-datail.html?goodsId='+goodsItem.goodsId">
-                                            <img width="70" height="70" :src="(goodsItem.pics.length ? goodsItem.pics[0].picUrl : config.defaultGoodsPic)+'?x-oss-process=image/resize,m_fixed,h_100,w_100'" alt="">
-                                        </a>
-                                        <div class="panel-info f12">
-                                            <h2 class="panel-tit nowrap"><a data-rel-tit="true" :href="'product-datail.html?goodsId='+goodsItem.goodsId">{{ goodsItem.name }}</a></h2>
-                                            <div class="mt5 clearfix">
-                                                <!--<div class="add-cart" :data-inventory="goodsItem.inventory">
-													<span class="minus hide">-</span>
-													<span data-num="0" class="num hide">0</span>
-													<span class="plus">+</span>
-												</div>-->
-                                                <buy-to-cart :cart-list="cartList"
-                                                          :goods-item="goodsItem"
-                                                          :shop-id="goodsItem.shopId"
-                                                          :key="goodsItem.goodsId"
-                                                          @add-cart="addCartFun"
-                                                          @reduce-cart="reduceCartFun"></buy-to-cart>
-                                                销量：{{ goodsItem.salesNum }}
+                                        <div class="panel-inner">
+                                            <router-link class="panel-pic" :to="{name: 'productDetail', query: {goodsId: goodsItem.goodsId}}">
+                                                <img width="70" height="70" :src="(goodsItem.pics.length ? goodsItem.pics[0].picUrl : config.defaultGoodsPic)+'?x-oss-process=image/resize,m_fixed,h_100,w_100'" alt="">
+                                            </router-link>
+                                            <div class="panel-info f12">
+                                                <h2 class="panel-tit nowrap">
+                                                    <router-link data-rel-tit="true" :to="{name: 'productDetail', query: {goodsId: goodsItem.goodsId}}">{{ goodsItem.name }}</router-link>
+                                                </h2>
+                                                <div class="mt5 clearfix">
+                                                    <!--<div class="add-cart" :data-inventory="goodsItem.inventory">
+                                                        <span class="minus hide">-</span>
+                                                        <span data-num="0" class="num hide">0</span>
+                                                        <span class="plus">+</span>
+                                                    </div>-->
+                                                    <buy-to-cart :cart-list="cartList"
+                                                              :goods-item="goodsItem"
+                                                              :shop-id="goodsItem.shopId"
+                                                              :key="goodsItem.goodsId"
+                                                              @add-cart="addCartFun"
+                                                              @reduce-cart="reduceCartFun"></buy-to-cart>
+                                                    销量：{{ goodsItem.salesNum }}
+                                                </div>
+                                                <p class="mt5 orange">
+                                                    <span class="price mr5">¥ <i :data-rel-price="(Number(goodsItem.eprice) || 0).toFixed(2)" class="f18">{{ goodsItem.eprice | toFixed }}</i></span>
+                                                    <del class="lightgray">{{ goodsItem.price | toFixed }}</del>
+                                                </p>
                                             </div>
-                                            <p class="mt5 orange">
-                                                <span class="price mr5">¥ <i :data-rel-price="(Number(goodsItem.eprice) || 0).toFixed(2)" class="f18">{{ goodsItem.eprice | toFixed }}</i></span>
-                                                <del class="lightgray">{{ goodsItem.price | toFixed }}</del>
-                                            </p>
                                         </div>
                                     </div>
-                                </div>
+                                </template>
+                                <div v-else class="mt30 text-center">暂无商品~</div>
                             </template>
 
                         </div>
@@ -301,37 +304,18 @@
 </template>
 
 <script>
- import config from '@/config/index';
+ import {mapGetters} from 'vuex'
  import utils from '@/utils/utils';
  import cartMixin from '@/mixin/cartMixin';
 
  export  default {
      data () {
          return{
-             config,
              backUrl: 'index.html',
              wxConfig: {},
              isFold: true,
              goodsLoading: false,
              isShowDropDown: false,
-             // 营业时间
-             weekDay:{
-                 w1: '周一',
-                 w2: '周二',
-                 w3: '周三',
-                 w4: '周四',
-                 w5: '周五',
-                 w6: '周六',
-                 w0: '周日'
-             },
-             saleClass: {
-                 '1': 'jian',
-                 '2': 'te',
-                 '3': 'zeng',
-                 '4': 'jian',
-                 '5': 'te',
-                 '6': 'zeng'
-             },
              // 当前默认分类
              currentCategoryIndex:-1,
              shopViewData:{
@@ -568,11 +552,24 @@
         }
     },
     computed: {
+        ...mapGetters(['config']),
         location () {
             return window.location
         },
+        // 营业时间
+        weekDay () {
+            let {weekDay} = this.config;
+            return weekDay;
+        },
+        // 店铺类型
         shopTypeId () {
-            return config.shopTypeId;
+            let {shopTypeId} = this.config;
+            return shopTypeId
+        },
+        // 促销活动icon类
+        saleClass () {
+            let {saleClass} = this.config;
+            return saleClass
         },
         // url查询
         query () {
@@ -602,7 +599,7 @@
                     title: '店铺详情',
                     desc: shop.summary,
                     link: location.href,
-                    imgUrl: shop.pic || config.defaultShopPic,
+                    imgUrl: shop.pic || this.config.defaultShopPic,
                     fail: function (res) {
                         //alert(JSON.stringify(res));
                         console.log('====fail===', res)

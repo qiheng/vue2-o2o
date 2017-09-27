@@ -103,7 +103,10 @@ const addServicePerson = r => require.ensure([], () => r(require('@/views/mycent
 const shopAllClass = r => require.ensure([], () => r(require('@/views/classify/shopAllClass')), 'navtab'); //  分类页面详情
 const addAdmin = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/addAdmin')), 'users'); // 我的-个人中心-店铺管理- 图片管理
 const shopEditSetupTime = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupTime')), 'users'); // 我的-个人中心-店铺管理--店铺设置--店铺时间
-const productDetail = r => require.ensure([], () => r(require('@/views/home/productDetail/productDetail')), 'home'); // 首页--商品详情页面
+
+// 商品详情
+const productDetail = r => require.ensure([], () => r(require('@/views/productDetail/productDetail')), 'home');
+
 const myOrderDetail = r => require.ensure([], () => r(require('@/views/mycenter/order/myOrderDetail')), 'order'); // 我的-订单详情
 const wsSetPrice = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/wsSetPrice')), 'users'); // 我的-个人中心-店铺管理-外卖设置
 const logisticsManage = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/logisticsManage')), 'users'); // 我的-个人中心-店铺管理-物流设置
@@ -116,18 +119,20 @@ Vue.use(Router);
 
 const router = new Router({
     routes: [{
-        path: '/',
-        name: 'home',
-        component: Home,
-        meta: {
-            showPageHeader: false,
-        }
-    },
+            path: '/',
+            name: 'home',
+            component: Home,
+            meta: {
+                showPageHeader: false,
+            }
+        },
+        // 搜索
         {
             path: '/search',
             name: 'search',
             component: search
         },
+        // 商品详情
         {
             path: '/productDetail',
             name: 'productDetail',
@@ -153,7 +158,10 @@ const router = new Router({
 
             path: '/chooseCity',
             name: 'chooseCity',
-            component: ChooseCity
+            component: ChooseCity,
+            meta: {
+                keepAlive: true
+            }
         },
         {
             path: '/service',
@@ -199,7 +207,10 @@ const router = new Router({
         {
             path: '/classify',
             name: 'classify',
-            component: Classify
+            component: Classify,
+            meta: {
+                keepAlive: true
+            }
         },
         {
             path: '/shopAllClass',
@@ -239,7 +250,7 @@ const router = new Router({
         },
         {
             path: '/mycenter',
-            name: 'mycenter',
+            //name: 'mycenter',
             component: Mycenter,
             meta: { requiresAuth: true },
             children: [{
@@ -452,7 +463,7 @@ const router = new Router({
                 },
                 {
                     path: 'myBankInfo',
-                    name: 'myBankInfo',
+                    //name: 'myBankInfo',
                     component: MyBankInfo,
                     children: [{
                         path: '',
@@ -509,7 +520,7 @@ const router = new Router({
                 },
                 {
                     path: 'coupons',
-                    name: 'coupons',
+                    //name: 'coupons',
                     component: Coupons,
                     children: [{
                         path: '',
@@ -525,7 +536,7 @@ const router = new Router({
                 },
                 {
                     path: 'address',
-                    name: 'address',
+                    //name: 'address',
                     component: Address,
                     children: [{
                         path: '',
@@ -541,7 +552,7 @@ const router = new Router({
                 },
                 {
                     path: 'chests',
-                    name: 'chests',
+                    //name: 'chests',
                     component: Chests,
                     children: [{
                         path: '',

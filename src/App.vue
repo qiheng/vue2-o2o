@@ -1,12 +1,10 @@
 <template>
     <div id="app">
         <!--<img src="./assets/images/logo.png">-->
-        <x-loading v-show="config.pageLoading"></x-loading>
         <transition name="slide-left" mode="out-in">
-            <keep-alive>
-                <router-view class="child-view"></router-view>
-            </keep-alive>
+            <router-view class="child-view"></router-view>
         </transition>
+        <x-loading v-show="config.pageLoading"></x-loading>
     </div>
 </template>
 
