@@ -17,6 +17,8 @@ import switchTpl from './switchTpl/switchTpl'
 import ONavBar from './o-navbar/navbar'
 import OTabItem from './o-tab-item/tab-item'
 import menus from './menus/menus'
+import slideNav from './slideNav/slideNav'
+import slideNavItem from './slide-nav-item/slide-nav-item'
 
 // 购物车
 import MinCart from './cart/cart'
@@ -40,5 +42,7 @@ export {
     ONavBar,
     menus,
     MinCart,
-    BuyToCart
+    BuyToCart,
+    slideNav,
+    slideNavItem
 }
