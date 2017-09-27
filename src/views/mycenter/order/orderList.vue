@@ -108,8 +108,8 @@
 
                                 <template v-if="ordersItem.statusOrder == 7">
                                     <!--<a class="btn btn-primary" :href="'order-comments.html?ordersId='+ordersItem.ordersId+'&shopId='+ordersItem.shop.shopId">评价订单</a>-->
-                                    <!--<router-link class="btn btn-primary" :to="{name:'orderComments',query:{'ordersId':rdersItem.ordersId,'shopId':ordersItem.shop.shopId}}">评价订单</router-link>-->
-                                    <router-link class="btn btn-primary" :to="{name:'orderComments'}">评价订单</router-link>
+                                    <router-link class="btn btn-primary" :to="{name:'orderComments',query:{'ordersId':ordersItem.ordersId,'shopId':ordersItem.shop.shopId}}">评价订单</router-link>
+                                    <!--<router-link class="btn btn-primary" :to="{name:'orderComments',query:{ordersId:ordersItem.ordersId}}">评价订单</router-link>-->
                                 </template>
 
                             </div>
