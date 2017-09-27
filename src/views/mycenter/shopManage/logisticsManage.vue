@@ -29,7 +29,7 @@
                 emptyMsg: {
                     mainMsg: '暂无数据~'
                 },
-                shopId:'f898cbc15c344cf7015c428a8b460091',
+                //shopId:'f898cbc15c344cf7015c428a8b460091',
                 show:false,
                 logisticList: []
             }
@@ -38,9 +38,9 @@
             var _this = this;
 
             // 物流数据
-            _this.$axios.get(_this.$api.logisticslist,{params:{shopId: _this.shopId}})
+            _this.$axios.get(_this.$api.logisticslist,{params:{shopId: this.$route.query.shopId}})
                 .then(function (logisticList) {
-                    _this.logisticList = logisticList;
+                    _this.logisticList = logisticList.data;
                     console.log(logisticList,'46555655466666666666666666666666666666666666666666666')
                 })
         },
