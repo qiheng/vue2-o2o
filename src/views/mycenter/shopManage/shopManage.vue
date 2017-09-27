@@ -44,7 +44,7 @@
             <div class="list-fl ptb10">
                 <!-- 权限功能模块 -->
                 <template v-for="(module, index) in modules">
-                    <router-link v-if="module.isQxShow" class="block list-item" :to="{name:module.href,query:{shopId:shopMangeData.shop.shopId}}" :key="index">
+                    <router-link v-if="module.isQxShow" class="block list-item" :to="{name:module.href,query:{shopId:shopMangeData.shop.shopId,shopTypeId:shopMangeData.shop.shopTypeId}}" :key="index">
                         <img width="40" height="40" :src="require('../../../assets/images/icons-v3/icons1/'+module.pic)" alt="" />
                         <p class="mt5">{{ module.name }}</p>
                     </router-link>

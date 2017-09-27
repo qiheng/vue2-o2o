@@ -84,16 +84,16 @@
         },
         created: function () {
             var _this = this;
-            const query = this.query;
+            const query = _this.query;
             _this.type = query.type;
             if (query.type == 'edit') {
                 this.title = '编辑服务人员';
                 _this.servicerId = query.servicerId;
                 // 获取服务人员信息
-                _A.getServicerViewData({servicerId: query.servicerId}, function (servicerInfo) {
-                    _this.servicerInfo = servicerInfo;
-                })
-
+                _this.$axios.get(_this.$api.servicerview,{params:{servicerId: query.servicerId}})
+                    .then(function (servicerInfo) {
+                        _this.servicerInfo = servicerInfo;
+                    })
             }
             document.title = this.title;
         },
@@ -125,6 +125,7 @@
     // 新增 or 更新 服务人员操作
     function addOrEditHandler(type, vm) {
         var oValChar = {},
+            _this = this,
             _url = '';
 
         if (vm.isDisabled) return;
@@ -142,7 +143,7 @@
             oValChar[key] = val
         });
 
-        if (query.type == 'edit') {
+        if (_this.query.type == 'edit') {
             delete validator.config.pic1;
 
             if ($('.upload-file').val() == '') {
@@ -151,33 +152,46 @@
                     $('.upload-file').prop('disabled',true);
                 })
             }
-
         }
 
         // 校验表单
         if (!validator.validate(oValChar, true)) {
 
             return $.each(validator.messages, function (i, val) {
-                notiejs.alert(2, val, 2000, function () {
-                    vm.isDisabled = false
-                });
+                _this.$notiejs({
+                    state : 2,
+                    msg : val,
+                    end(){
+                        vm.isDisabled = false
+                    }
+                })
                 return false;
             })
-
         }
 
         // ajax 回调
         var yesFn = function (result) {
-                notiejs.alert(1, '操作成功', 2000, function () {
-                    redirect_url( forward() )
-                });
+            _this.$notiejs({
+                state : 1,
+                msg : '操作成功',
+                end(){
+//                  _this.$route.push({path:''});
+                }
+            })
+//                notiejs.alert(1, '操作成功', 2000, function () {
+//                    redirect_url( forward() )
+//                });
             },
 
             // 一些回调处理
             noFn = function (res, resTxt) {
-                notiejs.alert(2, res.msg, 2000, function () {
-                    vm.isDisabled = false
-                });
+                _this.$notiejs({
+                    state : 2,
+                    msg : res.msg,
+                    end(){
+                        vm.isDisabled = false
+                    }
+                })
             },
 
             errorFn = function (result, resTxt) {

@@ -14,6 +14,7 @@
         <div class="container mt30">
             <input @click.prevent="submitFn" type="submit" value="保存" class="btn btn-block btn-lg btn-primary" :class="{disabled: isDisabled}"/>
         </div>
+
     </form>
 </template>
 
@@ -61,7 +62,7 @@
                     return $.each(validator.messages, function (i, val) {
 
                         _this.$notiejs({
-                            'state':2,
+                            state:2,
                              msg:val,
                              end(){
                              _this.isDisabled = false
