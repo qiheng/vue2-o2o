@@ -75,4 +75,9 @@
         bottom: 0;
     }
 
+    /*  */
+    .vux-loading {
+        position: relative;
+        z-index: 5000
+    }
 </style>
