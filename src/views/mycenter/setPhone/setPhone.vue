@@ -14,12 +14,11 @@
                     <span v-html="countdown.getCodeText"></span>
                 </a>
             </div>
-
         </div>
         <div class="container mt30">
             <input @click.prevent="submitFn" type="submit" value="验证" class="btn btn-block btn-primary btn-lg" :class="{disabled: isDisabled}" />
         </div>
-        <toast v-model="shows" type="text" width="24em" position="middle">{{text}}</toast>
+        <toast v-model="shows" width="24em" position="middle">{{text}}</toast>
     </div>
 </template>
 <script>
