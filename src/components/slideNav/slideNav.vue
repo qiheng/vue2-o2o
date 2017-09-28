@@ -18,7 +18,7 @@
             value: {},
             slideChooseCb: Function
         },
-        data: function () {
+        data () {
             return {
                 isMoveing: false,
                 slideParentEl: null,
@@ -26,7 +26,7 @@
                 slideViewHalfWidth: 0
             }
         },
-        mounted: function () {
+        mounted () {
             var _this = this;
 
             this.slideListEl = this.$refs.slideList;
@@ -37,7 +37,7 @@
                 if (this.slideParentEl) {
                     this.slideViewHalfWidth = Math.round(this.slideParentEl.offsetWidth / 2);
 
-                    _this.$nextTick(function () {
+                    _this.$nextTick(() => {
                         _this.slideSetup()
                     })
                 }
@@ -45,7 +45,7 @@
         },
         methods: {
             // 元素初始值设置
-            slideSetup: function () {
+            slideSetup () {
                 var $slideList = $(this.slideListEl),
                     $slideListParent = $(this.slideParentEl),
                     $slideItems = $slideList.children(),
@@ -54,7 +54,7 @@
                 var parentLeft = 1 || $slideListParent.offset().left;
                 $slideList.width('9999em');
 
-                $slideItems.each(function (i, ele) {
+                $slideItems.each((i, ele) => {
                     // console.log(i+'-------lt='+$(ele).position().left+'---wd='+$(ele).width())
                     $(ele).attr({
                         'data-pos-left': ( $(ele).position().left - parentLeft),
@@ -67,7 +67,7 @@
 
             },
             // 移动操作
-            slideMoveTo: function (index, cb) {
+            slideMoveTo (index, cb) {
                 var _this = this, $slideItem, _offsetLeft = 0;
 
                 if (this.isMoveing) return;
@@ -85,19 +85,19 @@
                     cb && cb(index, $slideItem)
                 })
             },
-            change:function (id) {
+            change (id) {
                 this.id = id;
             }
         },
         computed: {
             slideCurrentIndex: {
-                get: function () {
+                get () {
                     return this.value;
                 }
             }
         },
         watch: {
-            slideCurrentIndex: function (newVal, oldVal) {
+            slideCurrentIndex (newVal, oldVal) {
                 this.slideMoveTo(newVal)
                 this.$emit('slide-tav-item-change', newVal);
                 this.$parent.$emit('input', false);

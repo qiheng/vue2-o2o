@@ -75,7 +75,7 @@
         bottom: 0;
     }
 
-    /*  */
+    /* 页面加载 */
     .vux-loading {
         position: relative;
         z-index: 5000
