@@ -19,6 +19,7 @@ import OTabItem from './o-tab-item/tab-item'
 import menus from './menus/menus'
 import slideNav from './slideNav/slideNav'
 import slideNavItem from './slide-nav-item/slide-nav-item'
+import tabSlide from './tabSlide/tabSlide'
 
 // 购物车
 import MinCart from './cart/cart'
@@ -44,5 +45,6 @@ export {
     MinCart,
     BuyToCart,
     slideNav,
-    slideNavItem
+    slideNavItem,
+    tabSlide
 }
