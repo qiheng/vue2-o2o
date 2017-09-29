@@ -93,9 +93,8 @@ import validator from '@/assets/js/validator'
         methods: {
             // 历史记录
             getHistory: function () {
-//                this.historysearches = store.get('historysearches') || [];
                 this.historysearches = JSON.parse(localStorage.getItem('historysearches')) || [];
-                console.log(localStorage.getItem('historysearches') || [],'---------------------------------------')
+
             },
             // 热门
             getHotSearch: function () {
@@ -139,7 +138,6 @@ import validator from '@/assets/js/validator'
 
                 // 跳转结果页
                 _this.$router.push({path:'searchResult',query:{'key':key,'t':_this.query.t}})
-//                redirect_url('search-result.html?key='+ key +'&t=' + query.t);
             },
             // 清空历史记录操作
             clearHistory: function () {
