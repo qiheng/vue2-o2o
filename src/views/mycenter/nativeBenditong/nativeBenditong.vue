@@ -1,154 +1,128 @@
 <template>
-    <div >
-        <scroller
-            :on-infinite="infinite">
-            <div class="panel">
-                <div class="slide-panel" v-for="item in infolist">
-                    <div class="slide-panel-inner">
-                        <div class="slide-panel-item">
-                            <div class="container panel-item">
-                                <a href="nactive-detail.html>" class="block panel-inner">
-                                    <p class="panel-pic">
-                                        <img width="72" height="72" :src="item.pic" alt="">
-                                    </p>
-                                    <div class="panel-info f12">
-                                        <div class="panel-tit">
-                                            {{ item.title }}
-                                        </div>
-                                        <div class="clearfix">
-                                            <span class="pull-right lightgray time">{{ item.ctime }}</span>
-                                            <span class="emb-red">{{ item.infoCategoryName }}</span>
-                                        </div>
+    <div>
+        <div class="headerSearch">
+            <!-- 导顶部导航 start -->
+            <div class="header nav-header-search">
+                <router-link :to="{name:'search',query:{'t':5}}" class="bfc-panel">
+                    <i class="btn icos-sprite search-btn pull-right"></i>
+                    <div class="header-search">
+                        <p class="search-key lightgray pl10">输入搜索关键词</p>
+                    </div>
+                </router-link>
+            </div>
+            <!-- 导顶部导航 end -->
 
+            <tabSlide v-model="value">
+                <slideNav ref="slideNav" v-model="slideNavIndex" :slideChooseCb="slideChooseCbFn">
+                    <slide-nav-item v-for="(item, idx) in categorys" :id="idx">{{ item.name }}</slide-nav-item>
+                </slideNav>
+            </tabSlide>
+        </div>
+
+        <div class="native-bao">
+            <div class="native-tong-bd">
+                <div class="native-tong-list mt10" v-if="infolist.length">
+                    <scroller
+                        :on-infinite="infinite">
+                        <div class="panel">
+                            <div class="slide-panel" v-for="item in infolist">
+                                <div class="slide-panel-inner">
+                                    <div class="slide-panel-item">
+                                        <div class="container panel-item">
+                                            <router-link :to="{name:'nactiveDetail',query:{'infoId':item.infoId}}" class="block panel-inner">
+                                                <p class="panel-pic">
+                                                    <img width="72" height="72" :src="item.pic" alt="">
+                                                </p>
+                                                <div class="panel-info f12">
+                                                    <div class="panel-tit">
+                                                        {{ item.title }}
+                                                    </div>
+                                                    <div class="clearfix">
+                                                        <span class="pull-right lightgray time">{{ item.ctime }}</span>
+                                                        <span class="emb-red">{{ item.infoCategoryName }}</span>
+                                                    </div>
+                                                </div>
+                                            </router-link>
+                                        </div>
                                     </div>
-                                </a>
+                                    <a class="slide-panel-item center side-del-btn" href="javascript:;">删除</a>
+                                </div>
                             </div>
                         </div>
-                        <a class="slide-panel-item center side-del-btn" href="javascript:;">删除</a>
-                    </div>
+                    </scroller>
                 </div>
+
+                <empty v-else :msg="emptyMsg" style="margin-top: 95px">
+                    <img slot="icon" width="120px" height="120px" class="empty-tips-panel" src="../../../assets/images/no-data.png" alt=""/>
+                </empty>
+
             </div>
-        </scroller>
+        </div>
+
     </div>
 </template>
 
-<!--<script>-->
-    <!--import { Scroller, Divider, Spinner, XButton, Group, Cell, LoadMore } from 'vux'-->
-    <!--export default {-->
-        <!--components: {-->
-            <!--Scroller,-->
-            <!--Divider,-->
-            <!--Spinner,-->
-            <!--XButton,-->
-            <!--Group,-->
-            <!--Cell,-->
-            <!--LoadMore-->
-        <!--},-->
-        <!--data() {-->
-            <!--return {-->
-                <!--showList1: true,-->
-                <!--scrollTop: 0,-->
-                <!--onFetching: false,-->
-                <!--bottomCount: 20,-->
-
-
-                <!--infolist:[],-->
-                <!--noData: false,-->
-                <!--params: {-->
-                    <!--page: 1-->
-                <!--},-->
-            <!--}-->
-        <!--},-->
-        <!--created(){-->
-          <!--this.sub();-->
-        <!--},-->
-        <!--methods:{-->
-            <!--sub(){-->
-                <!--var _this = this;-->
-                <!--_this.$axios.get(_this.$api.infolist)-->
-                    <!--.then(function (infolist) {-->
-                        <!--_this.infolist = infolist.data;-->
-                        <!--if (!infolist.length) {-->
-                            <!--_this.noData = true;-->
-                        <!--}-->
-                        <!--console.log(_this.infolist,'5644444444444444444444');-->
-                    <!--})-->
-            <!--},-->
-            <!--onScrollBottom () {-->
-                <!--if (this.onFetching) {-->
-                    <!--// do nothing-->
-                <!--} else {-->
-                    <!--this.onFetching = true-->
-                    <!--setTimeout(() => {-->
-                        <!--this.bottomCount += 10-->
-                        <!--this.$nextTick(() => {-->
-                            <!--this.$refs.scrollerBottom.reset()-->
-                        <!--})-->
-                        <!--this.onFetching = false-->
-                    <!--}, 2000)-->
-                <!--}-->
-            <!--},-->
-            <!--onScroll (pos) {-->
-                <!--this.scrollTop = pos.top-->
-            <!--},-->
-            <!--onCellClick () {-->
-                <!--window.alert('cell click')-->
-            <!--},-->
-            <!--onClickButton () {-->
-                <!--window.alert('click')-->
-            <!--},-->
-            <!--changeList () {-->
-                <!--this.showList1 = false-->
-                <!--this.$nextTick(() => {-->
-                    <!--this.$refs.scroller.reset({-->
-                        <!--top: 0-->
-                    <!--})-->
-                <!--})-->
-            <!--}-->
-        <!--}-->
-    <!--}-->
-<!--</script>-->
-
-<!--<style>-->
-<!--</style>-->
-
-
-
-<!--<template>-->
-    <!--&lt;!&ndash; 积分记录 start &ndash;&gt;-->
-    <!--<div class="score-record">-->
-        <!--<scroller-->
-            <!--:on-infinite="infinite">-->
-            <!--<div class="panel">-->
-                <!--&lt;!&ndash; 数据区 &ndash;&gt;-->
-                <!--<div class="f16 panel-chunk" v-for="(scoreRe,index) in infolist">-->
-                    <!--<h3>{{scoreRe.summary}}</h3>-->
-                    <!--<p class="f14 lightgray mt5">{{scoreRe.ctime}}</p>-->
-                    <!--<ins class="pos-rt-middle limegreen">{{scoreRe.change}}</ins>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</scroller>-->
-    <!--</div>-->
-<!--</template>-->
 <script>
     import {mapGetters} from 'vuex'
     export default {
         data(){
             return{
+                value: false,
+                itemid:'',
+                slideNavIndex: 0,
                 infolist:[],
+                categorys:[],
                 loading: true,
+                emptyMsg: {
+                    mainMsg:'暂无记录~',
+                },
                 noData: false,
                 recordLeg:'',
+                shopClassId:'',
+                infoCategoryId:'',
                 params: {
+                    infoCategoryId:'',
                     page: 1
                 },
             }
         },
         // 页面初始化
         created:function(){
+            var _this = this;
+            const query = _this.query;
+            this.itemid = query.shopClassId;
+            this.infoCategoryId = query.infoCategoryId;
             this.scoreLog();
+            this.category();
         },
         methods:{
+            slideChooseCbFn: function (newVal, oldVal) {
+                var category = this.categorys[newVal]
+                this.params.infoCategoryId = category.infoCategoryId;
+                this.params.page = 1;
+                this.scoreLog()
+            },
+            // 初始化分类
+            category () {
+                this.$axios.get(this.$api.infocategorylist, {params:{'shopClassId': this.shopClassId}})
+                    .then(({data, status, msg}) => {
+
+                        if (status === 1) {
+                            this.categorys = data;
+                            this.categorys.unshift({
+                                infoCategoryId: '',
+                                name: '全部'
+                            })
+
+                            this.$nextTick(() => {
+                                this.slideNav.slideSetup();
+                            })
+
+                        } else {
+                            // fail
+                        }
+                    })
+            },
             scoreLog (bConcat, cb) {
                 var _this = this;
 
@@ -197,10 +171,52 @@
 
                 }, 1500)
             },
+
+        },
+        computed: {
+            query() {
+                return this.$route.query
+            },
+            slideNav: function () {
+                return this.$refs.slideNav;
+            },
+        },
+        watch: {
+
         }
     }
 </script>
 
-<style>
+<style scoped>
+    .headerSearch{
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 999999;
+    }
+    ._v-container[data-v-ecaca2b0]{
+        padding-top: 100px;
+    }
+    .native-tong-list .slide-panel {
+        margin-bottom: -1px;
+    }
 
+    .native-tong-list .panel-tit {
+        display: -webkit-box;
+        height: 45px;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        margin-bottom: 5px;
+        overflow: hidden;
+    }
+
+    .native-tong-list .panel-tit {
+        display: -webkit-box;
+        height: 45px;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        margin-bottom: 5px;
+        overflow: hidden;
+    }
+    /*.panel-item{  border-top: none;  }*/
 </style>

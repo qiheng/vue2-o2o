@@ -2,7 +2,7 @@
         <!-- 数据区 -->
         <scroller
                   :on-infinite="infinite">
-            <div class="msg-list mt10">
+            <div class="msg-list mt10 panel">
                 <div class="slide-panel" v-for="(items,index) in ordersList" :key="items.messageId">
                     <div class="slide-panel-inner">
                         <div class="slide-panel-item">

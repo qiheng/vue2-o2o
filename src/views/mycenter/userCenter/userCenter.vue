@@ -88,7 +88,7 @@
 
             <nav class="panel-nobrd">
                 <!--<router-link class="J-refund btn btn-primary" :to="{name:'refundReason',query:{'ordersId':ordersItem.ordersId,'priceCount':ordersItem.priceCount}}">申请退款</router-link>-->
-                <router-link class="block panel-chunk" :to="{name:'nativeBenditong'}">
+                <router-link class="block panel-chunk" :to="{name:'nativeBenditong',query:{'shopClassId':'29D316360C2120EFE050AA0A1B2B413E'}}">
                     <h3 class="icos4 i4-bdt">本地通</h3>
                     <i class="arr-rt"></i>
                 </router-link>
