@@ -1,8 +1,9 @@
 <template>
-    <li @click.stop="nav"
+    <li @click.stop="nav(id)"
         :class="{on: id == $parent.value}">
         <a href="javascript:;"><slot></slot></a>
     </li>
+    <!--<slideNav></slideNav>-->
 </template>
 
 <script>
@@ -15,9 +16,10 @@
 
     export default {
         props: ['id'],
+
         methods: {
-            nav () {
-                this.$emit('input', id)
+            nav(id) {
+                this.$parent.$emit('input', id)
             }
         }
     }
