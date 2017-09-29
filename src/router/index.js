@@ -112,6 +112,7 @@ const wsSetPrice = r => require.ensure([], () => r(require('@/views/mycenter/sho
 const logisticsManage = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/logisticsManage')), 'users'); // 我的-个人中心-店铺管理-物流设置
 const addUpdateLogistics = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/addUpdateLogistics')), 'users'); // 我的-个人中心-店铺管理-添加物流
 const orderComments = r => require.ensure([], () => r(require('@/views/mycenter/order/orderComments')), 'order'); // 我的-订单详情--订单评价
+const nactiveDetail = r => require.ensure([], () => r(require('@/views/mycenter/nativeBenditong/nactiveDetail')), 'order'); // 我的-本地通详情
 
 
 
@@ -232,6 +233,11 @@ const router = new Router({
             path: '/nativeBenditong',
             name: 'nativeBenditong',
             component: nativeBenditong
+        },
+        {
+            path: '/nactiveDetail',
+            name: 'nactiveDetail',
+            component: nactiveDetail
         },
         {
             path: '/notice/:noticeId',
