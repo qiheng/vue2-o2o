@@ -1,30 +1,28 @@
-# o2o
+# vue2.0仿同城生活通
 
-> o2o mail
+> 基于Vue2.0改版的O2O同城生活通中型单页应用项目
 
-## Build Setup
+## 项目运行
 
 ``` bash
-# install dependencies
+git clone https://github.com/qiheng/vue2-o2o.git
+
+cd vue2-o2o
+
+# 依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 编译环境 localhost:8089
 npm run dev
 
-# build for production with minification
+# 线上版本
 npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
+## 技术栈
+vue2 + vuex + vue-router + webpack + ES6/7 + axios + less +
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## 关于 数据接口 的说明
+
+> 这里用到的所有接口都是代理到互联在线同城生活通的接口
+
