@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="viewbox-container native-bao">
         <div class="headerSearch">
             <!-- 导顶部导航 start -->
             <div class="header nav-header-search">
@@ -19,46 +19,42 @@
             </tabSlide>
         </div>
 
-        <div class="native-bao">
-            <div class="native-tong-bd">
-                <div class="native-tong-list mt10" v-if="infolist.length">
-                    <scroller
-                        :on-infinite="infinite">
-                        <div class="panel">
-                            <div class="slide-panel" v-for="item in infolist">
-                                <div class="slide-panel-inner">
-                                    <div class="slide-panel-item">
-                                        <div class="container panel-item">
-                                            <router-link :to="{name:'nactiveDetail',query:{'infoId':item.infoId}}" class="block panel-inner">
-                                                <p class="panel-pic">
-                                                    <img width="72" height="72" :src="item.pic" alt="">
-                                                </p>
-                                                <div class="panel-info f12">
-                                                    <div class="panel-tit">
-                                                        {{ item.title }}
-                                                    </div>
-                                                    <div class="clearfix">
-                                                        <span class="pull-right lightgray time">{{ item.ctime }}</span>
-                                                        <span class="emb-red">{{ item.infoCategoryName }}</span>
-                                                    </div>
+        <div class="viewbox native-tong-bd">
+            <div class="native-tong-list" v-if="infolist.length">
+                <scroller
+                    :on-infinite="infinite">
+                    <div class="panel">
+                        <div class="slide-panel" v-for="(item, index) in infolist">
+                            <div class="slide-panel-inner">
+                                <div class="slide-panel-item">
+                                    <div class="container panel-item">
+                                        <router-link :to="{name:'nactiveDetail',query:{'infoId':item.infoId}}" class="block panel-inner">
+                                            <p class="panel-pic">
+                                                <img width="72" height="72" :src="item.pic" alt="">
+                                            </p>
+                                            <div class="panel-info f12">
+                                                <div class="panel-tit">
+                                                    {{ item.title }}
                                                 </div>
-                                            </router-link>
-                                        </div>
+                                                <div class="clearfix">
+                                                    <span class="pull-right lightgray time">{{ item.ctime }}</span>
+                                                    <span class="emb-red">{{ item.infoCategoryName }}</span>
+                                                </div>
+                                            </div>
+                                        </router-link>
                                     </div>
-                                    <a class="slide-panel-item center side-del-btn" href="javascript:;">删除</a>
                                 </div>
+                                <a class="slide-panel-item center side-del-btn" href="javascript:;">删除</a>
                             </div>
                         </div>
-                    </scroller>
-                </div>
-
-                <empty v-else :msg="emptyMsg" style="margin-top: 95px">
-                    <img slot="icon" width="120px" height="120px" class="empty-tips-panel" src="../../../assets/images/no-data.png" alt=""/>
-                </empty>
-
+                    </div>
+                </scroller>
             </div>
-        </div>
 
+            <empty v-else :msg="emptyMsg" style="margin-top: 95px">
+                <img slot="icon" width="120px" height="120px" class="empty-tips-panel" src="../../../assets/images/no-data.png" alt=""/>
+            </empty>
+        </div>
     </div>
 </template>
 
@@ -187,36 +183,45 @@
     }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
     .headerSearch{
         position: fixed;
         top: 0;
         width: 100%;
-        z-index: 999999;
-    }
-    ._v-container[data-v-ecaca2b0]{
-        padding-top: 100px;
-    }
-    .native-tong-list .slide-panel {
-        margin-bottom: -1px;
+        z-index: 5;
     }
 
-    .native-tong-list .panel-tit {
-        display: -webkit-box;
-        height: 45px;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        margin-bottom: 5px;
-        overflow: hidden;
+    .viewbox {
+        padding-top: 89px;
     }
 
-    .native-tong-list .panel-tit {
-        display: -webkit-box;
-        height: 45px;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        margin-bottom: 5px;
-        overflow: hidden;
+    .native-tong-list {
+        height: 100%;
+        position: relative;
+
+        .slide-panel {
+            margin-bottom: -1px;
+        }
+
+        .panel-tit {
+            display: -webkit-box;
+            height: 45px;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            margin-bottom: 5px;
+            overflow: hidden;
+        }
+
+        .panel-tit {
+            display: -webkit-box;
+            height: 45px;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            margin-bottom: 5px;
+            overflow: hidden;
+        }
+
     }
-    /*.panel-item{  border-top: none;  }*/
+
+
 </style>
