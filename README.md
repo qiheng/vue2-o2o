@@ -22,10 +22,10 @@ npm run build
 
 ```
 
-访问 ![](http://localhost:8089)
+访问 ![http://localhost:8089](http://localhost:8089)
 
 ## 技术栈
-vue2 + vuex + vue-router + webpack + ES6/7 + axios + less +
+vue2 + vuex + vue-router + webpack + ES6/7 + axios + less + vux
 
 ## 关于 数据接口 的说明
 
@@ -39,7 +39,7 @@ vue2 + vuex + vue-router + webpack + ES6/7 + axios + less +
 
 > 这里非常感谢我的同事给我分担一些页面的编写，非常感谢！
 
-> 项目交流：626726426
+> 项目交流：626726426(QQ)
 
 ## 已完成页面
 
