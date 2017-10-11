@@ -8,7 +8,7 @@
     export default{
         data(){
             return{
-                name: '',
+                name: 'xxxx',
                 type:[
                     {
                         text:'全部订单'
@@ -25,9 +25,8 @@
                 ]
             }
         },
-        created () {
-            this.name = this.query.name
-            console.log(this.query)
+        created: () => {
+            console.dir(this === window)
         },
         computed: {
             query () {

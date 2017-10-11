@@ -6,55 +6,44 @@
                 <input id="code" type="text" name="code" v-model.trim="code" placeholder="请输入消费码" autofocus="autofocus" autocomplete="off">
             </div>
         </div>
-
         <div class="container mt30">
-            <input @click.prevent="submitFn" v-if="showHide" type="submit" value="验证" class="btn btn-block btn-lg btn-primary">
-            <router-link :to="{name:'result'}" v-if="show">
-                <input  type="submit" value="验证" class="btn btn-block btn-lg btn-primary">
-            </router-link>
+            <input type="submit" value="验证" class="btn btn-block btn-lg btn-primary" @click.prevent="submitFn">
         </div>
+        <toast type="text" v-model="shows" width="24em" position="middle">{{text}}</toast>
     </form>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                show:false,
-                showHide:true,
-                code:'',
-                isDisabled: false,
+import { Toast } from 'vux'
+export default {
+    components: {
+        Toast,
+    },
+    data() {
+        return {
+            code: '',
+            shows: false,
+            text: '',
+        }
+    },
+    methods: {
+        submitFn() {
+            if (this.code == '') {
+                this.text = "消费码不能为空"
+                this.shows = true;
+                return
             }
-        },
-        methods: {
-            submitFn: function () {
-                var _this = this;
-                if (this.isDisabled) return;
-                this.isDisabled = true;
-
-                if (this.code == '') {
-                    _this.$notiejs({
-                        state: 2,
-                        msg: '请输入消费码',
-                        end() {
-                            _this.showHide = true;
-                            _this.show = false;
-                            _this.isDisabled = true;
-                        }
-                    });
-                }
-
-                // 提交验证消费码
-                this.$axios.get(this.$api.confirmordersbycode,{params:'code: this.code'})
-                    .then(function () {
-                        this.show = true;
-                        _this.showHide = false;
-                        this.isDisabled = false;
-                        _this.$router.push({ path: 'result' ,query:{'t':xfcode}})
-                    })
-            }
+            this.$axios.post(this.$api.confirmordersbycode, $.param({ code: this.code }))
+                .then(({ data, msg }) => {
+                    this.text = msg
+                    this.shows = true;
+                }).catch(({ data, msg, status }) => {
+                    this.text = msg
+                    this.shows = true;
+                })
         }
     }
+}
 </script>
 
 <style>

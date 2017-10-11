@@ -33,16 +33,19 @@ axios.interceptors.response.use(
     response => {
         let result = response.data;
 
-        console.log('===== response success =====');
+        console.log('===== api: ', response.config.url ,'=====');
         console.log('===== response success response =====',response);
 
         // 未登录
         if (result.status == -91) {
             store.dispatch('recordUserInfo', null);
+
             router.push({
                 path: '/login',
                 query: { redirect: router.currentRoute.fullPath }
-            })
+            });
+
+            return Promise.reject(result);
         }
 
         return result
@@ -52,7 +55,12 @@ axios.interceptors.response.use(
         if (err.response) {
             switch (err.response.status) {
                 case 400:
-                    console.log('service 400')
+                    console.log('service 400');
+
+                    router.replace({
+                        path: '/home'
+                    });
+
                     break;
                 case 413:
                     break;

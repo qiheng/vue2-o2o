@@ -65,7 +65,7 @@ export default {
     },
     mounted () {
         const _this = this;
-        console.log('=====this.userInfo=====',this.recordUserInfo)
+        //console.log('=====this.userInfo=====',this.recordUserInfo)
         //console.log('_this.$router:',_this.$router)
         //console.log('_this.$route:',_this.$route)
     },

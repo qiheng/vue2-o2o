@@ -49,26 +49,37 @@
         methods: {
             // 支付成功处理
             paySuccess: function () {
-                redirect_url('result.html?t=pay');
+//                redirect_url('result.html?t=pay');
+                this.$router.go(-1);
+
             },
             // 支付错误处理
             payFailure: function (result) {
                 var _this = this;
 
                 if (result.status === -7) { // 订单号错误
-                    layer.msg(result.msg, {icon:2}, function () {
-                        redirect_url(config.index);
-                    });
+
+                    alert('订单号错误')
+//                    layer.msg(result.msg, {icon:2}, function () {
+//                        redirect_url(config.index);
+//                    });
                     return false;
                 } else if (result.status === -11) { // 密码验证失败
-                    layer.msg(result.msg, {icon:2}, function () {
-                        _this.isDisabled = false;
-                    });
+
+                    alert('密码验证失败')
+
+
+//                    layer.msg(result.msg, {icon:2}, function () {
+//                        _this.isDisabled = false;
+//                    });
                     return false;
                 } else if (result.status === -14) { // 请设置支付密码
-                    layer.msg(result.msg, {icon:2}, function () {
-                        redirect_url('change-password.html?type=paypwd');
-                    });
+                    alert('请设置支付密码')
+
+
+//                    layer.msg(result.msg, {icon:2}, function () {
+//                        redirect_url('change-password.html?type=paypwd');
+//                    });
                     return false;
                 }
             },
@@ -83,7 +94,7 @@
 //                    redirect_url('payWapWeChat?orderid=' + _this.ordersId + '&payPlant=XX' + _this.payType);
                         .then(function (result) {
                             _this.isDisabled = false;
-
+                            console.log(result,'55455555555555555555555555555555555555555555555');
                             if (result.status == -7) {
                                 redirect_url('payWapWeChat?orderid=' + _this.ordersId + '&payPlant=XX' + _this.payType);
                             } else if (result.status == -127) {

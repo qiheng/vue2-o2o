@@ -62,6 +62,8 @@
 </template>
 
 <script>
+    import {mapMutations} from 'vuex'
+    import * as types from '@/store/mutation-types'
 
 	export default {
 		data () {
@@ -76,6 +78,7 @@
             this.initCartNumAndPrice();
         },
         methods: {
+            ...mapMutations([types.INIT_ORDER_PARAM, types.UPDATE_ORDER_PARAM]),
             // 初始化购物车的总价、总数
             initCartNumAndPrice (){
                 var num, price, goodsItem = {}, tmpPrice;
@@ -135,7 +138,7 @@
                     this.$parent.cartList = $.extend({}, this.cartList);
 
                     // 保存本地
-                    store.set('cartList', this.cartList);
+                    //store.set('cartList', this.cartList);
 
                     if (window.sessionStorage) {
                         window.sessionStorage.cartList = JSON.stringify(this.cartList)
@@ -153,15 +156,15 @@
                     shop = this.shop;
 
                 //alert(JSON.stringify(this.shopCart))
-                _A.getTheUserData(function () {
+                //this.$axios.get(this.$api.theuser).then( _ => {
 
-                    store.set('__orderParam', {});
+                    //store.set('__orderParam', {});
+                    // 初始化提交订单参数
+                    this[types.INIT_ORDER_PARAM]();
 
-                    for (var key in _this.shopCart) {
-                        _goodsArr.push({goodsId: key, count: _this.shopCart[key].num})
+                    for (var key in this.shopCart) {
+                        _goodsArr.push({goodsId: key, count: this.shopCart[key].num})
                     }
-
-                    _returnurl = ('order-verify.html?shopId='+ shop.shopId +'&shopTypeId='+ shop.shopTypeId +'&goodsArr=' + JSON.stringify(_goodsArr));
 
                     // 删除对应店铺下的商品
                     //this.clearCartFun(shop.shopId);
@@ -169,22 +172,34 @@
                     // 删除确认订单下的一些缓存数据
                     if (window.sessionStorage) {
 
-                        ['receiving', 'receivingInfo'].forEach(function (item) {
+                        ['receiving', 'receivingInfo'].forEach((item) => {
                             delete window.sessionStorage[item];
                         })
-                        //delete window.sessionStorage.receiving;
-                        //delete window.sessionStorage.receivingInfo;
+
                     }
 
+                    // 更新订单参数
+                    this[types.UPDATE_ORDER_PARAM]({
+                        //shopTypeId: shop.shopTypeId,
+                        shopId: shop.shopId,
+                        goodsArr: JSON.stringify(_goodsArr)
+                    })
+
                     // 跳转到确认订单页面
-                    window.location.href = _returnurl;
-                })
+                    this.$router.push({
+                        path: 'orderVerify'
+                    })
+//                })
+//                .catch(_ => {
+//                    //console.log('&&&&&&&&&&&&&& ',_)
+//                })
 
             }
         },
         computed: {
+
             // 当前商店购物信息
-            shopCart (){
+            shopCart () {
                 return this.cartList[this.shop.shopId] || {}
             },
             // 配送费

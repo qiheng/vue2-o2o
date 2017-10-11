@@ -286,7 +286,7 @@
         </div>
 
         <!-- 投诉列表 end -->
-        <a :href="backUrl" class="go-back"></a>
+        <!--<a :href="backUrl" class="go-back"></a>-->
 
         <min-cart :cart-list="cartList" :shop="shopViewData.shop">
             <template slot="buyCart" scope="props">

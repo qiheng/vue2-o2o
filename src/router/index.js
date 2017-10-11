@@ -76,6 +76,10 @@ const adminAuthority = r => require.ensure([], () => r(require('@/views/mycenter
 const viewCheckError = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/viewCheckError')), 'users'); // 我的-个人中心-店铺管理- 查看投诉
 const salesList = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/salesList')), 'users'); // 我的-个人中心-店铺管理-营销管理--限时折扣
 const shopNotice = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopNotice')), 'users'); // 我的-个人中心-店铺管理-营销管理--店铺动态
+const shopNoticeDetail = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopNoticeDetail')), 'users'); // 我的-个人中心-店铺管理-营销管理--店铺动态详情
+const shopNoticeInfo = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopNoticeInfo')), 'users'); // 我的-个人中心-店铺管理-营销管理--店铺动态详情
+
+
 const shopEditSetup = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetup')), 'users'); // 我的-个人中心-店铺管理--店铺设置
 const shopEditSetupName = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupName')), 'users'); // 我的-个人中心-店铺管理--店铺设置--店铺名称
 const shopEditSetupPhone = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/shopEditSetupPhone')), 'users'); // 我的-个人中心-店铺管理--店铺设置--店铺电话
@@ -88,15 +92,19 @@ const shopEditSetupClassify = r => require.ensure([], () => r(require('@/views/m
 // 店铺详情
 const shopDetail = r => require.ensure([], () => r(require('@/views/shopDetail/shopDetail')), 'shop');
 
+// 确认订单
+const orderVerify = r => require.ensure([], () => r(require('@/views/orderVerify/orderVerify')), 'order');
+
 const refundReason = r => require.ensure([], () => r(require('@/views/mycenter/order/refundReason')), 'order'); // 我的-订单列表
 const bankcardpage = r => require.ensure([], () => r(require('@/views/mycenter/myWallet/myBankCard/bankcardpage')), 'users'); // 我的-个人中心-添加银行卡---银行卡协议
 const register = r => require.ensure([], () => r(require('@/views/register/register')), 'users'); // 注册页面
 const salesPromotion = r => require.ensure([], () => r(require('@/views/home/salesPromotion/salesPromotion')), 'home'); // 首页--限时抢购
 const choosePayWay = r => require.ensure([], () => r(require('@/views/mycenter/order/choosePayWay')), 'order'); // 我的-订单列表--未付款
-const nativeBenditong = r => require.ensure([], () => r(require('@/views/mycenter/nativeBenditong/nativeBenditong')), 'order'); // 我的-本地通
+const nativeBenditong = r => require.ensure([], () => r(require('@/views/mycenter/nativeBenditong/nativeBenditong')), 'native'); // 我的-本地通
 const shopQrcode = r => require.ensure([], () => r(require('@/views/mycenter/myCollect/shopQrcode')), 'user'); // 我的-个人中心-二维码页面
 const shopComplain = r => require.ensure([], () => r(require('@/views/mycenter/myCollect/shopComplain')), 'user'); // 我的-个人中心-店铺投诉页面
 
+// 地区选择
 const ChooseCity = r => require.ensure([], () => r(require('@/views/chooseCity/choose-city')), 'home'); // 选择地区
 
 const addServicePerson = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/addServicePerson')), 'users'); // 我的-个人中心-店铺管理- 添加服务人员
@@ -113,6 +121,9 @@ const logisticsManage = r => require.ensure([], () => r(require('@/views/mycente
 const addUpdateLogistics = r => require.ensure([], () => r(require('@/views/mycenter/shopManage/addUpdateLogistics')), 'users'); // 我的-个人中心-店铺管理-添加物流
 const orderComments = r => require.ensure([], () => r(require('@/views/mycenter/order/orderComments')), 'order'); // 我的-订单详情--订单评价
 const nactiveDetail = r => require.ensure([], () => r(require('@/views/mycenter/nativeBenditong/nactiveDetail')), 'order'); // 我的-本地通详情
+const logisticsSelect = r => require.ensure([], () => r(require('@/views/logisticsSelect/logisticsSelect')), 'order'); // 物流方式
+const arrivalTime = r => require.ensure([], () => r(require('@/views/arrivalTime/arrivalTime')), 'order'); // 到店时间
+
 
 
 
@@ -120,7 +131,7 @@ Vue.use(Router);
 
 const router = new Router({
     routes: [{
-            path: '/',
+            path: '/home',
             name: 'home',
             component: Home,
             meta: {
@@ -139,6 +150,26 @@ const router = new Router({
             name: 'productDetail',
             component: productDetail
         },
+        // 确认订单
+        {
+            path: '/orderVerify',
+            name: 'orderVerify',
+            component: orderVerify,
+            meta: { requiresAuth: true }
+        },
+        // 物流方式
+        {
+            path: '/logisticsSelect',
+            name: 'logisticsSelect',
+            component: logisticsSelect
+        },
+        // 到店时间
+        {
+            path: '/arrivalTime',
+            name: 'arrivalTime',
+            component: arrivalTime
+        },
+
         {
             path: '/refundReason',
             name: 'refundReason',
@@ -254,17 +285,19 @@ const router = new Router({
             name: 'myOrderDetail',
             component: myOrderDetail
         },
+
+        /* ================== 我的 ================== */
         {
             path: '/mycenter',
             //name: 'mycenter',
             component: Mycenter,
             meta: { requiresAuth: true },
             children: [{
-                path: '',
-                name: 'userCenter',
-                meta: { requiresAuth: true },
-                component: Usercenter,
-            },
+                    path: '',
+                    name: 'mycenter',
+                    meta: { requiresAuth: true },
+                    component: Usercenter,
+                },
                 {
                     path: 'order',
                     name: 'order',
@@ -275,14 +308,14 @@ const router = new Router({
                     name: 'userInfo',
                     component: UserInfo,
                     children: [{
-                        path: 'setUserName',
-                        name: 'setUserName',
-                        component: SetUserName,
-                    }, {
-                        path: 'setPhone',
-                        name: 'setPhone',
-                        component: SetPhone,
-                    },
+                            path: 'setUserName',
+                            name: 'setUserName',
+                            component: SetUserName,
+                        }, {
+                            path: 'setPhone',
+                            name: 'setPhone',
+                            component: SetPhone,
+                        },
                         // {
                         //     path: 'mycenterBindPhoneNum',
                         //     name: 'mycenterBindPhoneNum',
@@ -292,7 +325,8 @@ const router = new Router({
                             path: 'changePassword',
                             name: 'changePassword',
                             component: changePassword,
-                        }]
+                        }
+                    ]
                 },
                 {
 
@@ -448,6 +482,16 @@ const router = new Router({
                     component: shopNotice
                 },
                 {
+                    path: 'shopNoticeDetail',
+                    name: 'shopNoticeDetail',
+                    component: shopNoticeDetail
+                },
+                {
+                    path: 'shopNoticeInfo',
+                    name: 'shopNoticeInfo',
+                    component: shopNoticeInfo
+                },
+                {
                     path: 'wsSetPrice',
                     name: 'wsSetPrice',
                     component: wsSetPrice
@@ -460,7 +504,8 @@ const router = new Router({
                 {
                     path: 'logisticsManage',
                     name: 'logisticsManage',
-                    component: logisticsManage
+                    component: logisticsManage,
+                    mate: { keepAlive: false }
                 },
                 {
                     path: '/myWallet',
@@ -469,13 +514,13 @@ const router = new Router({
                 },
                 {
                     path: 'myBankInfo',
-                    //name: 'myBankInfo',
+                    name: 'myBankInfo',
                     component: MyBankInfo,
                     children: [{
-                        path: '',
-                        name: 'myBankCard',
-                        component: myBankCard,
-                    },
+                            path: '',
+                            name: 'myBankCard',
+                            component: myBankCard,
+                        },
                         {
                             path: 'bankCardDetail',
                             name: 'bankCardDetail',
@@ -526,13 +571,12 @@ const router = new Router({
                 },
                 {
                     path: 'coupons',
-                    //name: 'coupons',
                     component: Coupons,
                     children: [{
-                        path: '',
-                        name: 'couponsInfo',
-                        component: CouponsInfo
-                    },
+                            path: '',
+                            name: 'coupons',
+                            component: CouponsInfo
+                        },
                         {
                             path: 'couponsAdd',
                             name: 'couponsAdd',
@@ -542,13 +586,12 @@ const router = new Router({
                 },
                 {
                     path: 'address',
-                    //name: 'address',
                     component: Address,
                     children: [{
-                        path: '',
-                        name: 'addressInfo',
-                        component: AddressInfo
-                    },
+                            path: 'addressInfo',
+                            name: 'addressInfo',
+                            component: AddressInfo
+                        },
                         {
                             path: 'editAddress',
                             name: 'editAddress',
@@ -561,10 +604,10 @@ const router = new Router({
                     //name: 'chests',
                     component: Chests,
                     children: [{
-                        path: '',
-                        name: 'chestsInfo',
-                        component: ChestsInfo,
-                    },
+                            path: '',
+                            name: 'chests',
+                            component: ChestsInfo,
+                        },
                         {
                             path: 'handilyPhone',
                             name: 'handilyPhone',
@@ -579,6 +622,9 @@ const router = new Router({
                 },
             ]
         },
+        /* ================== 我的 ================== */
+
+
         {
             path: '*',
             redirect: { name: 'home' }
@@ -591,7 +637,7 @@ const router = new Router({
 // 登录中间验证，页面需要登录而没有登录的情况直接跳转登录
 router.beforeEach((to, form, next) => {
 
-    store.commit('UPDATE_PAGE_LOADING', {pageLoading: true})
+    store.commit('UPDATE_PAGE_LOADING', { pageLoading: true })
 
     if (to.matched.some(r => r.meta.requiresAuth)) {
         //console.log('======main======',store.state.user.userInfo)
@@ -611,9 +657,9 @@ router.beforeEach((to, form, next) => {
 // 页面加载后
 router.afterEach(route => {
 
-    setTimeout( _ => {
-        store.commit('UPDATE_PAGE_LOADING', {pageLoading: false})
-    },  600)
+    setTimeout(_ => {
+        store.commit('UPDATE_PAGE_LOADING', { pageLoading: false })
+    }, 600)
 
 })
 

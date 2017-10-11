@@ -24,7 +24,7 @@
             <!--<a class="btn btn-lg btn-block btn-primary" href="add-admin.html">添加管理员</a>-->
             <router-link class="btn btn-lg btn-block btn-primary" :to="{name:'addAdmin'}">添加管理员</router-link>
         </div>
-        <router-link :to="{name:'shopManage'}" class="go-back"></router-link>
+        <!--<router-link :to="{name:'shopManage'}" class="go-back"></router-link>-->
 
         <div>
             <confirm
@@ -104,7 +104,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .admin-authority-list .btn {padding:5px 15px; margin-left: 10px; font-size: .86rem}
     .admin-authority-list .panel-chunk {line-height: 30px;}
 </style>

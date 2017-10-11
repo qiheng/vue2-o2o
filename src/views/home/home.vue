@@ -162,7 +162,7 @@
                                 <!--<span class="pull-left mr5"><ins class="orange"><%- data.shopCategoryName %></ins></span>-->
                                 <p class="pull-left">
                                     <span class="i-label mr5">{{ shopItem.shopCategoryName }}</span>
-                                    <!--<span class="i-label">{{ shopTypeName[shopItem.shopTypeId] }}</span>-->
+                                    <span class="i-label">{{ shopTypeName[shopItem.shopTypeId] }}</span>
                                 </p>
                                 <i class="pull-right ml5 mt5">
                                     <!--<i class="i-dwei"></i>&lt;-->
@@ -321,8 +321,13 @@
 
                 return slide
             },
+            // 查询
             query () {
                 return this.$route.query
+            },
+            // 店铺类型名称
+            shopTypeName () {
+                return this.config.shopTypeName
             },
             isTopNavDisabled () {
                 return this.loaded && !(this.indexData.areaIsOpen && this.indexData.slide.length)
@@ -337,7 +342,7 @@
                 return 'padding:' + (this.isTopNavDisabled ? ptop + 'px' : 0) + ' 0 55px 0'
             },
             ...mapGetters(['userInfo', 'config'])
-    }
+        }
 
     };
 

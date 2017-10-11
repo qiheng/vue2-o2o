@@ -43,7 +43,7 @@
                 </empty>
             </template>
         </div>
-        <router-link :to="{name:'myCenter'}" class="go-back"></router-link>
+        <!--<router-link :to="{name:'myCenter'}" class="go-back"></router-link>-->
     </div>
 </template>
 <script>

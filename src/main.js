@@ -65,7 +65,7 @@ if (window.sessionStorage && window.sessionStorage.shopInfo) {
 }
 
 /* eslint-disable no-new */
-new Vue({
+let appp = new Vue({
     el: '#app-box',
     router,
     store,

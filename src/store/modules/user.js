@@ -16,6 +16,7 @@ const getters = {
 
 // actions
 const actions = {
+
     // 基本的记录用户信息
     recordUserInfo ({commit}, userInfo) {
         commit(types.RECORD_USEINFO, userInfo);
@@ -24,14 +25,17 @@ const actions = {
             window.sessionStorage.userInfo = JSON.stringify(userInfo);
         }
     },
+
     // 扩展用户信息
     extendUserInfo ({commit}, extendUserInfo) {
         commit(types.EXTEND_USEINFO, extendUserInfo)
     },
+
     // 修改昵称
     updateUserName ({commit}, username) {
         commit(types.UPDATE_USERNAME, username)
     }
+
 };
 
 // mutations
@@ -39,11 +43,13 @@ const mutations = {
     [types.RECORD_USEINFO] (state, userInfo) {
         state.userInfo = userInfo
     },
+
     [types.EXTEND_USEINFO] (state, extendUserInfo) {
         if (state.userInfo && extendUserInfo) {
             state.userInfo = Object.assign(state.userInfo, extendUserInfo || {})
         }
     },
+
     [types.UPDATE_USERNAME] (state, username) {
         if (state.userInfo) {
             state.userInfo.username = username

@@ -59,6 +59,7 @@
         z-index: 1;
     }
 
+    /* 一屏显示布局 */
     .viewbox-container, .viewbox {
         height: 100%;
         overflow:hidden;

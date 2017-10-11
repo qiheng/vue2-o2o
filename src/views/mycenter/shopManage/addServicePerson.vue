@@ -39,7 +39,8 @@
                     <div class="bfc-panel">
                         <div class="mt10 upload-img-handle">
                             <img class="upload-img" width="100%" :src="servicerInfo.pic1">
-                            <input :disabled="!hasFileInput" class="upload-file" type="file" name="pic1" />
+                            <input :disabled="!hasFileInput" class="upload-file" type="file" />
+                            <input type="hidden" name="pic1" v-model="servicerInfo.pic1">
                         </div>
                     </div>
 
@@ -68,21 +69,28 @@
     import { mapActions, mapGetters } from 'vuex'
     import { XSwitch, Group } from 'vux'
     import validator from '@/assets/js/validator'
+    import { Toast, Confirm, TransferDomDirective as TransferDom } from 'vux'
+
     export default {
+        components: {
+            Toast
+        },
         data() {
             return {
                 title:'添加服务人员',
                 hasFileInput: true,
                 isDisabled: false,
                 servicerId:'',
+
                 type:'',
                 servicerInfo: {
                     // 默认 男
-                    sex:1
+                    sex:1,
+                    pic1:'../../../assets/12.png'
                 }
             }
         },
-        created: function () {
+        created() {
             var _this = this;
             const query = _this.query;
             _this.type = query.type;
@@ -97,101 +105,89 @@
             }
             document.title = this.title;
         },
-        mounted: function () {
+        mounted() {
             // 页面DOM UI 处理
-            bindEvent(this);
+            // 配置验证信息
+            validator.config = {
+                name: {strategy: 'isNonEmpty', errorMsg: '请填写服务人员的真实姓名'},
+                sex: [{strategy: 'isNonEmpty', errorMsg: '请选择性别'}],
+                position: [{strategy: 'isNonEmpty', errorMsg: '请填写服务人员的职位'}],
+                phone: [{strategy: 'isNonEmpty', errorMsg: '请填写服务人员的手机号码！'}, {strategy: 'isMobile'}],
+                pic1: {strategy: 'isNonEmpty', errorMsg: '请上传头像'},
+                summary: {strategy: 'isNonEmpty', errorMsg: '请填写服务人员的描述'}
+            };
         },
         methods: {
+            toastMsg(msg, type) {
+                let that = this;
+                this.$vux.toast.show({
+                    text: msg,
+                    type: 'text',
+                    width: '24em',
+                    position: 'middle',
+                    onHide() {
+                        if (type) {
+                            that.$router.back();
+                        }
+                        that.isDisabled = false;
+                    }
+                })
+            },
             add: function () {
-                addOrEditHandler('add', this)
+                this.addOrEditHandler('add', this)
             },
             edit: function () {
-                addOrEditHandler('edit', this)
+                this.addOrEditHandler('edit', this)
             },
             chooseSex: function ($e) {
                 var dataset = $e.currentTarget.dataset;
-
                 this.servicerInfo.sex = dataset.sex;
-            }
-        },
-
-        computed: {
-            query() {
-                return this.$route.query
-            }
-        }
-    }
-
-    // 新增 or 更新 服务人员操作
-    function addOrEditHandler(type, vm) {
-        var oValChar = {},
-            _this = this,
-            _url = '';
-
-        if (vm.isDisabled) return;
-        vm.isDisabled = true;
-
-        // 校验字段
-        $.each(validator.config, function (key) {
-            var val = vm.servicerInfo[key];
-
-            // 对 input 为 file 的字段特殊处理
-            if (key === 'pic1') {
-                val = $('input[name="pic1"]').val();
-            }
-
-            oValChar[key] = val
-        });
-
-        if (_this.query.type == 'edit') {
-            delete validator.config.pic1;
-
-            if ($('.upload-file').val() == '') {
-                vm.hasFileInput = false;
-                vm.$nextTick(function () {
-                    $('.upload-file').prop('disabled',true);
-                })
-            }
-        }
-
-        // 校验表单
-        if (!validator.validate(oValChar, true)) {
-
-            return $.each(validator.messages, function (i, val) {
-                _this.$notiejs({
-                    state : 2,
-                    msg : val,
-                    end(){
-                        vm.isDisabled = false
-                    }
-                })
-                return false;
-            })
-        }
-
-        // ajax 回调
-        var yesFn = function (result) {
-            _this.$notiejs({
-                state : 1,
-                msg : '操作成功',
-                end(){
-//                  _this.$route.push({path:''});
-                }
-            })
-//                notiejs.alert(1, '操作成功', 2000, function () {
-//                    redirect_url( forward() )
-//                });
             },
+            // 新增 or 更新 服务人员操作
+            addOrEditHandler: function(type, vm) {
+                var oValChar = {},
+                    _this = this,
+                    _url = '';
+
+                if (vm.isDisabled) return;
+                vm.isDisabled = true;
+
+            // 校验字段
+            $.each(validator.config, function (key) {
+                var val = vm.servicerInfo[key];
+                // 对 input 为 file 的字段特殊处理
+                if (key === 'pic1') {
+                    val = $('input[name="pic1"]').val();
+                }
+                oValChar[key] = val
+            });
+
+            if (_this.query.type == 'edit') {
+                delete validator.config.pic1;
+                if ($('.upload-file').val() == '') {
+                    vm.hasFileInput = false;
+                    vm.$nextTick(function () {
+                        $('.upload-file').prop('disabled',true);
+                    })
+                }
+            }
+
+            // 校验表单
+            if (!validator.validate(oValChar, true)) {
+                return $.each(validator.messages, function (i, val) {
+                    _this.toastMsg(val,false)
+                    return false;
+                })
+            }
+
+            // ajax 回调
+            var yesFn = function (result) {
+                    _this.toastMsg('操作成功',true)
+                },
 
             // 一些回调处理
             noFn = function (res, resTxt) {
-                _this.$notiejs({
-                    state : 2,
-                    msg : res.msg,
-                    end(){
-                        vm.isDisabled = false
-                    }
-                })
+                _this.toastMsg(res.msg,false);
             },
 
             errorFn = function (result, resTxt) {
@@ -207,40 +203,35 @@
                 return false;
             };
 
-        // 新增 or 更新地址 处理
-        switch (type) {
-            case 'add':
-                // 添加
-                _url = '/manage/addservicer';
-                break;
-            default :
-                // 更新
-                _url = '/manage/updateservicer';
-
+            // 新增 or 更新地址 处理
+            switch (type) {
+                case 'add':
+                    // 添加
+                    _this.$axios.post(_this.$api.addservicer,$.param(oValChar))
+                        .then(({msg,data})=>{
+                            _this.toastMsg('添加成功',true);
+                        });
+                    break;
+                default :
+                    // 更新
+                    _this.$axios.post(_this.$api.updateservicer,$.param(oValChar))
+                        .then(({msg,data})=>{
+                            _this.toastMsg('修改成功',true);
+                        });
+                    break;
+            }
         }
+    },
 
-        // 提交处理
-        vm.$nextTick(function () {
-            ajaxSubmit($('form'), _url, yesFn, errorFn);
-        })
-
+        computed: {
+            query() {
+                return this.$route.query
+            }
+        }
     }
 
     // 页面事件注册
     function bindEvent (vm) {
-
-        // 配置验证信息
-        validator.config = {
-            name: {strategy: 'isNonEmpty', errorMsg: '请填写服务人员的真实姓名'},
-            sex: [{strategy: 'isNonEmpty', errorMsg: '请选择性别'}],
-            position: [{strategy: 'isNonEmpty', errorMsg: '请填写服务人员的职位'}],
-            phone: [{strategy: 'isNonEmpty', errorMsg: '请填写服务人员的手机号码！'}, {strategy: 'isMobile'}],
-            pic1: {strategy: 'isNonEmpty', errorMsg: '请上传头像'},
-            summary: {strategy: 'isNonEmpty', errorMsg: '请填写服务人员的描述'}
-        };
-
-        // radio 模拟按钮
-//        setRadio(function (result) {}, true, true);
 
         $('.upload-file').on('change', function () {
             var $self = $(this),

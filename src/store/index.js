@@ -9,6 +9,7 @@ import mutations from './mutations'
 import actions from './actions'
 import user from './modules/user'
 import shop from './modules/shop'
+import order from './modules/order'
 import config from '../config'
 
 Vue.use(Vuex);
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     actions,
     modules: {
         user,
-        shop
+        shop,
+        order
     }
 })

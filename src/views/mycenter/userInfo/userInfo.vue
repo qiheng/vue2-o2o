@@ -102,24 +102,23 @@
             }
         },
         created: function () {
-            var _this = this;
-            
+
         },
         methods: {
             ...mapActions(['recordUserInfo']),
             logout () {
-                var _this = this;
 
                 this.$axios.post(this.$api.logout)
                     .then(() => {
-                        console.log('当前用户已退出');
-                        //_this.recordUserInfo(null);
-                        _this.$store.dispatch('recordUserInfo', null);
+                        console.log('==============当前用户已退出==============');
 
-                        _this.$router.replace({name: 'login', query: {redirect: _this.$route.fullPath}})
-                    })
-                    .catch((e) => {
-                        console.log('退出报错了:', e)
+                        this.$router.replace(
+                            {name: 'login', query: {redirect: this.$route.fullPath}},
+                            () => {
+                                this.$store.dispatch('recordUserInfo', null);
+                            }
+                        );
+
                     })
 
             }

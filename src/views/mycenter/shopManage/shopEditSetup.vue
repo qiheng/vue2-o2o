@@ -88,7 +88,6 @@
             </div>
 
         </form>
-        <router-link :to="{name:'shopManage'}" class="go-back"></router-link>
     </div>
 </template>
 
@@ -281,6 +280,8 @@
     }
 </script>
 
-<style>
-
+<style scoped>
+.pos-rt-middle{
+    right: 0;
+}
 </style>

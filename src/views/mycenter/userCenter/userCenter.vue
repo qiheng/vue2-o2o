@@ -68,7 +68,7 @@
             </dl>
 
             <nav class="panel-nobrd">
-                <router-link class="block panel-chunk" :to="{name:'address'}">
+                <router-link class="block panel-chunk" :to="{name:'addressInfo'}">
                     <h3 class="icos4 i4-address">收货地址</h3>
                     <i class="arr-rt"></i>
                 </router-link>
@@ -82,6 +82,10 @@
                 </router-link>
                 <router-link class="block panel-chunk" :to="{name:'systemMessage'}">
                     <h3 class="icos4 i4-msg">系统消息</h3>
+                    <!--<span class="pos-rt-middle" style="right: 0">
+                        <i v-if="userInfo.ordersCount" class="counter mr25">{{ userInfo.ordersCount }}</i>
+                        <i class="arr-rt"></i>
+                    </span>-->
                     <i class="arr-rt"></i>
                 </router-link>
             </nav>

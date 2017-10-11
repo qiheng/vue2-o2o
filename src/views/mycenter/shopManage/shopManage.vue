@@ -15,7 +15,6 @@
             </router-link>
             <div class="shop-manage__sale">
                 <p>今日销售金额</p>
-                <!--<p class="price">&yen;<b>{{ toFixed(shopMangeData.todaySalePrice) }}</b></p>-->
                 <p class="price">&yen;
                     <b>{{ shopMangeData.todaySalePrice | toFixed }}</b>
                 </p>
@@ -51,7 +50,6 @@
                 </template>
             </div>
         </div>
-        <router-link :to="{name:'myCenter'}" class="go-back"></router-link>
     </div>
 </template>
 
@@ -90,14 +88,12 @@ export default {
                         name: '商品管理',
                         pic: 'icon_spgl.png',
                         href: 'goodsManage',
-                        // （根据权限，店铺类型）控制该模块是否显示
                         isQxShow: true
                     },
                     {
                         id: 2,
                         name: '订单管理',
                         pic: 'icon_ddgl.png',
-                        //                            href:'order-manage.html?shopTypeId=' + shopMangeData.shop.shopTypeId,
                         href: 'orderManage',
                         link2: 'shopTypeId:',
                         link: _this.shopMangeData.shop.shopTypeId,
@@ -107,7 +103,6 @@ export default {
                         id: 6,
                         name: '服务人员',
                         pic: 'icon_fwry.png',
-                        //                            href:'service-person-manage.html?shopId=' + shopMangeData.shop.shopId,
                         href: 'servicePersonManage',
                         link2: 'shopId:',
                         link: _this.shopMangeData.shop.shopId,
@@ -126,7 +121,6 @@ export default {
                         name: '外送费设置',
                         pic: 'icon_wsfsz.png',
                         href: 'wsSetPrice',
-
                         //                            href:'ws-set-price.html' + ((shopMangeData.shop.priceBeginSend != null) ? '?priceBeginSend='+shopMangeData.shop.priceBeginSend + '&priceSend=' + shopMangeData.shop.priceSend : ''),
                         //                            isQxShow:(shopMangeData.shop.shopTypeId === shopTypeId.jsws)
                         isQxShow: true
@@ -160,7 +154,7 @@ export default {
                         id: 13,
                         name: '预览店铺',
                         pic: 'icon_yldp.png',
-                        href: 'inputConsumerCode',
+                        href: 'shopDetail',
                         //                            href:'shop-detail.html?shopId=' + shopMangeData.shop.shopId,
                         isQxShow: true
                     },
@@ -170,7 +164,7 @@ export default {
                         pic: 'icon_wtgl.png',
                         href: 'adminAuthority',
                         //href:'admin-authority.html?shopId=' + shopMangeData.shop.shopId + '&shopTypeId=' + shopMangeData.shop.shopTypeId,
-                        //                            href:'admin-authority.html?shopTypeId=' + shopMangeData.shop.shopTypeId + '&shopId=' + shopMangeData.shop.shopId,
+                        //href:'admin-authority.html?shopTypeId=' + shopMangeData.shop.shopTypeId + '&shopId=' + shopMangeData.shop.shopId,
                         isQxShow: true
                     },
                     {
@@ -178,7 +172,6 @@ export default {
                         name: '邀请注册',
                         pic: 'icon_yqzc.png',
                         href: '',
-                        //                            href:'',
                         isQxShow: false
                     },
                     {
@@ -186,7 +179,6 @@ export default {
                         name: '查看投诉',
                         pic: 'icon_tous.png',
                         href: 'viewCheckError',
-                        //                            href:'view-check-error.html',
                         isQxShow: true
                     }
                 ];

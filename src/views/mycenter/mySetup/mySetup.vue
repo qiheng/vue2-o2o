@@ -16,7 +16,7 @@
                 <i class="arr-rt"></i>
             </a>
         </div>
-        <router-link :to="{name:'mycenter'}" class="go-back"></router-link>
+        <!--<router-link :to="{name:'mycenter'}" class="go-back"></router-link>-->
     </div>
     <!-- 我的设置 end -->
 

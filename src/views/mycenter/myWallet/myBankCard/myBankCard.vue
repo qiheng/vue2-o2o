@@ -26,7 +26,7 @@
 
         </div>
         <!-- 添加卡 end -->
-        <router-link :to="{name:'myWallet'}" class="go-back"></router-link>
+        <!--<router-link :to="{name:'myWallet'}" class="go-back"></router-link>-->
     </div>
     <!-- 银行卡 end -->
 </template>
