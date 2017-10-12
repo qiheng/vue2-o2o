@@ -18,7 +18,7 @@
                     <template v-if="orderInfo.userAddress">
                         <img class="pull-left" width="19" src="../../assets/images/icons-v3/icons1/icon_adress.png" alt=""/>
                         <router-link  id="address" class="bfc-panel address-txt pl5" :data-address-id="orderInfo.userAddress.userAddressId"
-                            :to="{name:'addressInfo',query:{'shopId':query.shopId,'goodsArr':query.goodsArr}}">
+                            :to="{name:'addressInfo',query:{'shopId':query.shopId,'goodsArr':query.goodsArr,typeOrder:'order'}}">
                             <p>
                                 <span class="mr15">{{ orderInfo.userAddress.linkman }}</span>&nbsp;
                                 <span class="mr15">{{ orderInfo.userAddress.phone }}</span>
@@ -286,8 +286,6 @@
             var query = this.query;
             this.shopId = query.shopId;
             this.goodsArr = query.goodsArr;
-            console.log(this.shopId,'3232323232323232323232323232323232')
-            console.log(this.goodsArr,'655555555555555555555')
         },
         methods: {
             // 获取页面数据

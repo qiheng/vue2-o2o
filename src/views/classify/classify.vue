@@ -1,5 +1,5 @@
 <template>
-    <div class="viewbox-container">
+    <div class="viewbox-container" v-cloak>
         <div class="viewbox classify-panel pb60">
             <div v-for="(list, index) in categoryList" :key="index" :data-i="index" class="classify-item" v-if="list.shopCategoryList">
                 <div class="classify-hd">
@@ -37,6 +37,7 @@
     export default {
         data () {
             return {
+                loading: true,
                 currentNavIndex:2,
                 initShowSize:6,
                 categoryList:[]

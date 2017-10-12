@@ -44,10 +44,13 @@
 import { mapActions, mapGetters } from 'vuex'
 import { XSwitch, Group } from 'vux'
 import validator from '@/assets/js/validator'
+import { Toast, Confirm, TransferDomDirective as TransferDom } from 'vux'
+
 import qs from 'qs'
 export default {
     components: {
         XSwitch,
+        Toast,
         Group
     },
     data() {
@@ -84,16 +87,30 @@ export default {
                 .then(request => {
 
                     this.addressData = request.data;
-//                    this.addressData.isDefault = this.val;
                     console.log(this.addressData,'+++++++++++++++++++++++++++++++++++++++++');
                     this.val = (request.data.isDefault ==1) ? true :false;
-//                    this.addressData.isDefault = (request.data.isDefault == 1) ? true : false;
+
                     console.log(request.data.isDefault,'+++++++++++++++++++++++++++++++++++++++++66666666666666666666666666666');
                 })
         }
         this.init();
     },
     methods: {
+        toastMsg(msg, type) {
+            let that = this;
+            this.$vux.toast.show({
+                text: msg,
+                type: 'text',
+                width: '24em',
+                position: 'middle',
+                onHide() {
+                    if (type) {
+                        that.$router.back();
+                    }
+                    that.isDisabled = false;
+                }
+            })
+        },
         onClick (newVal, oldVal) {
             console.log(newVal, oldVal)
             this.$vux.loading.show({
@@ -137,13 +154,14 @@ export default {
             // 校验表单
             if (!validator.validate(oValChar, true)) {
                 return $.each(validator.messages, (i, val) => {
-                    _this.$notiejs({
-                        state: 2,
-                        msg: val,
-                        end() {
-                            _this.isDisabled = false
-                        }
-                    });
+                    _this.toastMsg(val,false);
+//                    _this.$notiejs({
+//                        state: 2,
+//                        msg: val,
+//                        end() {
+//                            _this.isDisabled = false
+//                        }
+//                    });
                     return false;
                 })
             }
@@ -165,14 +183,17 @@ export default {
             const subData = qs.stringify(openData);
             this.$axios.post(this.$api.saveaddress, subData)
                 .then(request => {
-                    _this.$notiejs({
-                        state: 1,
-                        msg: request.msg,
-                        end() {
-                            _this.$router.push({ path: '/mycenter/address' })
-                            _this.isDisabled = false;
-                        }
-                    });
+                    _this.toastMsg(request.msg,true);
+                    _this.isDisabled = false;
+
+//                    _this.$notiejs({
+//                        state: 1,
+//                        msg: request.msg,
+//                        end() {
+//                            _this.$router.push({ path: '/mycenter/address' })
+//                            _this.isDisabled = false;
+//                        }
+//                    });
                 });
         }
     },
@@ -200,3 +221,11 @@ export default {
 
 
 </script>
+
+<style>
+    .vux-x-switch{
+        position: absolute;
+        right: 20px;
+        top: 0;
+    }
+</style>

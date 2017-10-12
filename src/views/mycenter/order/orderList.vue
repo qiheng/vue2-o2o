@@ -10,12 +10,13 @@
         </div>
 
         <div class="order-list">
-            <!--<loading v-show="loading"></loading>-->
+            <loading v-show="loading"></loading>
 
             <template v-if="!loading">
                 <template v-if="ordersList.length">
                     <scroller ref="loadmore"
                               :on-infinite="infinite">
+
                     <div v-for="(ordersItem, index) in ordersList" class="panel sure-order-list">
                         <div class="panel-hd">
                             <div class="pull-left">
@@ -26,19 +27,16 @@
                                 <h2 class="">{{ ordersItem.shop.name | cutstr(20) }}</h2>
                                 <p class="lightgray f12" style="line-height: 1.2">{{ ordersItem.ctime }}</p>
                             </div>
-                            <span class="orange pos-rt-middle">{{ ordersItem.statusOrderMsg }}</span>
+                            <span class="emb-red pos-rt-middle">{{ ordersItem.statusOrderMsg }}</span>
                         </div>
 
-
-
-                        <router-link class="block ml30 p10 lh-22" :to="{name:'myOrderDetail'}">
+                        <router-link class="block ml30 p10 lh-22" :to="{name:'myOrderDetail', query: {ordersId: ordersItem.ordersId}}">
                             <div v-for="goodsItem in ordersItem.orderDetail" class="clearfix">
                                 <p class="pull-left two-thirds nowrap">{{ goodsItem.goodsName }}</p>
                                 <p class="pull-left">x{{ goodsItem.goodsCount }}</p>
                                 <p class="pull-right one-fourth text-right">&yen;{{ goodsItem.goodsPrice | toFixed }}</p>
                             </div>
                         </router-link>
-
 
                         <div class="pb10 lightgray text-right">
                             共{{ordersItem.goodsCount}}件商品&nbsp;&nbsp;合计&yen;{{ ordersItem.priceCount | toFixed }}

@@ -77,3 +77,4 @@ export function utils () {
         qq: u.match(/\sQQ/i) == ' qq' //是否QQ
     }
 };
+
