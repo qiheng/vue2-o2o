@@ -1,0 +1,168 @@
+﻿// Clearfix
+//
+// Clears floats via mixin (avoid using as a class).
+
+// 清除浮动
+.clearfix {
+    &:before,
+    &:after {
+        display: table;
+        content: "";
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+// 创建行内区块
+.dib {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+}
+
+// 行内区块垂直居中
+.dib-middle {
+    &:extend(.dib);
+    vertical-align: middle;
+}
+
+// 防止折行，溢出省略号代替
+.nowrap {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+// 区块居中
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mask {
+    position: fixed;
+    background-color: rgba(0, 0, 0, .5);
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.hide-text {
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+}
+
+// 区块浮动
+.list-fl {
+    .clearfix;
+
+    > li, .list-item {
+        position: relative;
+        float: left;
+    }
+}
+
+// 外边距留白
+.mtop(@mt: 5px) {
+    margin-top: @mt;
+}
+
+.mbtm(@mb: 5px) {
+    margin-bottom: @mb;
+}
+
+.mlt(@ml: 5px) {
+    margin-left: @ml;
+}
+
+.mrg(@mr: 5px) {
+    margin-right: @mr;
+}
+
+.margin(@mg: 5px) {
+    margin: @mg;
+}
+
+// 内边距留白
+.ptop(@pt: 5px) {
+    padding-top: @pt;
+}
+
+.pbtm(@pb: 5px) {
+    padding-bottom: @pb;
+}
+
+.plt(@pl: 5px) {
+    padding-left: @pl;
+}
+
+.prt(@pr: 5px) {
+    padding-right: @pr;
+}
+
+.padding(@pd: 5px) {
+    padding: @pd;
+}
+
+.line-clamp {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.lineclamp(@line: 2) {
+    &:extend(.line-clamp);
+    -webkit-line-clamp: @line;
+}
+
+// 图标
+.icos-sprite {
+    background-image: url('../images/icons/icos-s77f1c46766.png');
+    background-repeat: no-repeat;
+}
+.icos2-sprite {
+    background-image: url('../images/icons/icos2-s29649b7fe0.png');
+    background-repeat: no-repeat;
+}
+.icos5-sprite {
+    background-image: url('../images/icons/icos5-s75205ad749.png');
+    background-repeat: no-repeat;
+}
+.icos6-sprite {
+    background-image: url('../images/icons/icos6-s462ccf3aa3.png');
+    background-repeat: no-repeat;
+}
+.lv-sprite {
+    background-image: url('../images/icons/lv-s88bf41b893.png');
+    background-repeat: no-repeat;
+}
+.lv2-sprite {
+    background-image: url('../images/icons/lv2-se5273ad7eb.png');
+    background-repeat: no-repeat;
+}
+.icos7-sprite {
+    background-image: url('../images/icons/icos7-s8862bc527a.png');
+    background-repeat: no-repeat;
+}
+.icos8-sprite {
+    background-image: url('../images/icons/icos8-s400eafdc32.png');
+    background-repeat: no-repeat;
+}
+.icon-meuns-sprite {
+    background-image: url('../images/icons-v3/icon-meuns-sa71349fb36.png');
+    background-repeat: no-repeat;
+}
+.my-nav-sprite {
+    background-image: url('../images/icons-v3/my-nav-s80f25bfada.png');
+    background-repeat: no-repeat;
+}
+.my-order-sprite {
+    background-image: url('../images/icons-v3/my-order-s61577b756d.png');
+    background-repeat: no-repeat;
+}

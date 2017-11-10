@@ -2,7 +2,7 @@
     <div class="panel panel-list-nospace">
         <template v-if="recommendShopList.length">
             <!--<a v-for="(recommendShopItem, index) in recommendShopList" class="container panel-item" :href="'shop-detail.html?shopId='+recommendShopItem.shopId">-->
-            <router-link v-for="(recommendShopItem, index) in recommendShopList" class="container panel-item" :to="{name:'shopDetail',query:{'shopId':recommendShopItem.shopId}}">
+            <router-link v-for="(recommendShopItem, index) in recommendShopList" :key="index" class="container panel-item" :to="{name:'shopDetail',query:{'shopId':recommendShopItem.shopId}}">
                 <div class="panel-inner">
                     <div class="panel-pic">
                         <img width="72" height="72"

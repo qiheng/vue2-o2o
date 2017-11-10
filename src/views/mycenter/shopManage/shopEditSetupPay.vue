@@ -25,9 +25,9 @@
                 </template>
             </div>
         </div>
-        <!--<div v-if="!isOrderChoose" class="container mt30">-->
-            <!--<input @click.prevent="submitFn" type="submit" value="保存" class="btn btn-block btn-lg btn-primary">-->
-        <!--</div>-->
+        <div v-if="!isOrderChoose" class="container mt30">
+            <input @click.prevent="submitFn" type="submit" value="保存" class="btn btn-block btn-lg btn-primary">
+        </div>
     </div>
 </template>
 
@@ -113,7 +113,7 @@
                 var _this = this;
 
                 // 设置店铺的支付方式
-                _this.$axios.get(_this.$api.setshopattribute,{params:{name: 'payType', value: this.payType}})
+                _this.$axios.get(_this.$api.setshopattribute,{params:{name: 'payType', value: _this.payType}})
                     .then(()=>{
                         _this.shop.payType = _this.payType;
                         localStorage.setItem(JSON.stringify('__shopInfo'), _this.shop);
@@ -151,7 +151,7 @@
 
                     // 更新订单参数
                     _this[types.UPDATE_ORDER_PARAM]({
-                        payType: _val
+                        'payType': _val
                     })
 
                     _this.$router.back()
@@ -174,7 +174,6 @@
                         _val = [_this.HDFK_VAL]
                     }
                 }
-
                 _this.$set(_this.$data, ['zxzf', 'hdfk'][pay], _val)
 
             }, false)

@@ -9,7 +9,7 @@
                         <!--<img class="head pull-left" width="60" height="60" :src="(userInfo.headpic || config.defaultHeaderPic) + '?x-oss-process=image/resize,m_fixed,h_100,w_100'" >-->
                         <img class="head pull-left" width="60" height="60" :src="userInfo.headpic + '?x-oss-process=image/resize,m_fixed,h_100,w_100'">
                         <div class="bfc-panel">
-                            <h2 class="f18 nowrap">{{ userInfo.username }}</h2>
+                            <h2 class="f36 nowrap">{{ userInfo.username }}</h2>
                             <p class="mt5">
                                 <img class="pull-left" width="16" src="../../../assets/images/icons-v3/icons1/icon_phone_white.png" alt="" /> {{ userInfo.phone }}
                             </p>
@@ -48,12 +48,12 @@
             <dl class="panel-nobrd order-handler-panel">
                 <dt class="panel-hd">
                     全部订单
-                    <router-link :to="{name:'order', query: {type: 0}}" class="lightgray pull-right">
-                        <span class="mr25">查看全部订单</span>
+                    <router-link :to="{name:'order', query: {type: 0}}" class=" pull-right">
+                        <span class="mr25 f24 lightgray">查看全部订单</span>
                         <i class="arr-rt"></i>
                     </router-link>
                 </dt>
-                <dd class="panel-bd">
+                <dd class="panel-bd f24">
                     <div class="mod-box text-center f12">
                         <router-link :data-count="userInfo.orderCountNotPay > 100 ? '…' : userInfo.orderCountNotPay"
                                      :to="{name:'order', query: {type: 1}}" class="block box-flex o-dfk">待付款</router-link>

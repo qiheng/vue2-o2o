@@ -121,6 +121,9 @@
                     // 立即获取分类并默认第一个选中
                     _this.$axios.get(_this.$api.getshopcategorylist,{params:{shopClassId: this.shopClassId}})
                         .then(function (shopCategoryList) {
+
+
+                            console.log(shopCategoryList.data)
                             _this.layerData.list = shopCategoryList;
                             // 备份上一次选择的分组id
                             _this.oldShopClassId = _this.shopClassId;

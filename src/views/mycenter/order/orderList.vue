@@ -10,7 +10,7 @@
         </div>
 
         <div class="order-list">
-            <loading v-show="loading"></loading>
+            <loading v-model="loading"></loading>
 
             <template v-if="!loading">
                 <template v-if="ordersList.length">
@@ -25,7 +25,7 @@
                             </div>
                             <div class="bfc-panel">
                                 <h2 class="">{{ ordersItem.shop.name | cutstr(20) }}</h2>
-                                <p class="lightgray f12" style="line-height: 1.2">{{ ordersItem.ctime }}</p>
+                                <p class="lightgray f22" style="line-height: 1.2">{{ ordersItem.ctime }}</p>
                             </div>
                             <span class="emb-red pos-rt-middle">{{ ordersItem.statusOrderMsg }}</span>
                         </div>
@@ -225,6 +225,8 @@
                         this.$nextTick(function () {
                             cb && cb(ordersList)
                         })
+                    }).catch(e =>{
+                        alert(111)
                     })
             },
             // 下拉更新
@@ -250,6 +252,7 @@
                     this.params.page++;
 
                     this.getOrders(true, () => {
+
                         done()
                     })
 

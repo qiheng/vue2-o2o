@@ -35,7 +35,7 @@ export default {
             }
         },
         submitFn() {
-            let _this = this,
+            var _this = this,
                 oValChar = {};
             if (this.isDisabled) return;
             this.isDisabled = true;
@@ -63,6 +63,9 @@ export default {
                         _this.$notiejs({
                             state: 2,
                             msg: request.msg,
+                            end(){
+                                _this.isDisabled = false;
+                            }
                         });
                         return
                     }

@@ -97,7 +97,7 @@ export default {
                 })
 
             }, 1500)
-        },
+        }
     }
 }
 </script>

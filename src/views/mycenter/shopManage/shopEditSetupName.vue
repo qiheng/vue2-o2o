@@ -27,7 +27,7 @@ export default {
             shop: {}
         }
     },
-    created: function() {
+    created() {
         const query = this.query;
         // 初始化
         if (this.query.name) {
@@ -49,25 +49,11 @@ export default {
         };
     },
     methods: {
-        toastMsg(msg, type) {
-            let that = this;
-            this.$vux.toast.show({
-                text: msg,
-                type: 'text',
-                width: '24em',
-                position: 'middle',
-                onHide() {
-                    if (type) {
-                        that.$router.back();
-                    }
-                    that.isDisabled = false;
-                }
-            })
-        },
-        submitFn: function() {
+        submitFn() {
             var oValChar = {};
+            var _this = this;
             if (this.isDisabled) return;
-            this.isDisabled = true;
+            _this.isDisabled = true;
 
             // 校验字段
             $.each(validator.config, (key) => {
@@ -77,21 +63,34 @@ export default {
 
             // 校验表单
             if (!validator.validate(oValChar, true)) {
-                return $.each(validator.messages, (i, val) => {
-                    this.toastMsg(val, false)
+                return $.each(validator.messages, function (i, val) {
+                    _this.$notiejs({
+                       state:2,
+                       msg:val,
+                       end(){
+                           _this.isDisabled = false
+                       }
+                    });
                     return false;
                 })
             }
 
             // 设置店铺的名称
 
-            this.$axios.post(this.$api.setshopattribute, $.param({ name: 'name', value: this.name }))
+            _this.$axios.post(_this.$api.setshopattribute, $.param({ name: 'name', value: _this.name }))
                 .then(({ msg, data, state }) => {
-                    this.shop.name = this.name;
-                    localStorage.setItem('__shopInfo', JSON.stringify(this.shop));
-                    this.toastMsg(msg, true)
+                    _this.shop.name = _this.name;
+                    localStorage.setItem('__shopInfo', JSON.stringify(_this.shop));
+                    _this.$notiejs({
+                        state:1,
+                        msg:'保存成功',
+                        end(){
+                            _this.$router.back();
+                            _this.isDisabled = false;
+                        }
+                    });
                 }).catch(() => {
-                    this.isDisabled = false;
+                    _this.isDisabled = false;
                     return false;
                 })
         }

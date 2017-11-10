@@ -90,6 +90,8 @@
     </div>
 </template>
 <script>
+import config from '../../../config/index'
+// console.log(config.shopTypeId.o2o,'666666666666666666666')
     export default ({
         data(){
             return{
@@ -222,13 +224,13 @@
             }
         },
         computed: {
-            tabmeuns: function () {
+            tabmeuns () {
                 var result = {};
 
                 // 区分店铺类型
                 switch (this.query.shopTypeId) {
 
-                    case shopTypeId.o2o:
+                    case config.shopTypeId.o2o:
                         result = {
                             '0':'全部',
                             '2':'待出发',
@@ -236,7 +238,7 @@
                             '-1':'退款'
                         };
                         break;
-                    case shopTypeId.jsws:
+                    case config.shopTypeId.jsws:
                         result = {
                             '0':'全部',
                             '2':'待配送',
@@ -244,14 +246,14 @@
                             '-1':'退款'
                         };
                         break;
-                    case shopTypeId.ddxf:
+                    case config.shopTypeId.ddxf:
                         result = {
                             '0':'全部',
                             '3':'未使用',
                             '-1':'退款'
                         };
                         break;
-                    case shopTypeId.synthe:
+                    case config.shopTypeId.synthe:
                     default :
                         result = {
                             '0':'全部',

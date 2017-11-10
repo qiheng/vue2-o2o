@@ -14,7 +14,7 @@
             </div>
         </template>
         <div class="coupons-list">
-            <loading v-show="loading"></loading>
+            <loading v-model="loading"></loading>
             <template v-if="!loading">
                 <template v-if="couponList.length">
                     <div v-for="(couponItem, index) in couponList"

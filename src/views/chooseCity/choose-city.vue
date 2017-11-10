@@ -9,7 +9,7 @@
                     <dt class="panel-chunk">当前定位城市</dt>
                     <dd @click="chooseCity" :data-city="JSON.stringify(gpsCity)" class="panel-chunk">{{ gpsCity.name }}</dd>
                 </dl>
-                <loading v-show="loading"></loading>
+                <loading v-model="loading"></loading>
                 <dl @click="chooseCity" v-for="(citysItem, key) in citysList" :id="key" class="panel">
                     <dt class="panel-chunk">{{ key }}</dt>
                     <dd v-for="city in citysItem" :data-city="JSON.stringify(city)" class="panel-chunk">{{ city.name }}</dd>

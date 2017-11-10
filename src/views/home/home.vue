@@ -49,7 +49,7 @@
             <div v-if="indexData.menu.length" class="panel services-category-panel">
                 <div class="panel-bd">
                     <!-- Swiper -->
-                    <swiper :options="swiperServiceOption" class="swiper-container f12">
+                    <swiper :options="swiperServiceOption" class="swiper-container f24">
 
                         <swiper-slide v-for="(slideMenus, index) in indexData.menu" :key="index">
                             <div class="clearfix">
@@ -134,10 +134,10 @@
                 <div class="panel-hd">
                     <!--<i class="i3-active pull-left mr5"></i>-->
                     <img width="22" class="pull-left mr5" src="../../assets/images/icons-v3/icons1/icon_shop.png">
-                    <h2 class="f16">附近店铺</h2>
+                    <h2 class="f26">附近店铺</h2>
                 </div>
 
-                <router-link v-for="shopItem in indexData.shops" class="container panel-item"
+                <router-link v-for="(shopItem, index) in indexData.shops" :key="index" class="container panel-item"
                      :to="{name:'shopDetail',query:{'shopId':shopItem.shopId}}">
                     <div class="panel-inner">
 
@@ -146,10 +146,10 @@
                                  :src="(shopItem.pic ? shopItem.pic + '?x-oss-process=image/resize,m_fixed,h_100,w_100' : config.defaultGoodsPic)" alt="">
 
                         </div>
-                        <div class="gray f12 panel-info">
+                        <div class="gray f22 panel-info">
                             <h2 class="panel-tit">{{ shopItem.name | cutstr(16) }}
 
-                                <span v-if="shopItem.self" class="i-label ml10 f12">自营</span>
+                                <span v-if="shopItem.self" class="i-label ml10 f22">自营</span>
 
                                 <!--<i class="lv lv-1">v1</i>-->
                             </h2>
@@ -157,20 +157,20 @@
                                 <i :class="'star2 star-'+Math.round(shopItem.score)"></i><span class="dib-middle ml5 orange">{{ shopItem.score }}</span>
                                 <span class="ml30 lightgray">月售：{{ shopItem.salesMonthCount }}单</span>
                             </p>
-                            <p class="nowrap mt5">{{ shopItem.summary }}</p>
+                            <p class="nowrap mt5 f24">{{ shopItem.summary }}</p>
                             <div class="clearfix mt5">
                                 <!--<span class="pull-left mr5"><ins class="orange"><%- data.shopCategoryName %></ins></span>-->
                                 <p class="pull-left">
                                     <span class="i-label mr5">{{ shopItem.shopCategoryName }}</span>
                                     <span class="i-label">{{ shopTypeName[shopItem.shopTypeId] }}</span>
                                 </p>
-                                <i class="pull-right ml5 mt5">
+                                <i class="pull-right lightgray mt5">
                                     <!--<i class="i-dwei"></i>&lt;-->
                                     {{ shopItem.distance }}
                                 </i>
                             </div>
 
-                            <ul v-if="shopItem.saleList.length" class="panel-yhInfo f12">
+                            <ul v-if="shopItem.saleList && shopItem.saleList.length" class="panel-yhInfo f12">
                                 <li v-for="saleItem in shopItem.saleList" :class="saleClass[saleItem.salesType]">{{ saleItem.name }}</li>
                             </ul>
 

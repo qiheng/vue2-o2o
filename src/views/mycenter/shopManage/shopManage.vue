@@ -207,9 +207,7 @@ export default {
 
                 _this.modules = modules;
                 console.log(modules, '6666666666666666666666666')
-
                 // 将店铺信息缓存在本地
-                //                store.set('__shopInfo', shopMangeData.shop)
                 localStorage.setItem('__shopInfo', JSON.stringify(shopMangeData.shop));
 
             })

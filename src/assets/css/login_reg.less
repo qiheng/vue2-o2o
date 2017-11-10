@@ -1,0 +1,265 @@
+﻿/*
+* 注册登录
+*/
+//@import "compass/reset/utilities";
+//@import "compass/css3";
+@import "_variables";
+@import "_mixins";
+
+//@import "sprite";
+
+/* 注册登录 */
+
+.fm-group {
+    background-color: #fff;
+    border-top: 1px solid @border-color;
+
+    .fm-line {
+        position: relative;
+        padding: 5px 10px;
+        border-bottom: 1px solid @border-color;
+    }
+}
+
+.fm-line .int-nopl {
+    padding-left: 0;
+}
+
+.inp-area {
+    border: 1px solid @border-color;
+    padding: 10px;
+    outline: none;
+}
+
+.l-label {
+    //font-size:1.1rem;
+    .dib-middle;
+    padding: 6px 0;
+    font-size: 28 * @px;
+    line-height: 1.8;
+    color: @font-color-gray;
+}
+
+.fm-select {
+    border: 0;
+    padding: 6px 10px;
+    font-size: 1.143857rem;
+}
+
+.p-agre a {
+    color: @font-color-orange;
+}
+
+.get-verCode {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 120px;
+    padding-left: 0;
+    padding-right: 0;
+    line-height: 2.4;
+    color: @font-color-orange;
+    border-radius: 0;
+    background-color: #fff;
+    border-left: 1px solid #ccc;
+}
+
+.i-qq, .i-wx {
+    &:extend(.icos-sprite);
+    &:extend(.dib-middle);
+    background-size: 40px;
+    background-position: 0 -553px;
+    height: 20px;
+
+}
+
+.i-qq {
+    width: 20px;
+    background-position: 0 -553px;
+}
+
+.i-wx {
+    width: 25px;
+    background-position: 0 -697px
+}
+
+// 模拟按钮
+.btn-switch {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    -webkit-transform:  translateY(-50%);
+    transform:  translateY(-50%);
+}
+
+.fm-line .i-radio {
+    margin: 8px 0;
+}
+
+.self-slt {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    min-height: 36px;
+
+    .slt {
+        position: relative;
+        min-height: 36px;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        padding-right: 25px;
+        z-index: 2;
+        border1: 1px solid transparent;
+        border: 0;
+        background: transparent;
+        font-size: 1.143857rem;
+        -webkit-appearance: none;
+        appearance: none;
+        outline: none;
+
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 5px;
+        z-index: 1;
+        height: 10px;
+        width: 10px;
+        border-top: 2px solid #999;
+        border-left: 2px solid #999;
+        -webkit-transform: translateY(-60%) rotate(-135deg);
+        transform: translateY(-60%) rotate(-135deg);
+    }
+}
+
+// 登录
+
+.nav-header-white .reg-link {
+    font-size: 1.1rem;
+}
+
+.l-pwd, .l-account, .l-code {
+    &:before {
+        display: inline-block;
+        width: 30px;
+        height: 25px;
+        content: '';
+        &:extend(.icos7-sprite);
+        background-size: 25px;
+        vertical-align: middle;
+    }
+}
+
+.l-account {
+    &:before {
+        background-position: 0 -46px;
+    }
+}
+
+.l-pwd {
+    &:before {
+        background-position: 0 -96px;
+    }
+}
+
+.l-code {
+    &:before {
+        background-position: 0 -70px;
+    }
+}
+
+.login-line {
+    margin-bottom: 20px;
+    padding: 10px 10px 0;
+    background-image: linear-gradient(0deg, rgba(230, 43, 61, .2) 5px, transparent 30px);
+
+    .logo-area {
+        padding: 15% 0;
+        border-radius: 8px 8px 0 0;
+        background-color: #e62739;
+    }
+}
+
+.thirdparty-line {
+    text-align: center;
+    padding-bottom: 30px;
+
+    .tit {
+        position: relative;
+        &:before {
+            content: attr(data-tit);
+            display: inline-block;
+            padding: 0 10px;
+            background-color: #f2f2f2;
+        }
+        &:after {
+            content: '';
+            position: relative;
+            top: -10px;
+            display: block;
+            height: 1px;
+            background-color: #dcdcdc;
+            z-index: -1;
+        }
+
+    }
+
+    .btns-wx {
+        display: inline-block;
+        width: 46px;
+        height: 46px;
+        background: url('../images/wx-login.png') no-repeat;
+        background-size: 100%;
+    }
+
+}
+
+.otherLogin {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    line-height: 30px;
+    padding: 5px 0;
+    background-color: #fff;
+
+    text-align: center;
+
+    .box-flex {
+        display: block;
+        width: 50%;
+    }
+
+    .box-flex:last-child {
+        border-left: 1px solid #ccc;
+    }
+}
+
+// 绑定手机号
+.infoTips {
+    margin: 20px 0;
+
+    dt {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+}
+
+// 新增收货地址
+.set-default-address {
+    line-height: 2.5715rem;
+}
+
+// 表单警告框
+
+
+
+
+
+
+
+
+

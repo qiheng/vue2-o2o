@@ -72,30 +72,76 @@ import { Rater, Group, Cell, Range } from 'vux'
                 }
             }
         },
-        created: function () {
-            var _this = this;
-            const query = _this.query;
-            _this.param.ordersId = query.ordersId;
-            _this.param.shopId = query.shopId;
+        created() {
+//            const query = this.query;
+            console.log(this.param.shopId,'hahahhhhhahahahakashasdkahdsldhasdas');
+            this.param.ordersId = this.query.ordersId;
+            this.param.shopId = this.query.shopId;
             // 获取订单详情信息
-            _this.$axios.get(_this.$api.ordersview,{params:{ordersId: query.ordersId}})
+            this.$axios.post(this.$api.ordersview, $.param({ordersId: this.query.ordersId}))
                 .then(function (orderDetail) {
-                   // _this.param.shopId = orderDetail.shop.shopId;
-                    console.log(orderDetail,'+6666666666666666666666666666666666666666')
-                    _this.param.servicerId = orderDetail.servicerId || '';
-                    _this.orderInfo = orderDetail;
+                    console.log(orderDetail,'12121213212132');
+//                    this.param.shopId = orderDetail.shop.shopId;
+//                    console.log(this.param.shopId,'66666666666666666666666663212233');
+//                    this.param.servicerId = orderDetail.servicerId || '';
+//                    this.orderInfo = orderDetail;
+//                    console.log(orderDetail,'6666666666666666666666666666666666666666666')
+//                    console.log(orderDetail.servicerId,'77777777777777777777777777777776666666666666666666666666666666666666666666')
                 })
         },
 
         methods: {
-            submitFn: function () {
-                this.$axios.get(this.$api.commentorders,{params:this.param})
+            toastMsg(msg, type) {
+                var _this = this;
+                this.$vux.toast.show({
+                    text: msg,
+                    type: 'text',
+                    width: '24em',
+                    position: 'middle',
+                    onHide() {
+                        if (type) {
+                            _this.$router.back();
+                        }
+                        _this.isDisabled = false;
+                    }
+                })
+            },
+            zan(goodsId) {
+                var tmp = this.param.greatIds.split(','), index;
+
+                tmp = tmp.filter(function (item) {
+                    return item != '';
+                });
+
+                index = tmp.indexOf(goodsId);
+
+                if (index != -1) {
+                    tmp.splice(index,1)
+                } else {
+                    tmp.push(goodsId)
+                }
+
+                this.param.greatIds = tmp.join(',')
+            },
+            submitFn() {
+                var _this = this;
+                if (this.isDisabled) return;
+                this.isDisabled = true;
+
+                if (_this.param.content == '') {
+                    this.toastMsg('评价内容不能为空',false);
+                    this.isDisabled = false;
+                }
+
+                _this.$axios.get(_this.$api.commentorders,{params:_this.param})
                     .then(function () {
-                        alert('评价成功');
-//                        layer.msg('评论成功', {shift:0}, function () {
-//                            redirect_url(forward())
-//                        })
-                    })
+                        _this.toastMsg('评论成功',true);
+                    }).catch(function (result) {
+                    if (result.status == -203) {
+                        _this.toastMsg(result.msg,false);
+                        return false
+                    }
+                })
             }
         },
         computed: {

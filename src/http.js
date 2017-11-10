@@ -32,6 +32,12 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
         let result = response.data;
+        let routeOpts = {
+            path: '/login',
+            query: {
+                redirect: router.currentRoute.fullPath
+            }
+        };
 
         console.log('===== api: ', response.config.url ,'=====');
         console.log('===== response success response =====',response);
@@ -40,10 +46,13 @@ axios.interceptors.response.use(
         if (result.status == -91) {
             store.dispatch('recordUserInfo', null);
 
-            router.push({
-                path: '/login',
-                query: { redirect: router.currentRoute.fullPath }
-            });
+            if (router.currentRoute.path === '/login') {
+                routeOpts = {
+                    path: router.currentRoute.fullPath
+                };
+            }
+
+            router.push(routeOpts);
 
             return Promise.reject(result);
         }

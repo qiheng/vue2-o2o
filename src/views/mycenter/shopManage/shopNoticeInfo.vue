@@ -20,20 +20,20 @@ export default {
     data() {
         return {
             noticeDetail: [],
-            shopNoticeId:'',
+            shopNoticeId: '',
         }
     },
-    created() {
-        var _this = this;
-        const query = _this.query;
-        _this.shopNoticeId = query.shopNoticeId;
-         _this.$axios.get(_this.$api.getshopnotice,{params:{shopNoticeId: query.shopNoticeId}})
-             .then(({data})=>{
-                 _this.noticeDetail = data;
-             });
+    deactivated() {
+        this.$destroy(true)
     },
-    computed:{
-        query(){
+    created() {
+        this.$axios.get(this.$api.getshopnotice, { params: { shopNoticeId: this.query.shopNoticeId } })
+            .then(({ data }) => {
+                this.noticeDetail = data;
+            });
+    },
+    computed: {
+        query() {
             return this.$route.query;
         }
     }

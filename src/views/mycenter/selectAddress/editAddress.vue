@@ -29,8 +29,13 @@
             <div class="fm-line set-default-address J-radio">
                 <div class="clearfix">
                     <label class="l-label">设为默认地址</label>
-                    <x-switch :title="''"></x-switch>
+                    <switchTpl :value="defaultVal" @change="change"></switchTpl>
+                    <!--<x-switch :title="''"></x-switch>-->
                 </div>
+
+
+
+
             </div>
         </div>
         <div class="container mt30">
@@ -62,6 +67,7 @@ export default {
             },
             define: 10,
             val: true,
+            defaultVal:true,
             proviance: {},
             city: {},
             area: {},
@@ -96,21 +102,21 @@ export default {
         this.init();
     },
     methods: {
-        toastMsg(msg, type) {
-            let that = this;
-            this.$vux.toast.show({
-                text: msg,
-                type: 'text',
-                width: '24em',
-                position: 'middle',
-                onHide() {
-                    if (type) {
-                        that.$router.back();
-                    }
-                    that.isDisabled = false;
-                }
-            })
-        },
+//        toastMsg(msg, type) {
+//            let that = this;
+//            this.$vux.toast.show({
+//                text: msg,
+//                type: 'text',
+//                width: '24em',
+//                position: 'middle',
+//                onHide() {
+//                    if (type) {
+//                        that.$router.back();
+//                    }
+//                    that.isDisabled = false;
+//                }
+//            })
+//        },
         onClick (newVal, oldVal) {
             console.log(newVal, oldVal)
             this.$vux.loading.show({
@@ -139,6 +145,35 @@ export default {
                 this.addressData[key] = address[index].areaId;
             })
         },
+        change(defaultVal){
+            this.$axios.get(this.$api.saveaddress,{params:this.addressData})
+                .then(({data})=>{
+                    let isDefault = data.isDefault;
+                    console.log(isDefault,'默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认默认');
+                    this.defaultVal =!defaultVal;
+                    if(isDefault == 0){
+                        this.defaultVal = false;
+                        this.isDefault = 0;
+                    }
+                    if(isDefault == 1){
+                        this.defaultVal = true;
+                        this.isDefault = 1;
+                    }
+                    console.log(data,'222222333333333333333333333333333');
+                });
+//            const param = this.addressData;
+//            const closeParam = qs.stringify(param);
+//            const openData = qs.parse(closeParam);
+//            this.defaultVal == false ? openData.isDefault = 1 : openData.isDefault = 0;
+//            if(openData.isDefault = 1){
+//                this.defaultVal = true;
+//            }
+
+
+//            this.changeAddressData()
+//            this.defaultVal = !defaultVal;
+//            console.log(defaultVal,'21333333333333');
+        },
         closeLayerFn() {
             this.layerData.visible = false;
         },
@@ -154,14 +189,14 @@ export default {
             // 校验表单
             if (!validator.validate(oValChar, true)) {
                 return $.each(validator.messages, (i, val) => {
-                    _this.toastMsg(val,false);
-//                    _this.$notiejs({
-//                        state: 2,
-//                        msg: val,
-//                        end() {
-//                            _this.isDisabled = false
-//                        }
-//                    });
+//                    _this.toastMsg(val,false);
+                    _this.$notiejs({
+                        state: 2,
+                        msg: val,
+                        end() {
+                            _this.isDisabled = false
+                        }
+                    });
                     return false;
                 })
             }
@@ -183,17 +218,18 @@ export default {
             const subData = qs.stringify(openData);
             this.$axios.post(this.$api.saveaddress, subData)
                 .then(request => {
-                    _this.toastMsg(request.msg,true);
+//                    _this.toastMsg(request.msg,true);
                     _this.isDisabled = false;
 
-//                    _this.$notiejs({
-//                        state: 1,
-//                        msg: request.msg,
-//                        end() {
+                    _this.$notiejs({
+                        state: 1,
+                        msg: request.msg,
+                        end() {
+                            _this.$router.back();
 //                            _this.$router.push({ path: '/mycenter/address' })
-//                            _this.isDisabled = false;
-//                        }
-//                    });
+                            _this.isDisabled = false;
+                        }
+                    });
                 });
         }
     },

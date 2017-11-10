@@ -18,7 +18,6 @@
         <div class="container mt30">
             <input @click.prevent="submitFn" type="submit" value="验证" class="btn btn-block btn-primary btn-lg" :class="{disabled: isDisabled}" />
         </div>
-        <toast v-model="shows" width="24em" position="middle">{{text}}</toast>
     </div>
 </template>
 <script>
@@ -54,7 +53,6 @@ export default {
             this.param.phone = query.phone
         }
         this.init();
-        console.log(this.param.code, '+++++++++++++++++++++++++++6666');
     },
     watch: {
         time(oldVal, newVal) {
@@ -67,6 +65,21 @@ export default {
         }
     },
     methods: {
+        toastMsg(msg, type) {
+            let that = this;
+            this.$vux.toast.show({
+                text: msg,
+                type: 'text',
+                width: '24em',
+                position: 'middle',
+                onHide() {
+                    if (type) {
+                        that.$router.back();
+                    }
+                    that.isDisabled = false;
+                }
+            })
+        },
         init() {
             validator.config = {
                 phone: [{ strategy: 'isNonEmpty', errorMsg: '请输入手机号码！' }, { strategy: 'isMobile' }],
@@ -82,15 +95,13 @@ export default {
             // 发验证码
             this.$axios.post(this.$api.sendcodebychangephone1, params)
                 .then(function(result) {
-                    console.log(result.data,'-----------------------------------');
-                    console.log(result.msg,'----------------------------------+++++++++++++++++++++-');
                     if(result.msg == '操作失败'){
-                        that.text = '请不要重复操作';
+                        that.toastMsg('请不要重复操作',false);
                         that.countdown.getCodeText = '获取验证码'
                         that.countdown.start = false;
                         that.countdown.show = false;
                     }else{
-                        that.text = '验证码已经发送至您的手机请注意查收';
+                        that.toastMsg('验证码已经发送至您的手机请注意查收',false);
                     }
                     that.shows = true;
                     return false;
@@ -108,13 +119,7 @@ export default {
             // 校验表单
             if (!validator.validate(oValChar, true)) {
                 return $.each(validator.messages, (i, val) => {
-                    _this.text = val;
-                    _this.shows = true;
-                    this.$vux.toast.show({
-                        onHide() {
-                            _this.isDisabled = false;
-                        }
-                    })
+                    this.toastMsg(val,false);
                     return false;
                 })
             }
@@ -123,13 +128,7 @@ export default {
             this.$axios.post(this.$api.changepassword1, params)
                 .then(({ msg, status }) => {
                     if (status == -9) {
-                        _this.text = msg;
-                        _this.shows = true;
-                        _this.$vux.toast.show({
-                            onHide() {
-                                _this.isDisabled = false;
-                            }
-                        })
+                        this.toastMsg(msg,false);
                         return false;
                     } else {
                         this.$router.push({ path: 'mycenterBindPhoneNum' })

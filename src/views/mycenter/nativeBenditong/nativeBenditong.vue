@@ -13,8 +13,8 @@
             <!-- 导顶部导航 end -->
 
             <tabSlide v-model="value">
-                <slideNav ref="slideNav" v-model="slideNavIndex" :slideChooseCb="slideChooseCbFn">
-                    <slide-nav-item v-for="(item, idx) in categorys" :id="idx">{{ item.name }}</slide-nav-item>
+                <slideNav ref="slideNav" v-model="slideNavIndex" :slideChooseCb="slideChooseCbFn" :data="categorys">
+                    <slide-nav-item v-for="(item, idx) in categorys" :key="idx" :id="idx">{{ item.name }}</slide-nav-item>
                 </slideNav>
             </tabSlide>
         </div>
@@ -24,7 +24,7 @@
                 <scroller
                     :on-infinite="infinite">
                     <div class="panel">
-                        <div class="slide-panel" v-for="(item, index) in infolist">
+                        <div class="slide-panel" v-for="(item, index) in infolist" :key="index">
                             <div class="slide-panel-inner">
                                 <div class="slide-panel-item">
                                     <div class="container panel-item">
@@ -109,11 +109,6 @@
                                 infoCategoryId: '',
                                 name: '全部'
                             })
-
-                            this.$nextTick(() => {
-                                this.slideNav.slideSetup();
-                            })
-
                         } else {
                             // fail
                         }
@@ -172,10 +167,7 @@
         computed: {
             query() {
                 return this.$route.query
-            },
-            slideNav: function () {
-                return this.$refs.slideNav;
-            },
+            }
         },
         watch: {
 

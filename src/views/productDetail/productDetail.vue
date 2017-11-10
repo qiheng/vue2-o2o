@@ -32,18 +32,18 @@
 
                 </template>
 
-                <div class="panel-bd"
+                <div class="panel-bd f24"
                      :data-rel-cart="goodsInfo.goodsId"
                      :data-sendsale="goodsInfo.sales && (goodsInfo.sales.salesType == 3 || goodsInfo.sales.salesType == 6) ? goodsInfo.sales.value : '1,0'"
                      :data-rel-shop-type-id="goodsInfo.shop.shopTypeId"
                      :data-rel-shop-id="goodsInfo.shopId">
-                    <h2 class="product-tit" data-rel-tit="true">
+                    <h2 class="product-tit f32" data-rel-tit="true">
                         {{ goodsInfo.name }}
                         <a :href="'qrcode.html?type=goods&name='+goodsInfo.name+'&url='+encodeURIComponent(location.href)" class="qrcode-btn ml5"></a>
                     </h2>
                     <p class="lightgray mt5"><span class="mr10">库存{{ goodsInfo.inventory }}</span>已售出{{ goodsInfo.salesNum }}份，好评率{{ goodsInfo.greatPoint }}</p>
                     <p class="mt5">
-                        <span class="orange mr5">&yen; <i :data-rel-price="goodsInfo.eprice" class="f18">{{ goodsInfo.eprice | toFixed }}/{{goodsInfo.format}}</i></span>
+                        <span class="orange mr5">&yen; <i :data-rel-price="goodsInfo.eprice" class="f32">{{ goodsInfo.eprice | toFixed }}/{{goodsInfo.format}}</i></span>
                         <del v-if="goodsInfo.eprice != goodsInfo.price" class="lightgray mr5">&yen; {{ goodsInfo.price | toFixed }}/{{goodsInfo.format}}</del>
                         <!--类型 1平台限时折扣，2平台N元专区，3平台买一送一，4商家限时折扣，5商家N元专区，6商家买一送一-->
                         <!--<span v-if="goodsInfo.salesType" class="i-label">买1送1</span>-->
@@ -95,12 +95,12 @@
                     </div>
                     <div class="lightgray merchant-info-address" @click="shopGps(goodsInfo.shop)">
                         <template v-if="goodsInfo.shop.shopTypeId == shopTypeId.o2o">
-                            <img class="pull-left" width="19" src="images/icons-v3/icons1/icon_adress.png" alt=""/>
+                            <img class="pull-left" width="19" src="../../assets/images/icons-v3/icons1/icon_adress.png" alt=""/>
                             <span class="pull-right">服务范围<ins class="gray">{{goodsInfo.shop.reangName}}</ins></span>
                             <p class="nowrap">{{ wholeAddress }}</p>
                         </template>
                         <template v-else>
-                            <img class="pull-right" width="19" src="images/icons-v3/icons1/icon_adress.png" alt=""/>
+                            <img class="pull-right" width="19" src="../../assets/images/icons-v3/icons1/icon_adress.png" alt=""/>
                             <p class="nowrap">{{ wholeAddress }}&nbsp;&nbsp;{{goodsInfo.shop.distance}}</p>
                         </template>
                     </div>

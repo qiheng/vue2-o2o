@@ -26,10 +26,10 @@
             <input @click.prevent="submitFn" type="submit" value="登录" class="btn btn-block btn-lg btn-primary" :class="{disabled: isDisabled}" tabindex="3"/>
 
             <p class="mt15">
-                <a class="pull-right" href="find-password.html">找回密码</a>
+                <router-link class="pull-right" :to="{name:'findPassword'}">找回密码</router-link>
 
                 <router-link :to="{name:'register'}">手机快速注册</router-link>
-                <a href="javascript:;" @click="logout">退出</a>
+                <!--<a href="javascript:;" @click="logout">退出</a>-->
 
             </p>
         </div>
@@ -60,14 +60,10 @@ export default {
         }
     },
     created () {
-
         this.init();
     },
     mounted () {
         const _this = this;
-        //console.log('=====this.userInfo=====',this.recordUserInfo)
-        //console.log('_this.$router:',_this.$router)
-        //console.log('_this.$route:',_this.$route)
     },
     methods: {
         ...mapActions(['recordUserInfo']),
@@ -75,6 +71,8 @@ export default {
 
             if (this.userInfo && this.userInfo.usersId) {
                 this.forward();
+            } else {
+                this.getTheUser();
             }
 
             // 登录
@@ -84,6 +82,7 @@ export default {
             }
 
         },
+        // 回退跳转
         forward () {
             var _this = this;
 
@@ -94,13 +93,13 @@ export default {
                     path: _this.$route.query.redirect
                 })
             } else {
-                //_this.$router.go(-1);
                 console.log('url2')
                 _this.$router.replace({
                     path: '/'
                 })
             }
         },
+        // 退出
         logout () {
             const _this = this;
 
@@ -118,6 +117,23 @@ export default {
         Jswitch () {
             this.showPwd = !this.showPwd;
         },
+        // 获取用户信息
+        getTheUser () {
+            this.$axios.post(this.$api.theuser)
+                .then(({data, msg, status}) => {
+                    this.saveUserInfo(data)
+                    this.forward();
+                })
+        },
+        // 保存并更新用户的信息
+        saveUserInfo (user) {
+            // 记录用户信息到vuex中
+            this.recordUserInfo(user);
+
+            // 缓存用户信息到 sessionStorage 中
+            window.sessionStorage.userInfo = JSON.stringify(user);
+        },
+        // 登录提交
         submitFn () {
             let _this = this,
                 oValChar = {};
@@ -154,21 +170,21 @@ export default {
                 .then(({status, data, msg}) => {
 
                     if (data.status == 1) {
-//                        console.log('_this.$router:',_this.$router)
-//                        console.log('_this.$route:',_this.$route)
 
+                        this.saveUserInfo(data)
                         // 记录用户信息到vuex中
-                        _this.recordUserInfo(data);
+                        //_this.recordUserInfo(data);
 
                         // 缓存用户信息到 sessionStorage 中
-                        window.sessionStorage.userInfo = JSON.stringify(data);
+                        //window.sessionStorage.userInfo = JSON.stringify(data);
 
                         // 登录后跳转回来源页面
                         _this.forward();
 
                     } else if (status == -90) {
-                        alert(msg);
-                        _this.forward();
+                        // 如果是已登录，接口直接返回用户信息
+                        this.getTheUser();
+
                     } else {
 
                         // todo

@@ -1,8 +1,5 @@
 <template>
     <div class="merchant-detail" v-cloak>
-        <!--<div class="hidden">-->
-        <!--<img src="images/icons-v3/icons1/logo_new.jpg" alt="">-->
-        <!--</div>-->
         <!-- 店铺信息 start -->
         <div class="container panel-item merchant-info-panel">
             <div class="panel-inner">
@@ -14,11 +11,10 @@
                 <div class="merchant-btns" style="z-index: 1">
                     <a @click="fav" :data-user-fav="shopViewData.userFav" class="like-btn" :class="{'like-btn-on': shopViewData.userFav}" href="javascript:;"></a>
                     <a @click="showDropDown" class="i-more" href="javascript:;"></a>
-                    <!--<a class="J-qrcode qrcode-btn" href="javascript:;"></a>-->
-                    <!--<a class="J-share share-btn" href="javascript:;" data-ajax="false"></a>-->
                     <div v-show="isShowDropDown" class="more-dropdown">
-                        <a :href="'qrcode.html?type=shop&name='+shopViewData.shop.name+'&url='+encodeURIComponent(location.href)" class="drop-item">二维码</a>
-                        <a :href="'shop-complain.html?shopId='+shopViewData.shop.shopId+'&name=' + shopViewData.shop.name+'&wholeAddress='+shopViewData.wholeAddress" class="drop-item">店铺投诉</a>
+                        <router-link :to="{name:'shopQrcode',query:{type:shopViewData.shop,name:shopViewData.shop.name,url:encodeURIComponent(location.href)}}" class="drop-item">二维码</router-link>
+                        <router-link :to="{name:'shopComplain',query:{shopId:+shopViewData.shop.shopId,name:shopViewData.shop.name,wholeAddress:shopViewData.wholeAddress}}" class="drop-item">店铺投诉</router-link>
+                        <!--{{shopViewData.shop.phone}}-->
                         <a v-if="shopViewData.shop.phone"
                            @click="isShowDropDown = !1"
                            :href="'tel:'+ shopViewData.shop.phone"  class="drop-item">联系商家</a>
@@ -29,15 +25,12 @@
                     <p class="f12">
                         <i :class="['star2', 'star-'+Math.round(shopViewData.shop.score)]"></i>
                     </p>
-
 					<span class="opentime i-label pos-rt-middle"
                           :class="{'i-label-default': !shopViewData.shopOpenStatus}">{{ shopViewData.shopOpenStatus ? '营业' : '已休业' }}</span>
-
                     <ul v-if="shopViewData.saleList && shopViewData.saleList.length" class="panel-yhInfo">
                         <li v-for="saleItem in shopViewData.saleList"
                             :class="saleClass[saleItem.salesType]">{{saleItem.name}}</li>
                     </ul>
-
                 </div>
                 <div class="lightgray merchant-info-address" >
                     <img class="pull-left" width="19" src="../../assets/images/icons-v3/icons1/icon_adress.png" alt=""/>
@@ -91,7 +84,7 @@
                     <scroller class="scroll-con-inner" style="padding: 0 10px">
                         <p class="bg-gray p10 f12">{{ categoryName }}</p>
                         <div class="product-list" :data-len="goodsList.length">
-                            <loading v-show="goodsLoading"></loading>
+                            <loading v-model="goodsLoading"></loading>
                             <template v-if="!goodsLoading">
                                 <template v-if="goodsList.length">
                                     <div v-for="(goodsItem, index) in goodsList" class="panel-item"
@@ -200,11 +193,20 @@
                             <div class="mt5 nowrap">{{ servicerItem.summary }}</div>
                         </li>
                         <li class="panel-chunk text-center">
-                            <a class="block lightgray"
-                               :href="'service-person-manage.html?type=preview&shopId='+shopViewData.shop.shopId">
+                            <router-link class="block lightgray"
+                               :to="{name:'servicePersonManage',query:{type:'preview',shopId:shopViewData.shop.shopId}}">
                                 查看全部服务人员 &gt;
                                 <!--<i class="dib icon-down-gray"></i>-->
-                            </a>
+                            </router-link>
+
+
+                            <!--<a class="block lightgray"-->
+                               <!--:href="'service-person-manage.html?type=preview&shopId='+shopViewData.shop.shopId">-->
+                                <!--查看全部服务人员 &gt;-->
+                                <!--&lt;!&ndash;<i class="dib icon-down-gray"></i>&ndash;&gt;-->
+                            <!--</a>-->
+                            <!---->
+
                         </li>
                     </ul>
                 </div>
@@ -213,16 +215,16 @@
                 <!-- 店铺简介 start -->
                 <div v-if="shopViewData.shop.summary" class="panel-nobrd shop-info-panel">
                     <div class="panel-bd">
-                        <h2 class="f14 mb10">店铺简介</h2>
-                        <div class="gray f12 lineclamp2 bwrd">{{ shopViewData.shop.summary }}</div>
+                        <h2 class="f28 mb10">店铺简介</h2>
+                        <div class="gray f24 lineclamp2 bwrd">{{ shopViewData.shop.summary }}</div>
                     </div>
                 </div>
                 <!-- 店铺简介 end -->
 
                 <!-- 营业时间 start -->
-                <div class="panel-nobrd shop-hours-panel f12">
+                <div class="panel-nobrd shop-hours-panel f24">
                     <div class="panel-bd">
-                        <h2 class="f14">营业时间</h2>
+                        <h2 class="f28">营业时间</h2>
                         <p>{{shopViewData.shop.opentime.st}}-{{shopViewData.shop.opentime.et}}</p>
                         <ul class="list-fl mt10">
                             <li v-for="(day, key) in weekDay"><a class="day" :class="{disabled:shopViewData.shop.opentime[key] === '0'}" href="javascript:;">{{ day }}</a></li>
@@ -249,10 +251,10 @@
                                 <p class="mt5">{{ commentItem.content }}</p>
                             </div>
                         </div>
-                        <a class="block panel-chunk text-center"
-                           :href="'comments.html?shopId='+shopViewData.shop.shopId+'&score='+shopViewData.shop.score">
+                        <router-link class="block panel-chunk text-center"
+                           :to="{name:'comments',query:{shopId:shopViewData.shop.shopId,score:shopViewData.shop.score}}">
                             <span class="lightgray f12">查看更多评价&gt;</span>
-                        </a>
+                        </router-link>
                     </div>
                 </div>
                 <!-- 评分 end -->
@@ -271,22 +273,15 @@
                 <!-- 店铺动态 end -->
 
                 <!-- 遮罩层 -->
-
                 <div v-if="isPreview" class="fullPage"></div>
-
             </div>
         </div>
         <!--  商品、商家 end -->
 
         <!-- 投诉列表 strat -->
         <div class="check-error-list text-center hidden">
-            <div class="panel lh-22 gray f16" style="margin-bottom:0;">
-
-            </div>
+            <div class="panel lh-22 gray f16" style="margin-bottom:0;"></div>
         </div>
-
-        <!-- 投诉列表 end -->
-        <!--<a :href="backUrl" class="go-back"></a>-->
 
         <min-cart :cart-list="cartList" :shop="shopViewData.shop">
             <template slot="buyCart" scope="props">
@@ -357,24 +352,11 @@
                          this.toggleCategory(0);
 
                          this.$nextTick(function () {
-
                              bindEvent(this);
-
-                            // 微信分享待开发
-                            // this.getWxConfig();
-
                          })
-
                      });
 
                 } else {
-
-                     // 出错跳转首页
-                     this.$vux.toast.text(msg)
-                     /*layer.msg(result.msg, function () {
-                         redirect_url(config.index)
-                     });*/
-
                 }
 
          });
@@ -382,7 +364,6 @@
     },
     mounted () {
         var _this = this;
-
         // 处理商户端的店铺预览，只看，不能跳转其它用户端页面
         if (this.isPreview) {
             // 返回上一页
@@ -394,7 +375,6 @@
                 if (window.sessionStorage.cartList) {
                     delete  window.sessionStorage['cartList']
                 }
-
             }
             // 链接阻止
             $('body').on('click', 'a:not(".go-back")', function (e) {
@@ -503,17 +483,22 @@
             // 预览模式，不能收藏
             if (!!this.isPreview) return;
 
-            _A.setShopFavoData({'shopId': this.query.shopId}, null, function (result) {
-                if (result.status === 21) { // 收藏
-                    userFav = 1;
-                    _this.shopViewData.userFav = 1;
-                    return false;
-                } else if (result.status === 22) { // 取消收藏
-                    userFav = 0;
-                    _this.shopViewData.userFav = 0;
-                    return false;
-                }
-            })
+            _this.$axios.get(_this.$api.setshopfavo,{params:{'shopId': this.query.shopId}})
+                .then(({data})=>{
+
+                    if (status === 21) { // 收藏
+                        userFav = 1;
+
+                        alert(userFav);
+                        _this.shopViewData.userFav = 1;
+                        return false;
+                    } else if (status === 22) { // 取消收藏
+                        userFav = 0;
+
+                        _this.shopViewData.userFav = 0;
+                        return false;
+                    }
+                });
         },
         // 检查优惠券是否可领取
         checkValidCoupon (coupon) {
@@ -541,6 +526,7 @@
                     }
                     // 1021 领取成功，仍可继续领取
                     else if (result.status == -1021) {
+
                         // todo
                     }
 
@@ -654,8 +640,6 @@
 
      });
 
-     //$(document).on('touchmove', function (e) { e.preventDefault();});
-
  }
 
 
@@ -667,7 +651,6 @@
         /*background1:url(../assets/images/i-like-on.png) no-repeat 100% 50%;*/
         background-size:30px;
     }
-    #qrcode {width: 200px; height: 200px; overflow: hidden;}
     /**
      *
      * Pull down styles
@@ -730,21 +713,8 @@
         border-top: 0;
     }
 
-
-    .merchant-info-panel {
-
-        .panel-info {
-            min-height: 70px;
-        }
-
-        /* 营业状态 */
-        .opentime {
-            top: 45px;
-            right: 0;
-            font-size: .86rem;
-        }
-
+    .share-btn, .like-btn {
+        background-size: 40px!important;
     }
-
 </style>
 

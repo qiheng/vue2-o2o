@@ -43,6 +43,8 @@ export default {
             },
             currentServicerIndex: -1,
             shopId: '',
+            type:'',
+            isShow:true,
             servicerList: []
         }
     },
@@ -52,6 +54,10 @@ export default {
         })
     },
     created: function() {
+//        this.type = this.query.type;
+//        if(this.query.type == 'preview'){
+//            this.isShow = false;
+//        }
         this.getDate();
     },
     methods: {
@@ -82,6 +88,7 @@ export default {
         },
         // 跳转服务/配送人员详情
         linkToDetail(servicerId) {
+            this.$router.push({path:'deliveryStaff',query:{servicerId:servicerId}});
             //redirect_url('delivery-staff.html?servicerId=' + servicerId)
 
         },
@@ -91,7 +98,7 @@ export default {
             //     redirect_url(forward())
             // })
         },
-        clickFn: function(servicerId, index) {
+        clickFn(servicerId, index) {
             switch (this.whichPage) {
                 // 服务/配送人员列表
                 case 1:
@@ -147,6 +154,7 @@ export default {
     margin-left: 10px;
     font-size: .86rem
 }
+
 
 .weui-cell_switch {
     float: right;

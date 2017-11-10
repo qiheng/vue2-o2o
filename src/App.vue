@@ -19,16 +19,20 @@
     }
 </script>
 
-<style>
+<style lang="less">
 
-    @import "./assets/css/public.css";
+    @import "assets/css/public";
+    @import "assets/css/login_reg";
+    @import "assets/css/home";
+    /*@import "./assets/css/public.css";
     @import "./assets/css/login_reg.css";
-    @import "./assets/css/home.css";
+    @import "./assets/css/home.css";*/
 
     html, body, #app {
         width:100%;
         height: 100%;
         overflow-x: hidden;
+        font-size: 28 * @px;
     }
 
     /* 转场效果 */

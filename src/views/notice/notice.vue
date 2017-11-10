@@ -1,23 +1,26 @@
 <template>
     <!-- 公告列表 start -->
-    <div class="notices-list">
-        <loading v-show="loading"></loading>
-        <template v-if="!loading">
-        <template v-if="noticeList.length">
-            <div v-for="notice in noticeList" class="container panel-item">
-                <div class="panel-inner">
-                    <router-link :to="{name: 'noticeDetail', params: {noticeId: notice.noticeId}}">
-                        <ins class="time">{{ notice.ctime | timeFormat }}</ins>
-                        <h2 class="panel-tit">{{ notice.title }}</h2>
-                        <div class="lightgray"><div class="nowrap">{{ notice.content }}</div></div>
-                    </router-link>
-                 </div>
-            </div>
-        </template>
-        <empty v-else :msg="emptyMsg"></empty>
+    <scroller
+        :on-infinite="infinite">
+        <div class="notices-list panel">
+            <!--<loading v-show="loading"></loading>-->
+            <template>
+                <template v-if="noticeList.length">
+                    <div v-for="notice in noticeList" class="container panel-item">
+                        <div class="panel-inner">
+                            <router-link :to="{name: 'noticeDetail', params: {noticeId: notice.noticeId}}">
+                                <ins class="time">{{ notice.ctime | timeFormat }}</ins>
+                                <h2 class="panel-tit">{{ notice.title }}</h2>
+                                <div class="lightgray"><div class="nowrap">{{ notice.content }}</div></div>
+                            </router-link>
+                         </div>
+                    </div>
+                </template>
+                <empty v-else :msg="emptyMsg"></empty>
             </template>
-    </div>
-    <!-- 公告列表 end -->
+        </div>
+        <!-- 公告列表 end -->
+    </scroller>
 </template>
 
 
@@ -32,40 +35,38 @@
                     type: (this.$route.type != undefined ? this.$route.type : 0)
                 },
                 loading: true,
-                _loadMore: null,
+                noData: false,
                 emptyMsg: {
                     mainMsg: '暂无信息~'
                 },
             }
         },
         mounted () {
-
-            console.log('===========this.$route==========',this.$route)
-            console.log('===========this.$router==========',this.$router)
-
             // 初始化信息列表
             this.getNoticeList();
         },
         methods: {
             // 信息列表
-            getNoticeList: function (bConcat, cb) {
+            getNoticeList(bConcat, cb) {
                 var _this = this;
 
                 if ($.isFunction(bConcat)) {
                     cb = bConcat;
                     bConcat = false;
                 }
-
-                !_this._loadMore && (_this.loading = true);
+                !bConcat  ? (this.loading = true) : '';
 
                 // 信息列表
-                _this.loading = true;
                 this.$axios.get(this.$api.noticelist, {params: _this.params})
                     .then(({data, status}) => {
 
                         let noticeList = data;
                         _this.loading = false;
 
+                        // 返回空列表，表示无数据
+                        if (!noticeList.length) {
+                            this.noData = true
+                        }
                         // 合并
                         if (bConcat) {
                             _this.noticeList = _this.noticeList.concat(noticeList);
@@ -74,13 +75,6 @@
                         }
 
                         _this.$nextTick(function () {
-                            // loadDown
-                            if (!_this._loadMore) {
-                                _this._loadMore = _this.loadMore();
-                            }
-
-                            _this._loadMore && _this._loadMore.update();
-
                             cb && cb(noticeList)
                         })
 
@@ -91,26 +85,23 @@
 
             },
             // 滚动底部加载
-            loadMore: function() {
-                /*var _this = this;
+            infinite (done) {
+                clearTimeout(this.timeId);
+                if (this.noData) {
+                    setTimeout(() => {
+                        done(true)
+                    }, 500)
+                    return;
+                }
+                this.timeId = setTimeout(() => {
+                    this.params.page++;
 
-                return $('body').loadMore({
-                    scrollArea : window,
-                    loadDownFn: function (me) {
-                        var data;
-                        // 初始化全部促销分类商品
-                        _this.param.page++;
-                        _this.getNoticeList(true, function (noticeList) {
+                    this.getNoticeList(true, () => {
+                        done()
+                    })
 
-                            if (!noticeList.length) {
-                                me.noData();
-                            }
-                            me.refresh();
-
-                        });
-                    }
-                }).data('load-more');*/
-            }
+                }, 1500)
+            },
         }
     }
 </script>

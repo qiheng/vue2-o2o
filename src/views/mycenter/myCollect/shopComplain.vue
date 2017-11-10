@@ -48,7 +48,7 @@
                 }
             }
         },
-        created: function () {
+        created () {
             var _this = this;
             console.log(_this.param)
             this.param.shopId = this.query.shopId;
@@ -79,7 +79,7 @@
                     .then(function () {
                         _this.text = '提交成功';
                         _this.shows = true;
-                        _this.$router.push({ path: 'shopDetail',query:{'shopId':_this.param.shopId,'name':_this.param.name} })
+                        _this.$router.back();
                         _this.isDisabled = false;
                     }).catch(function () {
                     _this.isDisabled = false;
@@ -87,14 +87,12 @@
 
             },
             setRadio:function (index) {
-                console.log('66666666666666666666666666666')
                 var _this = this;
                _this.active = index;
                 _this.param.content = index
             }
         },
         computed: {
-
             query () {
                 return this.$route.query
             }

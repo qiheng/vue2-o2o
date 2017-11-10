@@ -3,12 +3,14 @@
 
 import Vue from 'vue'
 import FastClick from 'fastclick'
+import '@/utils/rem'
 import App from '@/App'
 import store from '@/store'
 import router from '@/router'
 import axios from '@/http'
 import api from '@/api'
 import { Loading, ConfirmPlugin, AlertPlugin, LoadingPlugin, ToastPlugin } from 'vux'
+
 
 Vue.config.productionTip = false;
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问

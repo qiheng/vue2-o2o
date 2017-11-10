@@ -8,7 +8,7 @@
 export default {
     index               : '/index', // 首页
     getareabylonglat    : '/getareabylonglat', // 逆地址解析
-    sendcodeByRegist    : '/sendcodeByRegist', // 注册时发送验证码
+    sendcodeByRegist    : '/sendcode', // 注册时发送验证码
     register            : '/out/register', // 注册
     goodsview           : '/goodsview', // 获取该商品的详情
     deleteGoodsPic      : '/manage/deleteGoodsPic', // 删除图片
@@ -24,6 +24,7 @@ export default {
     setshopslide        : '/manage/setshopslide', //  店铺管理-批量设置图片为封面
     delshopslide        : '/manage/delshopslide', // 店铺管理-批量取消封面
     addshopmanager      : '/manage/addshopmanager', // 添加店铺管理员
+    updateservicer      : '/manage/updateservicer', // 更新店铺管理员
     addservicer         : '/manage/addservicer', //  增加服务人员
     delservicer         : '/manage/delservicer', //  删除服务人员
     confirmordersbycode : '/manage/confirmordersbycode', //  店家扫码支付
@@ -46,6 +47,8 @@ export default {
     setsales            : '/manage/setsales',  // 设置促销信息
     getsales            : '/manage/getsales',  // 获取促销活动列表
     deletesales         : '/manage/deletesales',  // 删除促销活动
+    creategoods         : '/manage/creategoods',  // 删添加商品
+    updategoods         : '/manage/updategoods', //编辑商品
     addsales            : '/manage/addsales',  // 添加促销活动
     addgoodstosales     : '/manage/addgoodstosales',  // 添加商品至促销
     deletegoodstosales  : '/manage/deletegoodstosales',  // 删除促销中的商品

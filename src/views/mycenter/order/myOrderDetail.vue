@@ -229,19 +229,20 @@
                 <template v-if="orderInfo.statusPay == 0">
                     <template v-if="orderInfo.statusOrder == 0">
                         <a @click.prevent="cancel(orderInfo.ordersId, $event)" class="J-cancel-order btn btn-default" href="javascript:;">取消订单</a>
-                        <a v-if="!isHdfk" class="btn btn-primary"
-                           :href="'choose-pay-way.html?ordersId='+orderInfo.ordersId">立即付款</a>
+
+                        <router-link v-if="!isHdfk" class="btn btn-primary"
+                                     :to="{name:'choosePayWay',query:{ordersId: orderInfo.ordersId}}">立即付款</router-link>
                     </template>
                 </template>
                 <template v-if="orderInfo.statusPay == 1">
                     <template v-if="orderInfo.statusOrder == 1 || orderInfo.statusOrder == 2">
                         <!--<a class="btn btn-default" :href="'tel:'+orderInfo.shop.phone">催单</a>-->
                         <!--<a @click.prevent="refund(orderInfo.ordersId, $event)" class="J-refund btn btn-primary" href="javascript:;">申请退款</a>-->
-                        <a class="J-refund btn btn-primary" :href="'refund-reason.html?chooseType=1&ordersId='+orderInfo.ordersId + '&priceCount=' + orderInfo.priceCount">申请退款</a>
+                        <router-link class="J-refund btn btn-primary" :to="{name:'refundReason',query:{'ordersId':orderInfo.ordersId,'priceCount':orderInfo.priceCount}}">申请退款</router-link>
                     </template>
                     <template v-if="orderInfo.statusOrder == 3 || orderInfo.statusOrder == 4">
                         <!--<a class="btn btn-default" :href="'tel:'+orderInfo.shop.phone">催单</a>-->
-                        <a v-if="!isHdfk" class="J-refund btn btn-default" :href="'refund-reason.html?chooseType=1&ordersId='+orderInfo.ordersId + '&priceCount=' + orderInfo.priceCount">申请退款</a>
+                        <router-link class="J-refund btn btn-primary" :to="{name:'refundReason',query:{'ordersId':orderInfo.ordersId,'priceCount':orderInfo.priceCount}}">申请退款</router-link>
                         <a v-if="!(isReceiving || isBook)" @click.prevent="sure(orderInfo.ordersId, $event)" class="J-sure btn btn-primary" href="javascript:;">确认订单</a>
                     </template>
                     <!--<template v-if="orderInfo.statusOrder == 7">
@@ -267,7 +268,7 @@
                 <template v-if="!(orderInfo.statusPay == 2 || orderInfo.statusPay == 5) && orderInfo.statusOrder == 7">
                     <a v-if="orderInfo.shop.shopTypeId == shopTypeId.jsws && !isReceiving && orderInfo.statusPay < 5" class="btn btn-default"
                        :href="'refund-reason.html?chooseType=0&ordersId='+orderInfo.ordersId">退货</a>
-                    <a class="btn btn-primary" :href="'order-comments.html?ordersId='+orderInfo.ordersId+'&shopId='+orderInfo.shop.shopId">评价订单</a>
+                    <router-link class="btn btn-primary" :to="{name:'orderComments',query:{'ordersId': orderInfo.ordersId,'shopId': orderInfo.shop.shopId}}">评价订单</router-link>
                 </template>
             </div>
 

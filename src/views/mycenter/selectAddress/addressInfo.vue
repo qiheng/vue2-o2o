@@ -111,6 +111,12 @@ export default {
             this.$router.back();
             return false
         },
+        chooseAddress(index) {
+            var addressItem = this.addressList[index];
+
+
+        }
+
     },
     computed: {
         query() {

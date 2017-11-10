@@ -1,0 +1,115 @@
+﻿//@import "compass/utilities";
+@import "_mixins";
+
+/* 清除浮动 */
+.clear {
+  display: block;
+  float: none;
+  clear: both;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  background: none;
+  border: 0;
+  font-size: 0
+}
+
+// Layout
+
+/* 元素左右浮动设置 */
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+/* 响应式图片 */
+.img-responsive {
+  display: block;
+  height:auto;
+  max-width:100%;
+}
+
+// Text alignment
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+
+// Misc
+.hidden {
+  display: none;
+}
+
+// 外边距
+.setMltrb(@counter) when (@counter > 0) {
+    @var: @counter * 5;
+
+    .setMltrb((@counter - 1));
+    .mt@{var} {
+        .mtop(1px * @var);
+    };
+
+    .mb@{var} {
+        .mbtm(1px * @var);
+    };
+
+    .ml@{var} {
+        .mlt(1px * @var);
+    };
+
+    .mr@{var} {
+        .mrg(1px * @var);
+    };
+
+    .mtb@{var} {
+        .mbtm(1px * @var);
+        .mtop(1px * @var);
+    };
+
+}
+.setMltrb(6);
+
+.setMt(@counter) when (@counter > 0) {
+    .setMt((@counter - 1));
+    .mt@{counter} {
+        .mtop(1px * @counter);
+    };
+}
+.setMt(4);
+
+// 内边距
+.setPltrb(@counter) when (@counter > 0) {
+    @var: @counter * 5;
+    .setPltrb((@counter - 1));
+
+    .pl@{var} {
+        .plt(1px * @var);
+    }
+    .pt@{var} {
+        .ptop(1px * @var);
+    }
+    .pb@{var} {
+        .pbtm(1px * @var);
+    }
+    .ptb@{var} {
+        .ptop(1px * @var);
+        .pbtm(1px * @var);
+    }
+    .p@{var} {
+        .padding(1px * @var);
+    }
+}
+
+.setPltrb(5);
+
+.pb60 {
+	padding-bottom: 60px;
+}
+
+
+
+
+

@@ -5,9 +5,9 @@
             :on-infinite="infinite">
             <div class="panel">
                 <!-- 数据区 -->
-                <div class="f16 panel-chunk" v-for="(scoreRe,index) in ordersList">
+                <div class="f32 panel-chunk" v-for="(scoreRe,index) in ordersList">
                     <h3>{{scoreRe.summary}}</h3>
-                    <p class="f14 lightgray mt5">{{scoreRe.ctime}}</p>
+                    <p class="f28 lightgray mt5">{{scoreRe.ctime}}</p>
                     <ins class="pos-rt-middle limegreen">{{scoreRe.change}}</ins>
                 </div>
             </div>

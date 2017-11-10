@@ -18,13 +18,15 @@
                             <img class="slide-img" width="100%" :src="selfShopItem.pic+'?x-oss-process=image/resize,m_fixed,h_255,w_720'" alt="" style="-webkit-filter: blur(8px);" />
                         </router-link>
 
-                        <div class="white f12 auslese-shopInfo" style="text-align: center">
-                            <router-link :to="{name:'shopDetail',query:{'shopId':selfShopItem.shopId}}"><img :src="selfShopItem.pic+'?x-oss-process=image/resize,m_fixed,h_115,w_115'" alt=""/></router-link>
-                            <p class="f16 mt5"><em>{{ selfShopItem.name | cutstr(20) }}</em></p>
+                        <div class="white f24 auslese-shopInfo" style="text-align: center">
+                            <router-link :to="{name:'shopDetail',query:{'shopId':selfShopItem.shopId}}">
+                                <img :src="selfShopItem.pic+'?x-oss-process=image/resize,m_fixed,h_115,w_115'" alt=""/>
+                            </router-link>
+                            <p class="f32 mt5"><em>{{ selfShopItem.name | cutstr(20) }}</em></p>
                             <p>{{ selfShopItem.shopCategoryName }}&nbsp;<i :class="'text-left star2 star-'+(Math.round(selfShopItem.score))"></i></p>
                         </div>
                     </swiper-slide>
-                    <div class="swiper-pagination"  slot="pagination"></div>
+                    <div class="swiper-pagination" slot="pagination"></div>
                 </swiper>
                 <!-- 轮播图 end -->
 
@@ -36,7 +38,7 @@
                         </div>
 
                         <!--<a v-for="(recommendShopItem, index) in recommendShopList" class="container panel-item" :href="'shop-detail.html?shopId='+recommendShopItem.shopId">-->
-                        <router-link v-for="(recommendShopItem, index) in recommendShopList" class="container panel-item" :to="{name:'shopDetail',query:{'shopId':recommendShopItem.shopId}}">
+                        <router-link v-for="(recommendShopItem, index) in recommendShopList" :key="index" class="container panel-item" :to="{name:'shopDetail',query:{'shopId':recommendShopItem.shopId}}">
                             <div class="panel-inner">
                                 <div class="panel-pic">
                                     <img width="72" height="72"
@@ -120,10 +122,10 @@
                     this.loaded = true;
                     this.loading = false;
 
-                    let result = data || [];
+                    let result = data;
 
-                    _this.selfShopList = result.selfShopList;
-                    _this.recommendShopList = result.recommendShopList;
+                    _this.selfShopList = result.selfShopList || [];
+                    _this.recommendShopList = result.recommendShopList | [];
 
                     // 绑定事件
                     _this.$nextTick(function () {
@@ -152,21 +154,35 @@
 </script>
 
 <style lang="less" scoped>
-    .auslese-shopInfo {
-        position: absolute; top: 50%; left: 0; width: 100%;
-        -webkit-transform: translate(0,-50%);
-        transform: translate(0,-50%);
-        z-index: 11;
-    }
-    .slideAd .swiper-slide {
-        height: 0;
-        padding-bottom: 52.083333%;
-        overflow: hidden;
-    }
-    .auslese-shopInfo {
-        img {
-            border-radius: 50%; width: 60px; height: 60px
+    @import "../../assets/css/_variables";
+
+    .slideAd {
+        .swiper-slide {
+            height: 0;
+            padding-bottom: 52.083333%;
+            overflow: hidden;
+        }
+
+        .auslese-shopInfo {
+            position: absolute;
+            top: 55%;
+            left: 0;
+            width: 100%;
+            transform: translate(0,-50%);
+            z-index: 11;
+
+            img {
+                border-radius: 50%;
+                width: 140 * @px;
+                height: 140 * @px
+            }
+
+        }
+
+        .swiper-pagination {
+            bottom: 5px;
         }
     }
+
 
 </style>

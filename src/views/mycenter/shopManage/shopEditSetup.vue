@@ -282,6 +282,6 @@
 
 <style scoped>
 .pos-rt-middle{
-    right: 0;
+    /* right: 0; */
 }
 </style>

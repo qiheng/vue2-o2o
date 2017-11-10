@@ -57,9 +57,14 @@
 <script>
     import { mapActions, mapGetters } from 'vuex'
     import validator from '@/assets/js/validator'
+    import { Toast, Countdown } from 'vux'
+
     import qs from 'qs'
 
     export default {
+        components: {
+            Toast,
+        },
         data(){
             return{
                 parma:{
@@ -71,6 +76,7 @@
                     bankSubname:'',
                     passwordPay:''
                 },
+                bankLists:'',
                 bank:'',
                 _para:{},
                 isDisabled:false,
@@ -91,86 +97,68 @@
             };
         },
         methods: {
+            toastMsg(msg, type) {
+                let that = this;
+                this.$vux.toast.show({
+                    text: msg,
+                    type: 'text',
+                    width: '24em',
+                    position: 'middle',
+                    onHide() {
+                        if (type) {
+                            that.$router.back();
+                        }
+                        that.isDisabled = false;
+                    }
+                })
+            },
             // 填充银行卡选择
-            getBankListData: function () {
+            getBankListData() {
                 var _this = this;
                 this.$axios.get(this.$api.banklist)
-                    .then(function(bankList){
-                        _this.bank = bankList.data;
-                        console.log(_this.bank);
+                    .then(({data})=>{
+                        _this.bank = data;
                     })
             },
             // 错误提示
-            errorTips: function () {
-                var vm = this;
-
+            errorTips() {
+                var _this = this;
                 if (!validator.validate(oValChar, true)) {
                     return $.each(validator.messages, (i, val) => {
-                        vm.$notiejs({
-                            state: 2,
-                            msg: val,
-                            end() {
-                                vm.isDisabled = false
-                            }
-                        });
+                        _this.toastMsg(val,false);
                     return false;
-                })
-            }
-
-        },
-            // 提交处理
-        submitFn: function () {
-            var vm = this,
-                    oValChar = {};
-            if (vm.isDisabled) return;
-            vm.isDisabled = true;
-
-            // 校验字段
-            $.each(validator.config, function (key) {
-                var val = vm.parma[key];
-                oValChar[key] = val
-            });
-            // 校验表单
-                var vm = this;
-
-                if (!validator.validate(oValChar, true)) {
-                    return $.each(validator.messages, (i, val) => {
-                        vm.$notiejs({
-                            state: 2,
-                            msg: val,
-                            end() {
-                            vm.isDisabled = false
-                        }
-                    });
-                    return false;
-                })
-            }
-
-            this.layerData.visible = !this.layerData.visible;
-            //this.payValidatorFn();
-
-            // 回调
-            var successFn = function () {
-            //返回银行卡列表
-                vm.$notiejs({
-                    state: 1,
-                    msg: '添加成功',
-                    end() {
-                        vm.$router.push({ path: 'myBankInfo' });
-                        alert('2322200')
-//                        redirect_url(_backUrl);
-                    }
-                });
+                    })
+                }
             },
+            // 提交处理
+            submitFn() {
+                var _this = this,
+                        oValChar = {};
+                if (_this.isDisabled) return;
+                _this.isDisabled = true;
+
+                // 校验字段
+                $.each(validator.config, function (key) {
+                    var val = _this.parma[key];
+                    oValChar[key] = val
+                });
+                // 校验表单
+                var _this = this;
+                if (!validator.validate(oValChar, true)) {
+                        return $.each(validator.messages, (i, val) => {
+                            _this.toastMsg(val,false);
+                        return false;
+                    })
+                }
+                this.layerData.visible = !this.layerData.visible;
+                // 回调
+                var successFn = function () {
+                //返回银行卡列表
+                    _this.toastMsg('添加成功',true);
+                },
                 errorFn = function () {
                     if (result.status === -11) { // 密码验证失败
-                        vm.$notiejs({
-                            state: 1,
-                            msg: result.msg,
-                            end() {
-                            vm.isDisabled = false;
-                            }
-                        });
+                        _this.toastMsg(result.msg,false);
                         return false;
                     }
                 },
@@ -182,23 +170,18 @@
                         if (/^\d{6}$/.test(_val)) {
                             layer.close(index);
                         }
-
                     }).focus();
 
                 };
-        },
+            },
         payValidatorFn : function(res){
         this.parma.passwordPay = res;
         let submitData = qs.stringify(this.parma)
             console.log(submitData)
         this.$axios.post(this.$api.savebankcard,submitData)
             .then(res => {
-            this.$notiejs({
-                state: 1,
-                msg: res.msg,
-
-            })
-            this.closeLayerFn()
+                this.toastMsg(res.msg,true);
+                this.closeLayerFn()
         })},
         closeLayerFn() {
             this.layerData.visible = false;
